@@ -15,11 +15,11 @@ namespace Data.Context
         public PerfisUsuarioEnum Perfil { get; set; }
         public StatusEnum Status { get; set; }
         public string Senha { get; set; }
-        public int? EquipanteId { get; set; }
-        public virtual Equipante Equipante { get; set; }
+        public int? ParticipanteId { get; set; }
+        public virtual Participante Participante { get; set; }
     }
 
-    public class ConsultaDbContext: DbContext
+    public class ConsultaDbContext : DbContext
     {
         public ConsultaDbContext(string connection)
     : base(connection)
@@ -121,6 +121,11 @@ namespace Data.Context
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<PresencaReuniao>()
+               .HasRequired<Participante>(c => c.Participante)
+               .WithMany()
+               .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<EquipanteEvento>()
                 .HasOptional<Evento>(e => e.Evento)
                 .WithOptionalDependent()
@@ -134,8 +139,6 @@ namespace Data.Context
             modelBuilder.Entity<Participante>()
                 .HasMany(x => x.Arquivos);
 
-            modelBuilder.Entity<Participante>()
-                .HasMany(x => x.Circulos);
 
             modelBuilder.Entity<Equipante>()
                 .HasMany(x => x.Arquivos);

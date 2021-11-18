@@ -48,7 +48,7 @@ namespace Core.Business.Eventos
                 evento.DataEvento = model.DataEvento.AddHours(5);
                 evento.Capacidade = model.Capacidade;
                 evento.TipoEvento = (TiposEventoEnum)model.TipoEvento;
-                evento.Numeracao = model.Numeracao;
+                evento.Titulo = model.Titulo;
                 evento.Valor = model.Valor;
 
                 eventoRepository.Update(evento);
@@ -58,7 +58,7 @@ namespace Core.Business.Eventos
                 evento = new Evento
                 {
                     DataEvento = model.DataEvento.AddHours(5),
-                    Numeracao = model.Numeracao,
+                    Titulo = model.Titulo,
                     Capacidade = model.Capacidade,
                     Valor = model.Valor,
                     TipoEvento = (TiposEventoEnum)model.TipoEvento,

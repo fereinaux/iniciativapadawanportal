@@ -15,6 +15,8 @@ namespace Core.Models.Participantes
         public string Email { get; set; }
         public string Fone { get; set; }
         public string Padrinho { get; set; }
+        public string Senha { get; set; }
+        public string OldSenha { get; set; }
         public bool Checkin { get; set; }
         public bool CancelarCheckin { get; set; }
         public bool HasRestricaoAlimentar { get; set; }

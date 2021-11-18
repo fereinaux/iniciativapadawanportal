@@ -9,9 +9,6 @@
             <li class="breadcrumb-item">
                 <a href="/Home/Index">Home</a>
             </li>
-            <li class="breadcrumb-item">
-                <a href="#">Cadastros</a>
-            </li>
             <li class="breadcrumb-item active">
                 <strong>@ViewBag.Title</strong>
             </li>
@@ -169,7 +166,7 @@
                         <select class="form-control m-b-sm" id="equipante-eventoid">
                             @foreach (var evento in ViewBag.Eventos)
                             {
-                                <option value="@evento.Id">@evento.TipoEvento @evento.Numeracao.ToString()</option>
+                                <option value="@evento.Id">@evento.TipoEvento @evento.Titulo</option>
                             }
                         </select>
                         <form enctype="multipart/form-data" id="frm-upload-arquivo-modal" method="post" novalidate="novalidate">

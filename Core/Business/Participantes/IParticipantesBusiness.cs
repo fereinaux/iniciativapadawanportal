@@ -16,6 +16,7 @@ namespace Core.Business.Participantes
         Data.Entities.Participante GetParticipanteByReference(string reference);
         int PostInscricao(PostInscricaoModel model);
         void CancelarInscricao(int id);
+        void ConfirmarVaga(int id);
         void TogglePendenciaContato(int id);
         void TogglePendenciaBoleto(int id);
         void ToggleVacina(int id);

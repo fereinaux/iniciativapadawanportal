@@ -29,7 +29,7 @@ namespace SysIgreja.Controllers
         {
             this.quartosBusiness = quartosBusiness;
             this.equipesBusiness = equipesBusiness;
-            mapper = new MapperRealidade().mapper;
+            mapper = new MapperMentoria().mapper;
         }
 
         public ActionResult Index()

@@ -74,7 +74,7 @@ namespace SysIgreja.Controllers
                 Id = participante.Id,
                 Apelido = participante.Apelido,
                 Logo = participante.Evento.TipoEvento.GetNickname() + ".png",
-                Evento = $"{participante.Evento.Numeracao.ToString()}º {participante.Evento.TipoEvento.GetDescription()}",
+                Evento = $"{participante.Evento.TipoEvento.GetDescription()} {participante.Evento.Titulo}",
                 Valor = participante.Evento.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR")),
                 DataEvento = participante.Evento.DataEvento.ToString("dd/MM/yyyy")
             };
@@ -110,7 +110,7 @@ namespace SysIgreja.Controllers
                 Id = participante.Id,
                 Apelido = participante.Apelido,
                 Logo = participante.Evento.TipoEvento.GetNickname() + ".png",
-                Evento = $"{participante.Evento.Numeracao.ToString()}º {participante.Evento.TipoEvento.GetDescription()}",
+                Evento = $"{participante.Evento.Titulo.ToString()}º {participante.Evento.TipoEvento.GetDescription()}",
                 Valor = participante.Evento.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR")),
                 DataEvento = participante.Evento.DataEvento.ToString("dd/MM/yyyy")
             };
@@ -205,7 +205,7 @@ namespace SysIgreja.Controllers
                 new KeyValuePair<string, string>("token", participante.Evento.TipoEvento.GetTokenPagseguro()),
                 new KeyValuePair<string, string>("currency", "BRL"),
                 new KeyValuePair<string, string>("itemId1", "0001"),
-                new KeyValuePair<string, string>("itemDescription1", $"Inscrição {participante.Evento.Numeracao.ToString()}º {participante.Evento.TipoEvento.GetDescription()}"),
+                new KeyValuePair<string, string>("itemDescription1", $"Inscrição {participante.Evento.Titulo.ToString()}º {participante.Evento.TipoEvento.GetDescription()}"),
                 new KeyValuePair<string, string>("itemAmount1", participante.Evento.Valor.ToString("0.00").Replace(",", ".")),
                 new KeyValuePair<string, string>("itemQuantity1", "1"),
                 new KeyValuePair<string, string>("itemWeight1", "0"),

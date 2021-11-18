@@ -1006,6 +1006,7 @@
     <Content Include="Images\Bancos\NuBank.png" />
     <Content Include="Images\Bancos\Santander.png" />
     <Content Include="Scripts\app\Participante\checkin.js" />
+    <Content Include="Scripts\app\Participante\perfil.js" />
     <Content Include="Scripts\app\Quarto\quarto.js" />
     <Content Include="Scripts\app\Equipante\equipante.js" />
     <Content Include="Scripts\app\Circulo\circulo.js" />
@@ -1016,7 +1017,7 @@
     <Content Include="Scripts\app\Arquivo\arquivo.js" />
     <Content Include="Scripts\app\Lancamento\lancamento.js" />
     <Content Include="Scripts\app\Home\admin.js" />
-    <Content Include="Scripts\app\Home\coordenador.js" />
+    <Content Include="Scripts\app\Home\aluno.js" />
     <Content Include="Scripts\app\Participante\etiquetas.js" />
     <Content Include="Scripts\app\Participante\boletos.js" />
     <Content Include="Scripts\app\Participante\participante.js" />
@@ -1098,7 +1099,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Views\Home\Coordenador.cshtml" />
+    <Content Include="Views\Home\Aluno.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Evento\Index.cshtml" />
     <Content Include="Views\Inscricoes\Index.cshtml" />
@@ -1131,6 +1132,7 @@
     <Content Include="Scripts\plugins\jsCrop-master\LICENSE" />
     <Content Include="Scripts\plugins\jsCrop-master\README.md" />
     <Content Include="Views\Inscricoes\InscricaoEspera.cshtml" />
+    <Content Include="Views\Participante\Perfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

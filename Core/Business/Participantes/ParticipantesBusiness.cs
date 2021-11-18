@@ -9,6 +9,9 @@ using System.Data.Entity;
 using Utils.Enums;
 using System;
 using Data.Context;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Utils.Extensions;
 
 namespace Core.Business.Participantes
 {
@@ -22,6 +25,7 @@ namespace Core.Business.Participantes
         private readonly IQuartosBusiness quartosBusiness;
 
         public ParticipantesBusiness(IGenericRepository<Participante> participanteRepository, IGenericRepositoryConsulta<ParticipanteConsulta> participanteConsultaRepository, IQuartosBusiness quartosBusiness, IEventosBusiness eventosBusiness, ICirculosBusiness circulosBusiness, IGenericRepository<EquipanteEvento> equipanteEventoRepository)
+         : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
             this.participanteRepository = participanteRepository;
             this.participanteConsultaRepository = participanteConsultaRepository;
@@ -30,6 +34,13 @@ namespace Core.Business.Participantes
             this.quartosBusiness = quartosBusiness;
             this.circulosBusiness = circulosBusiness;
         }
+
+        public ParticipantesBusiness(UserManager<ApplicationUser> userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public UserManager<ApplicationUser> UserManager { get; private set; }
 
         public void CancelarInscricao(int id)
         {
@@ -41,7 +52,7 @@ namespace Core.Business.Participantes
             var emEspera = participanteRepository.GetAll().Where(x => x.Status == StatusEnum.Espera).OrderBy(x => x.Id).FirstOrDefault();
 
             if (emEspera != null && participanteRepository.GetAll().Where(x => x.Status == StatusEnum.Confirmado || x.Status == StatusEnum.Inscrito).Count() - 1 < eventosBusiness.GetEventoById(participante.EventoId).Capacidade)
-            {                
+            {
                 emEspera.Status = StatusEnum.Inscrito;
                 participanteRepository.Update(emEspera);
             }
@@ -72,7 +83,7 @@ namespace Core.Business.Participantes
             entity.Apelido = model.Apelido;
             entity.DataNascimento = model.DataNascimento.AddHours(5);
             entity.Fone = model.Fone;
-            entity.Email = model.Email;            
+            entity.Email = model.Email;
             entity.Sexo = model.Sexo;
             return entity;
 
@@ -85,6 +96,12 @@ namespace Core.Business.Participantes
             if (model.Id > 0)
             {
                 participante = MapUpdateParticipante(model);
+                if (model.OldSenha != model.Senha)
+                {
+
+                    var user = UserManager.FindByName(participante.Email);
+                    UserManager.ChangePassword(user.Id, model.OldSenha, model.Senha);
+                }
                 participanteRepository.Update(participante);
             }
             else
@@ -162,7 +179,6 @@ namespace Core.Business.Participantes
             participante.Apelido = model.Apelido;
             participante.DataNascimento = model.DataNascimento.AddHours(5);
             participante.Fone = model.Fone;
-            participante.Email = model.Email;
             participante.Logradouro = model.Logradouro;
             participante.Complemento = model.Complemento;
             participante.Bairro = model.Bairro;
@@ -170,7 +186,8 @@ namespace Core.Business.Participantes
             participante.FonePai = model.FonePai;
             participante.NomeMae = model.NomeMae;
             participante.FoneMae = model.FoneMae;
-            participante.NomeConvite = model.NomeConvite;
+            participante.Github = model.NomeConvite;
+            participante.Senha = model.Senha;
             participante.FoneConvite = model.FoneConvite;
             participante.Sexo = model.Sexo;
             participante.HasAlergia = model.HasAlergia;
@@ -185,18 +202,8 @@ namespace Core.Business.Participantes
 
         private Equipante getNextPadrinho(int eventoid)
         {
-            var query = equipanteEventoRepository
-                 .GetAll(x => x.EventoId == eventoid && x.Equipe == EquipesEnum.Secretaria)
-                 .Include(x => x.Equipante)
-                 .ToList()
-                 .Select(x => new
-                 {
-                     Equipante = x,
-                     Qtd = participanteRepository.GetAll(y => y.PadrinhoId == x.EquipanteId && (y.Status == StatusEnum.Confirmado || y.Status == StatusEnum.Inscrito)).Count()
-                 })
-                 .ToList();
 
-            return query.Any() ? query.OrderBy(x => x.Qtd).FirstOrDefault().Equipante.Equipante : null;
+            return null;
 
         }
 
@@ -216,7 +223,7 @@ namespace Core.Business.Participantes
                 FonePai = model.FonePai,
                 NomeMae = model.NomeMae,
                 FoneMae = model.FoneMae,
-                NomeConvite = model.NomeConvite,
+                Github = model.NomeConvite,
                 FoneConvite = model.FoneConvite,
                 ReferenciaPagSeguro = Guid.NewGuid().ToString(),
                 Sexo = model.Sexo,
@@ -231,8 +238,7 @@ namespace Core.Business.Participantes
                 PendenciaContato = false,
                 Boleto = false,
                 PendenciaBoleto = false,
-                Checkin = model.Checkin,
-                PadrinhoId = getNextPadrinho(model.EventoId)?.Id
+                Checkin = model.Checkin
             };
         }
 
@@ -265,7 +271,7 @@ namespace Core.Business.Participantes
 
         public IQueryable<Participante> GetParticipantesByEvento(int eventoId)
         {
-            return participanteRepository.GetAll(x => x.EventoId == eventoId).Include(x => x.Evento).Include(x => x.Padrinho).Include(x => x.Arquivos).Include(x => x.Circulos).Include(x => x.Circulos.Select(y => y.Circulo));
+            return participanteRepository.GetAll(x => x.EventoId == eventoId).Include(x => x.Evento).Include(x => x.Arquivos);
         }
 
         public void TogglePendenciaContato(int id)
@@ -366,6 +372,21 @@ namespace Core.Business.Participantes
         public ParticipanteConsulta GetParticipanteConsulta(string email)
         {
             return participanteConsultaRepository.GetAll(x => x.Email == email).FirstOrDefault();
+        }
+
+        public void ConfirmarVaga(int id)
+        {
+            var participante = GetParticipanteById(id);
+            participante.Status = StatusEnum.Confirmado;
+            var senha = System.Web.Security.Membership.GeneratePassword(6, 2).ToLower();
+            participante.Senha = senha;
+            var user = new ApplicationUser() { UserName = participante.Email.ToLower(), ParticipanteId = participante.Id, Status = StatusEnum.Ativo, Perfil = PerfisUsuarioEnum.Aluno, Senha = senha };
+            UserManager.Create(user, senha);
+            user = UserManager.FindByName(user.UserName);
+            UserManager.AddToRole(user.Id, PerfisUsuarioEnum.Aluno.GetDescription());
+            participanteRepository.Update(participante);
+            participanteRepository.Save();
+
         }
     }
 }

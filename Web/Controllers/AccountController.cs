@@ -52,8 +52,7 @@ namespace SysIgreja.Controllers
                     Id = x.Id,
                     UserName = UtilServices.CapitalizarNome(x.UserName),
                     Perfil = x.Perfil.GetDescription(),
-                    Status = x.Status.GetDescription(),
-                    EquipanteId = x.EquipanteId
+                    Status = x.Status.GetDescription()
                 });
 
             return Json(new { data = query }, JsonRequestBehavior.AllowGet);
@@ -85,11 +84,10 @@ namespace SysIgreja.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
-            model.EquipanteId = model.EquipanteId > 0 ? model.EquipanteId : null;
 
             if (string.IsNullOrEmpty(model.Id))
             {
-                var user = new ApplicationUser() { UserName = model.UserName.ToLower(), EquipanteId = model.EquipanteId, Status = StatusEnum.Ativo, Perfil = model.Perfil, Senha = model.Password };
+                var user = new ApplicationUser() { UserName = model.UserName.ToLower(), Status = StatusEnum.Ativo, Perfil = model.Perfil, Senha = model.Password };
                 UserManager.Create(user, model.Password);
                 user = UserManager.FindByName(user.UserName);
                 UserManager.AddToRole(user.Id, model.Perfil.GetDescription());
@@ -100,7 +98,6 @@ namespace SysIgreja.Controllers
                 user.UserName = model.UserName.ToLower();
                 user.Senha = model.Password;
                 user.Perfil = model.Perfil;
-                user.EquipanteId = model.EquipanteId;
                 var roles = UserManager.GetRoles(user.Id);
                 UserManager.RemoveFromRoles(user.Id, roles.ToArray());
                 UserManager.AddToRole(user.Id, model.Perfil.GetDescription());

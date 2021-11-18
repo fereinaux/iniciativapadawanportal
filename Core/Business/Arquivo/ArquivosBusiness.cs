@@ -41,6 +41,10 @@ namespace Core.Business.Arquivos
             return arquivoRepository.GetById(id);
         }
 
+        public IQueryable<Arquivo> GetArquivosByReuniao(int reuniaoid)
+        {
+            return arquivoRepository.GetAll(x => x.ReuniaoId == reuniaoid);
+        }
         public IQueryable<Arquivo> GetArquivos()
         {
             return arquivoRepository.GetAll(x => x.EventoId == null && x.LancamentoId == null && x.ParticipanteId == null && x.EquipanteId == null);
@@ -82,6 +86,7 @@ namespace Core.Business.Arquivos
                     Nome = model.Arquivo.FileName,
                     Extensao = Path.GetExtension(model.Arquivo.FileName).Replace(".", "").ToUpper(),
                     EventoId = model.EventoId,
+                    ReuniaoId = model.ReuniaoId,
                     ParticipanteId = model.ParticipanteId,
                     EquipanteId = model.EquipanteId,
                     LancamentoId = model.LancamentoId,

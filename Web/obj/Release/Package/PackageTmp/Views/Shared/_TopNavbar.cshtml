@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 @using Utils.Services
+@using Utils.Constants;
 
 <div class="row border-bottom">
     <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
@@ -14,7 +15,7 @@
                 @Html.AntiForgeryToken()
 
                 <ul class="nav navbar-top-links navbar-right">
-                    <li>
+                    <li id="hello">
                         Olá @UtilServices.CapitalizarNome(User.Identity.GetUserName()) !
                     </li>
 
@@ -24,3 +25,22 @@
         }
     </nav>
 </div>
+@Scripts.Render("~/bundles/jquery")
+<script>
+
+    $(document).ready(function () {
+        if ('@User.IsInRole(Usuario.Aluno)' == 'True') {
+
+        $.ajax({
+            url: '/Home/GetAlunoInfo',
+            datatype: "json",
+            type: "GET",
+            success: (data) => {
+                result = data.result;
+                $('#hello').text(`Olá ${result.Aluno.Nome}!`)
+            }
+        });
+        }
+    });
+
+</script>

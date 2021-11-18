@@ -25,7 +25,9 @@ namespace Utils.Enums
         [Description("Confirmado")]
         Confirmado = 9,
         [Description("Em Espera")]
-        Espera = 10
+        Espera = 10,
+        [Description("Aprovado")]
+        Aprovado = 11
     }
 
     public enum SexoEnum
@@ -70,12 +72,12 @@ namespace Utils.Enums
 
     public enum TiposEventoEnum
     {
-        [Nickname("Realidade")]
+        [Nickname("Mentoria")]
         [EmailPagSeguro("")]
         [TokenPagSeguro("")]
-        [Description("Realidade")]
+        [Description("Mentoria")]
         [Equipes(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14 })]
-        Realiadde = 1,
+        Mentoria = 1,
 
     }
 
@@ -101,8 +103,8 @@ namespace Utils.Enums
 
     public enum TiposEquipeEnum
     {
-        [Description("Coordenador")]
-        Coordenador = 1,
+        [Description("Aluno")]
+        Aluno = 1,
         [Description("Membro")]
         Membro = 2
     }
@@ -113,8 +115,8 @@ namespace Utils.Enums
         Master,
         [Description("Admin")]
         Admin,
-        [Description("Coordenador")]
-        Coordenador,
+        [Description("Aluno")]
+        Aluno,
         [Description("Secretaria")]
         Secretaria,
     }

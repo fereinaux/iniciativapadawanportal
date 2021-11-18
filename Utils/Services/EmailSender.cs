@@ -25,12 +25,12 @@ namespace Utils.Services
 
                 MailMessage mail = new MailMessage()
                 {
-                    From = new MailAddress(_emailSettings.UsernameEmail, "Realidade")
+                    From = new MailAddress(_emailSettings.UsernameEmail, "Inciativa Padawan")
                 };
 
                 mail.To.Add(new MailAddress(toEmail));
 
-                mail.Subject = "Realidade - " + subject;
+                mail.Subject = "Inciativa Padawan - " + subject;
                 mail.Body = message;
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.High;

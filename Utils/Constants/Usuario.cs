@@ -7,6 +7,6 @@ namespace Utils.Constants
         public const string Master = "Master";
         public const string Admin = "Admin";
         public const string Secretaria = "Secretaria";
-        public const string Coordenador = "Coordenador";
+        public const string Aluno = "Aluno";
     }
 }

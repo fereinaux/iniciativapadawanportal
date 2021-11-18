@@ -3,7 +3,7 @@ function CarregarTabelaParticipante() {
     const tableParticipanteConfig = {
         language: languageConfig,
         searchDelay: 750,
-        lengthMenu: [10,30,50,100,200],
+        lengthMenu: [10, 30, 50, 100, 200],
         colReorder: false,
         serverSide: true,
         scrollX: true,
@@ -35,7 +35,6 @@ function CarregarTabelaParticipante() {
             },
             { data: "Nome", name: "Nome", width: "25%" },
             { data: "Idade", name: "Idade", width: "5%", },
-            { data: "Padrinho", name: "Padrinho", width: "25%" },
             {
                 data: "Status", name: "Status", width: "5%", render: function (data, type, row) {
                     if (row.Checkin) {
@@ -59,26 +58,22 @@ function CarregarTabelaParticipante() {
                 "render": function (data, type, row) {
                     return row.Status != Cancelado && row.Status != Espera ?
                         `<form enctype="multipart/form-data" id="frm-vacina${data}" method="post" novalidate="novalidate">
-                        ${!row.HasVacina ? ` <label for="arquivo${data}" class="inputFile">
-                                <span style="font-size:18px" class="text-mutted pointer p-l-xs"><i class="fa fa-syringe" aria-hidden="true" title="Vacina"></i></span>
-                                <input onchange='PostVacina(${data},${JSON.stringify(row)})' style="display: none;" class="custom-file-input inputFile" id="arquivo${data}" name="arquivo${data}" type="file" value="">
-                            </label>`: `<span style="font-size:18px" class="text-success p-l-xs pointer" onclick="toggleVacina(${data})"><i class="fa fa-syringe" aria-hidden="true" title="Vacina"></i></span>`}                        
-                        ${
-                            !row.HasFoto ? ` <label for="foto${data}" class="inputFile">
+                                    
+                        ${!row.HasFoto ? ` <label for="foto${data}" class="inputFile">
                                 <span style="font-size:18px" class="text-mutted pointer p-l-xs"><i class="fa fa-camera" aria-hidden="true" title="Foto"></i></span>
                                 <input accept="image/*" onchange='Foto(${JSON.stringify(row)})' style="display: none;" class="custom-file-input inputFile" id="foto${data}" name="foto${data}" type="file" value="">
                             </label>`: `<span style="font-size:18px" class="text-success p-l-xs pointer" onclick="toggleFoto(${data})"><i class="fa fa-camera" aria-hidden="true" title="Foto"></i></span>`
-                           }
+                        }
                             ${GetAnexosButton('Anexos', data, row.QtdAnexos)}
                             ${GetIconWhatsApp(row.Fone)}
                             ${GetIconTel(row.Fone)}
                             ${GetButton('EditParticipante', data, 'blue', 'fa-edit', 'Editar')}      
-                            ${GetButton('Pagamentos', JSON.stringify(row), 'verde', 'far fa-money-bill-alt', 'Pagamentos')}
+                            ${GetButton('ConfirmarVaga', JSON.stringify(row), 'verde', 'fas fa-check', 'Confirmar Vaga')}
                             ${GetButton('Opcoes', JSON.stringify(row), row.HasContact ? 'blue' : 'cinza', 'fas fa-info-circle', 'Opções')}
                             
                             ${GetButton('CancelarInscricao', JSON.stringify(row), 'red', 'fa-times', 'Cancelar Inscrição')}
                     </form>`
-: ''
+                        : ''
                 }
             }
         ],
@@ -320,10 +315,10 @@ function DeleteArquivo(id) {
 }
 
 
-function PostVacina(id,realista) {
+function PostVacina(id, realista) {
     var dataToPost = new FormData($(`#frm-vacina${id}`)[0]);
     dataToPost.set('ParticipanteId', id)
-    var filename = dataToPost.get(`arquivo${id}`).name    
+    var filename = dataToPost.get(`arquivo${id}`).name
     var arquivo = new File([dataToPost.get(`arquivo${id}`)], 'Vacina ' + realista.Nome + filename.substr(filename.indexOf('.')));
     dataToPost.set('Arquivo', arquivo)
     $.ajax(
@@ -390,7 +385,7 @@ function PostArquivo() {
     var dataToPost = new FormData($('#frm-upload-arquivo-modal')[0]);
     var filename = dataToPost.get('arquivo-modal').name
     var arquivo = new File([dataToPost.get('arquivo-modal')], 'Pagamento ' + realista.Nome + filename.substr(filename.indexOf('.')));
-    dataToPost.set('Arquivo', arquivo)    
+    dataToPost.set('Arquivo', arquivo)
     dataToPost.set('ParticipanteId', dataToPost.get('ParticipanteIdModal'))
     dataToPost.set('LancamentoId', dataToPost.get('LancamentoIdModal'))
     $.ajax(
@@ -437,7 +432,7 @@ $("#modal-anexos").on('hidden.bs.modal', function () {
 
 var tipoGlobal = 'pagamento'
 $(`.${tipoGlobal}`).addClass('moldura-modal')
-var destinatarioGlobal = 'mae'
+var destinatarioGlobal = 'realista'
 $(`.${destinatarioGlobal}`).addClass('moldura-modal')
 
 
@@ -446,87 +441,39 @@ function enviar() {
     switch (tipoGlobal) {
         case 'covid':
             text = `Olá, *${getNome(destinatarioGlobal)}*!
+ 
+Tenho ótimas noticias, a tua vaga de *Padawan* tá garantida para a turma ${$("#participante-eventoid option:selected").text()} começando em *Data de Início*
 
-Estou vendo aqui que a inscrição de *${getNome('realista')}* para o *Realidade* já foi paga e sua vaga está garantida, sendo assim, tenho uns avisos:
+Queria te apresentar a nossa plataforma, acessível via https://inciativapadawan.com.br/login, onde o teu é o teu email cadastrado (*${realista.Email}*) e tua senha é *${realista.Senha}*
 
-Tendo em vista a situação do novo Coronavírus, solicitamos a realização e apresentação do resultado do *RT-PCR* ou *Teste Rápido* , bem como a apresentação do *Cartão de Vacinação* do participante com pelo menos *1 dose* da vacina.
+É por lá que tu vai conseguir acessar o material e link do youtube das aulas, além de acessar o teu certificado ao final do curso.
 
-- A realização do *RT-PCR* deverá ser feita em *até 48h antes* do dia do evento (a partir do dia 27/10). Já o *Teste Rápido* deverá ser realizado em *até 24h antes* do dia do evento (a partir do dia 28/10). O resultado deve ser *NEGATIVO* e apresentado no dia do evento ou enviado previamente.
+Também queria te adiantar um pouco das configurações e programas que vamos precisar ter preparados para começar nosso Treinamento Jedi, que são:
 
-- Caso o resultado do participante dê *POSITIVO*, o valor do evento será reembolsado.
+- Git (https://git-scm.com/downloads)
+- VsCode (https://code.visualstudio.com/download)
+- NodeJS (https://www.nodejs.org/en/download/)
+- Discord (https://discord.com/download)
 
-${RodapeEvento($("#participante-eventoid option:selected").text())}`
-            break;
-        case 'pagamento':
-            text = `Olá, *${getNome(destinatarioGlobal)}*!
+Se rolar alguma dúvida com a instalção dessas ferramentas, já me avisa aqui no Whats que a gente resolve.
 
-Estamos com a inscrição de *${getNome('realista')}* para o Realidade, cursilho para jovens da IECB Catedral da Trindade. Porém, para confirmá-la é preciso efetuar o pagamento.
-
-Como ainda estamos em pandemia, precisamos tomar um cuidado extra e por isso teremos *apenas 100 vagas*;
-
-O investimento está custando *R$ 300,00*, e poderá ser feito através do PIX: 100.778.704-09, cartão ou dinheiro. *A secretaria estará na frente da livraria após os cultos das quartas e domingos para recebê-lo(a).* 
-
-No caso do PIX, lembra de enviar o comprovante de pagamento para mim! 
-
-*Corre para garantir tua vaga!*  🥳
+Inclusive assim que tiver tudo prontinho tu já me avisa, que eu tenho mais alguns avisos pra te dar.
 
 ${RodapeEvento($("#participante-eventoid option:selected").text())}`
             break;
+
         case 'info':
-            text = `Olá, *${getNome(destinatarioGlobal)}*!
+            text = `Como última etapa, queria te convidar para o nosso servidor do Discord, onde as aulas acontecerão * Segundas e Quartas às 19h *.
 
-Seguem alguns outros avisos a respeito do Realidade:
-
-O Realidade começará as 19h da sexta-feira, dia 29 e se encerrará às 18h do dia 31 de outubro. 🥳
-
-A localização do evento será no Colonial Aldeia, Km 11,5, nosso G2.
-*R. Sete de Setembro, s\\n - Aldeia dos Camarás, Araça - PE, 54789-525*
-https://goo.gl/maps/ZYcmct2f4jrMa1bw9
-
-O *uso da máscara* durante todo o evento será obrigatório, dessa forma, deverá ser providenciado uma quantidade para a troca da máscara durante o dia. 😷
-
-Lembrem-se de levar *roupa de cama e banho, produtos de higiene pessoal* e se fizer uso de alguma *medicação* também.
-
-Nosso plenário é frio então é bom levar um *casaco*.
-
-Os *quartos serão divididos a com no máximo outras 5 pessoas*, tendo todo o distanciamento possivel durante as dormidas; 
-
-Vocês precisam providenciar mensagens, cartinhas, de amigos próximos e da família, *não é álbum*, são apenas mensagens!!
-
- Estaremos recebendo as mensagens no *sábado do evento das 8h30 até as 12h30* na Catedral da Trindade, Rua Carneiro Vilela 569.
-
-Me confirma se já fizeste cursilho pra eu não te estragar uma surpresa! 🥰
+Para entrar basta clicar no link: https://discord.gg/Mxg7EwhjU5 que assim que eu tiver um tempo já te associo ao grupo da tua turma pra tu poder começar a explorar o servidor.
 
 ${RodapeEvento($("#participante-eventoid option:selected").text())}`
             break;
-        case 'carta':
-            text = `Ficamos felizes por você ter participado de um dos nossos Cursilhos e temos um convite a lhe fazer!
 
-Temos um momento no Realidade que se parece muito com a *Manhãnita*, é a nossa *Noitita* que acontece no sábado à noite, a partir das 17h. 
-
-Então você e outras pessoas próximas do/da realista que *já participaram de algum Cursilho/Realidade* são muito bem-vindos. É um momento muito especial onde demonstramos a importância de ser parte do corpo de Cristo para eles!
-
-Para participar da nossa *Noitita*, pedimos que siga algumas orientações: 
-- Esteja vacinado com pelo menos a primeira dose.
-- Use máscara  durante todo o momento e respeite o distanciamento orientado pela nossa equipe.
-- Caso você esteja com sintomas de gripe, pedimos que não compareça, para sua segurança e a nossa - temos quase 200 adolescente na bolha do Realidade.
-
-Pode ficar tranquilo  que seu realista vai receber todo o amor e cuidado que o momento sugere.
-
-Te esperamos lá! 🥰
-*Equipe da Secretaria | ${$("#participante-eventoid option:selected").text()}*`
-            break;
         case 'foto':
-            text = `Oi, *${getNome('realista')}*! Como estão as expectativas para o Realidade? Espero que boas! 🥳
+            text = `Agora que tu já tem tudo configurado, te convidei para a nossa organização no GitHub, onde nós vamos conseguir subir as atividades e colaborar com os outros Padawans da turma.
 
-
-Como estamos na pandemia e o uso da máscara será obrigatório no evento, vamos precisar de uma *foto sua*! Fica atento para as especificações:
-1. Foto de rosto - num plano mais aberto, numa pose relaxada, nada parecido com uma 3x4.
-2. Formato vertical
-3. Sem óculos de sol ou máscara
-
-Escolhe e me manda o quanto antes, beleza?
-
+Caso não esteja achando no teu email o link do convite é só acessar https://github.com/Iniciativa-Padawan que deve aparecer uma opção pra aceitar, se ainda não funcionar me passa teu nome do GitHub novamente pra eu refazer o convite.
 
 ${RodapeEvento($("#participante-eventoid option:selected").text())}`
             break;
@@ -739,6 +686,27 @@ function CancelarInscricao(row) {
     });
 }
 
+function ConfirmarVaga(row) {
+    ConfirmMessageConfirmar(row.Nome).then((result) => {
+        if (result) {
+            $.ajax({
+                url: "/Participante/ConfirmarVaga/",
+                datatype: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(
+                    {
+                        Id: row.Id,
+                    }),
+                success: function () {
+                    CarregarTabelaParticipante();
+                    SuccessMesageOperation();
+                }
+            });
+        }
+    });
+}
+
 function PostPagamento() {
     if (ValidateForm(`#form-pagamento`)) {
         $.ajax({
@@ -926,7 +894,7 @@ function PostParticipante() {
                     Id: $("#participante-id").val(),
                     EventoId: $("#participante-eventoid").val(),
                     Nome: $(`#participante-nome`).val(),
-                    Apelido: $(`#participante-apelido`).val(),
+                    Apelido: $(`#participante-nome`).val(),
                     DataNascimento: moment($("#participante-data-nascimento").val(), 'DD/MM/YYYY', 'pt-br').toJSON(),
                     Email: $(`#participante-email`).val(),
                     Fone: $(`#participante-fone`).val(),

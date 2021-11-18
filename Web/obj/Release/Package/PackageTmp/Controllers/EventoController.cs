@@ -25,12 +25,12 @@ namespace SysIgreja.Controllers
         {
             this.eventosBusiness = eventosBusiness;
             this.arquivosBusiness = arquivosBusiness;
-            mapper = new MapperRealidade().mapper;
+            mapper = new MapperMentoria().mapper;
         }
 
         public ActionResult Index()
         {
-            ViewBag.Title = "Eventos";
+            ViewBag.Title = "Mentorias";
 
             return View();
         }
@@ -50,7 +50,7 @@ namespace SysIgreja.Controllers
                 {
                     Id = x.Id,
                     DataEvento = x.DataEvento,
-                    Numeracao = x.Numeracao,
+                    Titulo = x.Titulo,
                     Capacidade = x.Capacidade,
                     TipoEvento = x.TipoEvento.GetDescription(),
                     Status = x.Status.GetDescription(),

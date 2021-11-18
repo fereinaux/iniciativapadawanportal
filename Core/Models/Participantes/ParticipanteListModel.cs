@@ -20,6 +20,8 @@ namespace Core.Models.Participantes
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+
+        public string Senha { get; set; }
         public string Apelido { get; set; }
         public int Idade { get; set; }
         public int QtdAnexos { get; set; }

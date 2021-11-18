@@ -42,20 +42,24 @@ async function ConfirmMessageCancelar(nome) {
     return await ConfirmMessage(`Deseja cancelar a inscrição de ${nome}?`);
 }
 
+async function ConfirmMessageConfirmar(nome) {
+    return await ConfirmMessage(`Deseja confirmar a vaga de ${nome}?`);
+}
+
 function RebciboPagamento(valor, formaPagamento, evento) {
     return `Aqui está o seu recibo de pagamento do Realidade:/n/n*R$ ${valor} - ${formaPagamento}*${RodapeEvento(evento)}`;
 }
 
 function RodapeEvento(evento) {
-    return `*Agradecemos a compreensão!*
-*Equipe da Secretaria | ${evento}*
+    return `Iniciativa Padawan - Grande Mestre Reinaux
+_Que a Força esteja com você!_
 `;
 }
 
 function Convidar(nome) {
     return `Olá *${nome}*,
 
-Você gostaria de trabalhar no próximo Realidade de 17 a 19 de Abril, nossa primeira reunião será na quarta feira (18/03) às 19h30 na *Catedral da Trindade*.
+Você gostaria de trabalhar no próximo Realidade de 17 a 19 de Abril, nossa primeira Aula será na quarta feira (18/03) às 19h30 na *Catedral da Trindade*.
 
 Esse convite é pessoal e *intransferível*. 
 

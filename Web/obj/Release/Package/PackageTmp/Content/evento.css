@@ -23,18 +23,17 @@ h2:after {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #17455efa;
-    
+    background: #c09508e6;
 }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: #142a36fa;
+        background: #453501e6;
     }
 
 /*LOGIN*/
 
 .loginscreen.middle-box {
-    background-color: #07090b94;
+    background-color: #07090bba;
     height: 350px;
     width: 400px !important;
     position: absolute;
@@ -79,9 +78,9 @@ h2:after {
 }
 
 .inscricoes.middle-box {
-    background-color: #07090b94;
-    height: 80%;
-    max-height: 80%;
+    background-color: #07090bba;
+    height: 52%;
+    max-height: 52%;
     position: absolute;
     overflow: auto;
     top: 0;

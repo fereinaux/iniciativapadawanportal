@@ -28,9 +28,9 @@ namespace Core.Business.Account
 
         public List<Equipante> GetEquipantesUsuario(string idUsuario)
         {
-            var equipantesIds = accountRepository.GetAll(x => x.EquipanteId != null && x.Id != idUsuario).Select(y => y.EquipanteId).ToList();
 
-            return equipanteRepository.GetAll().ToList().Where(x => !equipantesIds.Contains(x.Id)).ToList();
+
+            return null;
         }
 
         public ApplicationUser GetUsuarioById(string id)
@@ -59,17 +59,6 @@ namespace Core.Business.Account
 
         public void Seed()
         {
-            context.MeioPagamentos.AddOrUpdate(x => x.Descricao,
-              new Data.Entities.MeioPagamento { Descricao = MeioPagamentoPadraoEnum.Transferencia.GetDescription(), Taxa = 0, IsEditavel = false, Status = StatusEnum.Ativo },
-              new Data.Entities.MeioPagamento { Descricao = MeioPagamentoPadraoEnum.Dinheiro.GetDescription(), Taxa = 0, IsEditavel = false, Status = StatusEnum.Ativo },
-              new Data.Entities.MeioPagamento { Descricao = MeioPagamentoPadraoEnum.Isencao.GetDescription(), Taxa = 0, IsEditavel = false, Status = StatusEnum.Ativo }
-            );
-
-            context.CentroCustos.AddOrUpdate(x => x.Id,
-              new Data.Entities.CentroCusto { Id = (int)CentroCustoPadraoEnum.Inscricoes, Descricao = CentroCustoPadraoEnum.Inscricoes.GetDescription(), Tipo = TiposCentroCustoEnum.Receita },
-              new Data.Entities.CentroCusto { Id = (int)CentroCustoPadraoEnum.TaxaEquipante, Descricao = CentroCustoPadraoEnum.TaxaEquipante.GetDescription(), Tipo = TiposCentroCustoEnum.Receita }
-            );
-
             ApplicationUser master = new ApplicationUser
             {
                 Id = Usuario.MasterId,
@@ -90,7 +79,7 @@ namespace Core.Business.Account
                  new IdentityRole { Name = PerfisUsuarioEnum.Master.GetDescription() },
                  new IdentityRole { Name = PerfisUsuarioEnum.Admin.GetDescription() },
                  new IdentityRole { Name = PerfisUsuarioEnum.Secretaria.GetDescription() },
-                 new IdentityRole { Name = PerfisUsuarioEnum.Coordenador.GetDescription() }
+                 new IdentityRole { Name = PerfisUsuarioEnum.Aluno.GetDescription() }
                  );
 
             context.SaveChanges();

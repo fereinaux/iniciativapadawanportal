@@ -38,7 +38,7 @@
                 $(".pnl-cadastro").show();
                 $(".pnl-verifica").hide();
                 $('.inscricoes.middle-box').height('80%');
-                $('.float').css("bottom", "40px")
+                $('.float').css("bottom", "21%")
          
         }
     })
@@ -54,7 +54,7 @@ function PostInscricao() {
             data: JSON.stringify(
                 {
                     Nome: $(`#participante-nome`).val(),
-                    Apelido: $(`#participante-apelido`).val(),
+                    Apelido: $(`#participante-nome`).val(),
                     DataNascimento: moment($("#participante-data-nascimento").val(), 'DD/MM/YYYY', 'pt-br').toJSON(),
                     Email: $(`#participante-email`).val(),
                     Fone: $(`#participante-fone`).val(),

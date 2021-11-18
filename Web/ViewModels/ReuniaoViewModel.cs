@@ -7,6 +7,8 @@ namespace SysIgreja.ViewModels
         public int Id { get; set; }
         public DateTime DataReuniao { get; set; }
         public int Presenca { get; set; }
+        public int QtdAnexos { get; set; }
+        public string Link { get; internal set; }
     }
 
     

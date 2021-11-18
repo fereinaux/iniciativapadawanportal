@@ -1292,11 +1292,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\Realidade\\Arquitetura\\Arquitetura.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Arquitetura\\Arquitetura.csproj",
       "projectName": "Arquitetura",
-      "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Arquitetura\\Arquitetura.csproj",
+      "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Arquitetura\\Arquitetura.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\Realidade\\Arquitetura\\obj\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Arquitetura\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
@@ -1313,14 +1313,14 @@
       "frameworks": {
         "net472": {
           "projectReferences": {
-            "C:\\Users\\User\\source\\repos\\Realidade\\Core\\Core.csproj": {
-              "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Core\\Core.csproj"
+            "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Core\\Core.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Core\\Core.csproj"
             },
-            "C:\\Users\\User\\source\\repos\\Realidade\\Data\\Data.csproj": {
-              "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Data\\Data.csproj"
+            "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Data\\Data.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Data\\Data.csproj"
             },
-            "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj": {
-              "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj"
+            "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj"
             }
           }
         }

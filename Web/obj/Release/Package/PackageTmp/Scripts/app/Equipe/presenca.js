@@ -1,5 +1,5 @@
 ﻿function CarregarTabelaPresenca() {
-    if ($("#presenca-eventoid").val() && $("#presenca-reuniaoid").val() && $("#presenca-equipeid").val()) {
+    if ($("#presenca-eventoid").val() && $("#presenca-reuniaoid").val()) {
         const tablePresencaConfig = {
             language: languageConfig,
             lengthMenu: [200,500,1000],
@@ -37,7 +37,7 @@
             ajax: {
                 url: '/Equipe/GetPresenca',
                 datatype: "json",
-                data: { EventoId: $("#presenca-eventoid").val(), EquipeId: $("#presenca-equipeid").val(), ReuniaoId: $("#presenca-reuniaoid").val() },
+                data: { EventoId: $("#presenca-eventoid").val(), ReuniaoId: $("#presenca-reuniaoid").val() },
                 type: "POST"
             }
         };
@@ -59,7 +59,7 @@ function TogglePresenca(id) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(
             {
-                EquipanteEventoId: id,
+                ParticipanteId: id,
                 ReuniaoId: $("#presenca-reuniaoid").val()
             })
     });

@@ -28,14 +28,6 @@ namespace Core.Business.Reunioes
             reuniaoRepository.Save();
         }
 
-        public int? GetFaltasByEquipanteId(int equipanteId, int eventoId)
-        {
-            if (equipesBusiness.GetEquipeAtual(eventoId,equipanteId) != null)                          
-                return reuniaoRepository.GetAll(x => x.EventoId == eventoId && x.DataReuniao < System.DateTime.Today && !x.Presenca.Any(y => y.EquipanteEvento.EquipanteId == equipanteId) ).Include(x => x.Presenca).Count();
-
-            return null;
-        }
-
         public ReuniaoEvento GetReuniaoAtiva()
         {
             return reuniaoRepository.GetAll().OrderByDescending(x => x.DataReuniao).First();
@@ -58,6 +50,7 @@ namespace Core.Business.Reunioes
             if (model.Id > 0)
             {
                 reuniao = reuniaoRepository.GetById(model.Id);
+                reuniao.Link = model.Link;
                 reuniao.DataReuniao = model.DataReuniao.AddHours(4);
 
                 reuniaoRepository.Update(reuniao);
@@ -67,6 +60,7 @@ namespace Core.Business.Reunioes
                 reuniao = new ReuniaoEvento
                 {
                     DataReuniao = model.DataReuniao.AddHours(4),
+                    Link = model.Link,
                     EventoId = model.EventoId,
                     Status = StatusEnum.Ativo
                 };

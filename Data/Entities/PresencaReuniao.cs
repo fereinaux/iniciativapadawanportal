@@ -15,7 +15,7 @@ namespace Data.Entities
         [Required]
         public int ReuniaoId { get; set; }
         public ReuniaoEvento Reuniao { get; set; }
-        public int EquipanteEventoId { get; set; }
-        public EquipanteEvento EquipanteEvento { get; set; }
+        public int ParticipanteId { get; set; }
+        public Participante Participante { get; set; }
     }
 }

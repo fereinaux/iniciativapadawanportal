@@ -9,7 +9,7 @@ using Utils.Constants;
 namespace SysIgreja.Controllers
 {
 
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Aluno)]
     public class ArquivoController : Controller
     {
         private readonly IEventosBusiness eventosBusiness;
@@ -64,6 +64,14 @@ namespace SysIgreja.Controllers
         public ActionResult GetArquivosEvento(int Id)
         {
             var query = arquivosBusiness.GetArquivosByEvento(Id);
+
+            return MapAqruivos(query);
+        }
+
+        [HttpPost]
+        public ActionResult GetArquivosReuniao(int reuniaoid)
+        {
+            var query = arquivosBusiness.GetArquivosByReuniao(reuniaoid);
 
             return MapAqruivos(query);
         }

@@ -44,7 +44,7 @@ namespace Arquitetura.Controller
                 {
                     Id = x.Id,
                     DataEvento = x.DataEvento,
-                    Numeracao = x.Numeracao,
+                    Titulo = x.Titulo,
                     TipoEvento = x.TipoEvento.GetNickname(),
                     Status = x.Status.GetDescription()
                 }); 

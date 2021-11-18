@@ -27,12 +27,12 @@ using Utils.Services;
 namespace SysIgreja.Controllers
 {
 
-    public class MapperRealidade
+    public class MapperMentoria
     {
 
         public IMapper mapper;
 
-        public MapperRealidade(int? qtdReunioes = null)
+        public MapperMentoria(int? qtdReunioes = null)
         {
             var configuration = new MapperConfiguration(cfg =>
             {
@@ -47,8 +47,6 @@ namespace SysIgreja.Controllers
                     .ForMember(dest => dest.HasFoto, opt => opt.MapFrom(x => x.Arquivos.Any(y => y.IsFoto)))
                     .ForMember(dest => dest.HasContact, opt => opt.MapFrom(x => x.MsgFoto || x.MsgGeral || x.MsgVacina || x.MsgPagamento || !string.IsNullOrEmpty(x.Observacao)))
                     .ForMember(dest => dest.Sexo, opt => opt.MapFrom(x => x.Sexo.GetDescription()))
-                    .ForMember(dest => dest.Padrinho, opt => opt.MapFrom(x => x.PadrinhoId.HasValue ? x.Padrinho.Nome : null))
-                    .ForMember(dest => dest.Circulo, opt => opt.MapFrom(x => x.Circulos.Any() ? x.Circulos.LastOrDefault().Circulo.Cor.GetDescription() : ""))
                     .ForMember(dest => dest.Status, opt => opt.MapFrom(x => x.Status.GetDescription()));
                 cfg.CreateMap<Equipante, EquipanteListModel>()
                     .ForMember(dest => dest.Idade, opt => opt.MapFrom(x => UtilServices.GetAge(x.DataNascimento)))

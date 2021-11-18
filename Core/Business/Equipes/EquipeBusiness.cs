@@ -54,12 +54,7 @@ namespace Core.Business.Equipes
 
         public EquipanteEvento GetEquipanteEventoByUser(int eventoId, string userId)
         {
-            return equipanteEventoRepository
-                .GetAll()
-                .Include(x => x.Equipante)
-                .Include(x => x.Evento)
-                .ToList()
-                .FirstOrDefault(x => x.EventoId == eventoId && x.EquipanteId == usuarioRepository.GetById(userId).EquipanteId);
+            return null;
         }
 
         public List<Equipante> GetEquipantesEventoSemEquipe(int eventoId)
@@ -94,9 +89,9 @@ namespace Core.Business.Equipes
             {
                 ApplicationUser user = usuarioRepository.GetById(Thread.CurrentPrincipal.Identity.GetUserId());
 
-                var equipanteEvento = equipanteEventoRepository.GetAll(x => x.EquipanteId == user.EquipanteId && x.EventoId == eventoId).FirstOrDefault();
+                var equipanteEvento = equipanteEventoRepository.GetAll(x =>x.EventoId == eventoId).FirstOrDefault();
 
-                if (eventoId != null && user.Equipante != null && user.Perfil == PerfisUsuarioEnum.Coordenador && equipanteEvento != null && equipanteEvento.Tipo == TiposEquipeEnum.Coordenador)
+                if (eventoId != null && user.Perfil == PerfisUsuarioEnum.Aluno && equipanteEvento != null && equipanteEvento.Tipo == TiposEquipeEnum.Aluno)
                     return GetDescriptions<EquipesEnum>().Where(x => x.Description == equipanteEvento.Equipe.GetDescription());
 
                 return GetEquipesEvento(eventoId);
@@ -131,17 +126,17 @@ namespace Core.Business.Equipes
         {
             EquipanteEvento equipanteEvento = equipanteEventoRepository.GetById(id);
 
-            equipanteEvento.Tipo = equipanteEvento.Tipo == TiposEquipeEnum.Coordenador ?
+            equipanteEvento.Tipo = equipanteEvento.Tipo == TiposEquipeEnum.Aluno ?
                 TiposEquipeEnum.Membro :
-                TiposEquipeEnum.Coordenador;
+                TiposEquipeEnum.Aluno;
 
             equipanteEventoRepository.Update(equipanteEvento);
             equipanteEventoRepository.Save();
         }
 
-        public void TogglePresenca(int equipanteEventoId, int reuniaoId)
+        public void TogglePresenca(int participanteId, int reuniaoId)
         {
-            var presenca = presencaRepository.GetAll().FirstOrDefault(x => x.EquipanteEventoId == equipanteEventoId && x.ReuniaoId == reuniaoId);
+            var presenca = presencaRepository.GetAll().FirstOrDefault(x => x.ParticipanteId == participanteId && x.ReuniaoId == reuniaoId);
 
             if (presenca != null)
                 presencaRepository.Delete(presenca.Id);
@@ -150,7 +145,7 @@ namespace Core.Business.Equipes
                 var newPresenca = new PresencaReuniao
                 {
                     ReuniaoId = reuniaoId,
-                    EquipanteEventoId = equipanteEventoId
+                    ParticipanteId = participanteId
                 };
                 presencaRepository.Insert(newPresenca);
             }

@@ -50,7 +50,7 @@ namespace SysIgreja.Controllers
             this.meioPagamentoBusiness = meioPagamentoBusiness;
             this.reunioesBusiness = reunioesBusiness;
             var eventoAtivo = eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().ToList().LastOrDefault();
-            mapper = new MapperRealidade(reunioesBusiness.GetReunioes(eventoAtivo.Id).Where(x => x.DataReuniao < System.DateTime.Today).Count()).mapper;
+            mapper = new MapperMentoria(reunioesBusiness.GetReunioes(eventoAtivo.Id).Where(x => x.DataReuniao < System.DateTime.Today).Count()).mapper;
         }
 
 
@@ -66,7 +66,7 @@ namespace SysIgreja.Controllers
                {
                    Id = x.Id,
                    DataEvento = x.DataEvento,
-                   Numeracao = x.Numeracao,
+                   Titulo = x.Titulo,
                    TipoEvento = x.TipoEvento.GetNickname(),
                    Status = x.Status.GetDescription()
                });

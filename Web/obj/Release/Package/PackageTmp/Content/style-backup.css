@@ -3615,8 +3615,8 @@ a.forum-item-title:hover {
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   font-size: 16px;
   border: 3px solid #f1f1f1;
@@ -3629,8 +3629,9 @@ a.forum-item-title:hover {
   position: relative;
   left: 50%;
   top: 50%;
+  font-size: 24px;
   margin-left: -12px;
-  margin-top: -9px;
+  margin-top: -12px;
 }
 @media only screen and (min-width: 1170px) {
   .center-orientation .vertical-timeline-icon {

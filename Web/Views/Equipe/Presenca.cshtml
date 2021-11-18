@@ -26,13 +26,10 @@
                     <select class="form-control" id="presenca-eventoid" onchange="GetReunioes()">
                         @foreach (var evento in ViewBag.Eventos)
                         {
-                            <option value="@evento.Id">@evento.TipoEvento @evento.Numeracao.ToString()</option>
+                            <option value="@evento.Id">@evento.TipoEvento @evento.Titulo</option>
                         }
                     </select>
-                </div>
-                <div class="col-xs-12 col-md-4 pull-right">
-                    <select class="form-control" id="presenca-equipeid" onchange="CarregarTabelaPresenca()"></select>
-                </div>
+                </div>     
 
                 <div class="col-xs-12 col-md-4 pull-right">
                     <select class="form-control" id="presenca-reuniaoid" onchange="CarregarTabelaPresenca()"></select>

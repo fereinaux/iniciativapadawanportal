@@ -49,9 +49,9 @@ function GetResultadosAdmin() {
                                                             `
 
                              
-                                if (element.Tipo == "Coordenador") {
+                                if (element.Tipo == "Aluno") {
                                     htmlDetalhamento += `<tr>                        
-                                    <td class="font-bold">Coordenador: ${element.Nome}</td>                        
+                                    <td class="font-bold">Aluno: ${element.Nome}</td>                        
                                     <td class="equipante-fone">${element.Fone}</td>                                                
                                 </tr>`;
                                   
@@ -64,9 +64,9 @@ function GetResultadosAdmin() {
 
                                 equipe = element.Equipe;
                             } else {
-                                if (element.Tipo == "Coordenador") {
+                                if (element.Tipo == "Aluno") {
                                     htmlDetalhamento += `<tr>                        
-                                    <td class="font-bold">Coordenador: ${element.Nome}</td>                        
+                                    <td class="font-bold">Aluno: ${element.Nome}</td>                        
                                     <td class="equipante-fone">${element.Fone}</td>                                                
                                 </tr>`;
                                 } else {
@@ -79,7 +79,7 @@ function GetResultadosAdmin() {
 
                             htmlDetalhamentoMobile += `<div class="col col-xs-6">
                                                                 <div class="equipe-mobile black-bg">
-                                                                    ${element.Tipo == "Coordenador" ? '<img src="/Images/crown.png" />' : ''} 
+                                                                    ${element.Tipo == "Aluno" ? '<img src="/Images/crown.png" />' : ''} 
                                                                     <div class="mobile-content">
                                                                         <h4>${element.Nome}</h4>
                                                                     </div>
@@ -117,7 +117,7 @@ function GetResultadosAdmin() {
 
                         $(".equipante-fone").each((i, element) => {
 
-                            $(element).html(`${GetConvidar($(element).text(), $($(element).parent().children()[0]).text().replace('Coordenador: ', ''))}
+                            $(element).html(`${GetConvidar($(element).text(), $($(element).parent().children()[0]).text().replace('Aluno: ', ''))}
                             ${GetIconWhatsApp($(element).text())}
                             ${GetIconTel($(element).text())}`);
                         });

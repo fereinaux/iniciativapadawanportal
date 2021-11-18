@@ -4,6 +4,7 @@ using Core.Business.Account;
 using Core.Business.Equipantes;
 using Core.Business.Equipes;
 using Core.Business.Eventos;
+using Core.Business.Participantes;
 using Core.Business.Reunioes;
 using Core.Models.Equipe;
 using SysIgreja.ViewModels;
@@ -22,12 +23,14 @@ namespace SysIgreja.Controllers
     public class EquipeController : SysIgrejaControllerBase
     {
         private readonly IEquipesBusiness equipesBusiness;
+        private readonly IParticipantesBusiness participantesBusiness;
         private readonly IReunioesBusiness reunioesBusiness;
 
-        public EquipeController(IEquipesBusiness equipesBusiness, IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness, IReunioesBusiness reunioesBusiness) : base(eventosBusiness, accountBusiness)
+        public EquipeController(IEquipesBusiness equipesBusiness, IParticipantesBusiness participantesBusiness, IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness, IReunioesBusiness reunioesBusiness) : base(eventosBusiness, accountBusiness)
         {
             this.equipesBusiness = equipesBusiness;
             this.reunioesBusiness = reunioesBusiness;
+            this.participantesBusiness = participantesBusiness;
         }
 
         public ActionResult Index()
@@ -50,7 +53,7 @@ namespace SysIgreja.Controllers
         {
             var user = GetApplicationUser();
 
-            if (user.Perfil == PerfisUsuarioEnum.Coordenador)
+            if (user.Perfil == PerfisUsuarioEnum.Aluno)
             {
                 return Json(new
                 {
@@ -68,9 +71,9 @@ namespace SysIgreja.Controllers
         }
 
         [HttpPost]
-        public ActionResult TogglePresenca(int EquipanteEventoId, int ReuniaoId)
+        public ActionResult TogglePresenca(int ParticipanteId, int ReuniaoId)
         {
-            equipesBusiness.TogglePresenca(EquipanteEventoId, ReuniaoId);
+            equipesBusiness.TogglePresenca(ParticipanteId, ReuniaoId);
 
             return new HttpStatusCodeResult(200);
         }
@@ -100,15 +103,15 @@ namespace SysIgreja.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetPresenca(int EventoId, EquipesEnum EquipeId, int ReuniaoId)
+        public ActionResult GetPresenca(int EventoId, int ReuniaoId)
         {
-            var presenca = equipesBusiness.GetPresenca(ReuniaoId).Select(x => x.EquipanteEventoId).ToList();
+            var presenca = equipesBusiness.GetPresenca(ReuniaoId).Select(x => x.ParticipanteId).ToList();
 
-            var result = equipesBusiness
-                .GetMembrosEquipe(EventoId, EquipeId).ToList().Select(x => new PresencaViewModel
+            var result = participantesBusiness.GetParticipantesByEvento(EventoId)
+                .Where(x => x.Status == StatusEnum.Confirmado).ToList().Select(x => new PresencaViewModel
                 {
                     Id = x.Id,
-                    Nome = x.Equipante.Nome,
+                    Nome = x.Nome,
                     Presenca = presenca.Contains(x.Id)
                 });
 

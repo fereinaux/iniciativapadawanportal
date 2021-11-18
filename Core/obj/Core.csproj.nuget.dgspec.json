@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\source\\repos\\Realidade\\Core\\Core.csproj": {}
+    "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Core\\Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\source\\repos\\Realidade\\Core\\Core.csproj": {
+    "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\Realidade\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Core\\Core.csproj",
+        "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\Realidade\\Core\\obj\\",
+        "outputPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
@@ -28,11 +28,11 @@
         "frameworks": {
           "net472": {
             "projectReferences": {
-              "C:\\Users\\User\\source\\repos\\Realidade\\Data\\Data.csproj": {
-                "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Data\\Data.csproj"
+              "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Data\\Data.csproj"
               },
-              "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj": {
-                "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj"
+              "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj": {
+                "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj"
               }
             }
           }
@@ -72,14 +72,14 @@
         }
       }
     },
-    "C:\\Users\\User\\source\\repos\\Realidade\\Data\\Data.csproj": {
+    "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\Realidade\\Data\\Data.csproj",
+        "projectUniqueName": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Data\\Data.csproj",
+        "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Data\\Data.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\Realidade\\Data\\obj\\",
+        "outputPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
@@ -96,8 +96,8 @@
         "frameworks": {
           "net472": {
             "projectReferences": {
-              "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj": {
-                "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj"
+              "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj": {
+                "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj"
               }
             }
           }
@@ -137,14 +137,14 @@
         }
       }
     },
-    "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj": {
+    "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj",
+        "projectUniqueName": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj",
         "projectName": "Utils",
-        "projectPath": "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\Utils.csproj",
+        "projectPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\Utils.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\Realidade\\Utils\\obj\\",
+        "outputPath": "C:\\Users\\User\\source\\repos\\iniciativapadawanportal\\Utils\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [

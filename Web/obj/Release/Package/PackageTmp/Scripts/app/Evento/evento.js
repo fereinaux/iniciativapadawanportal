@@ -17,7 +17,7 @@
             {
                 data: "TipoEvento", name: "TipoEvento", autoWidth: true,
                 "render": function (data, type, row) {
-                    return `${row.TipoEvento} ${row.Numeracao}`;
+                    return `${row.TipoEvento} ${row.Titulo}`;
                 }
             },
             { data: "Capacidade", name: "Capacidade", autoWidth: true},
@@ -63,7 +63,7 @@ function GetEvento(id) {
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 $("#evento-id").val(data.Evento.Id);
-                $("#evento-numeracao").val(data.Evento.Numeracao);
+                $("#evento-numeracao").val(data.Evento.Titulo);
                 $("#evento-capacidade").val(data.Evento.Capacidade);
                 $("#evento-valor").val(data.Evento.Valor);
                 $("#evento-data").val(moment(data.Evento.DataEvento).format('DD/MM/YYYY'));
@@ -137,7 +137,7 @@ function PostEvento() {
                 {
                     Id: $("#evento-id").val(),        
                     TipoEvento: $("#evento-tipo").val(),
-                    Numeracao: $("#evento-numeracao").val(),
+                    Titulo: $("#evento-numeracao").val(),
                     Capacidade: $("#evento-capacidade").val(),
                     Valor: $("#evento-valor").val(),
                     DataEvento: moment($("#evento-data").val(), 'DD/MM/YYYY', 'pt-br').toJSON()

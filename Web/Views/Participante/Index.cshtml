@@ -26,7 +26,7 @@
                         <select class="form-control" id="participante-eventoid" onchange="CarregarTabelaParticipante()">
                             @foreach (var evento in ViewBag.Eventos)
                             {
-                                <option value="@evento.Id">@evento.TipoEvento @evento.Numeracao.ToString()</option>
+                                <option value="@evento.Id">@evento.TipoEvento @evento.Titulo</option>
                             }
                         </select>
                     </div>
@@ -44,7 +44,6 @@
                         <th></th>
                         <th>Nome</th>
                         <th>Idade</th>
-                        <th>Padrinho</th>
                         <th>Status</th>
                         <th>Ações</th>
                     </tr>
@@ -93,7 +92,7 @@
                         <select class="form-control m-b-sm" id="equipante-eventoid">
                             @foreach (var evento in ViewBag.Eventos)
                             {
-                                <option value="@evento.Id">@evento.TipoEvento @evento.Numeracao.ToString()</option>
+                                <option value="@evento.Id">@evento.TipoEvento @evento.Titulo</option>
                             }
                         </select>
                         <form enctype="multipart/form-data" id="frm-upload-arquivo-modal" method="post" novalidate="novalidate">
@@ -133,69 +132,32 @@
                     <h2 class="text-center realista-nome">Nome</h2>
                     <h3 class="text-center">Mensagem</h3>
                     <div class="row m-md">
-                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer pagamento" onclick="select1('pagamento')">
-                            <div style="margin:auto">
 
-                                <i class="far fa-money-bill-alt fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Pagamento</h4>
-                                <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msgpagamento" checked="" value="1" name="participante-msgpagamento"> <i></i></label></div>
-                            </div>
-
-                        </div>
                         <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer covid" onclick="select1('covid')">
                             <div style="margin:auto">
-                                <i class="fa fa-viruses fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Covid 19</h4>
+                                <i class="fas fa-users-cog fa-3x m-t-sm"></i>
+                                <h4 class="text-center m-t-sm">Setup</h4>
                                 <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msgcovid" checked="" value="1" name="participante-msgcovid"> <i></i></label></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer info" onclick="select1('info')">
-                            <div style="margin:auto">
-                                <i class="fas fa-info-circle fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Informações Gerais</h4>
-                                <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msggeral" checked="" value="1" name="participante-msggeral"> <i></i></label></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer carta" onclick="select1('carta')">
-                            <div style="margin:auto">
-                                <i class="fas fa-moon fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Noitita</h4>
-                                <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msgnoitita" checked="" value="1" name="participante-msgnoitita"> <i></i></label></div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer foto" onclick="select1('foto')">
                             <div style="margin:auto">
-                                <i class="fas fa-camera fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Foto</h4>
+                                <i class="fab fa-github fa-3x m-t-sm"></i>
+                                <h4 class="text-center m-t-sm">GitHub</h4>
+
                                 <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msgfoto" checked="" value="1" name="participante-msgfoto"> <i></i></label></div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer info" onclick="select1('info')">
+                            <div style="margin:auto">
+                                <i class="fab fa-discord fa-3x m-t-sm"></i>
+                                <h4 class="text-center m-t-sm">Discord</h4>
+                                <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msggeral" checked="" value="1" name="participante-msggeral"> <i></i></label></div>
+                            </div>
+                        </div>
 
-                    <h3 class="text-center">Destinatário</h3>
-                    <div class="row m-md">
-                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer mae" onclick="select2('mae')">
-                            <div style="margin:auto">
-                                <i style='color: #e232dd' class="fa fa-user  fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Mãe</h4>
-                                <h5 class="text-center maetext"></h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer pai" onclick="select2('pai')">
-                            <div style="margin:auto">
-                                <i style='color: #3289e2' class="fa fa-user  fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Pai</h4>
-                                <h5 class="text-center paitext"></h5>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer convite" onclick="select2('convite')">
-                            <div style="margin:auto">
-                                <i style='color: #d46415' class="fa fa-user fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Indicação</h4>
-                                <h5 class="text-center convitetext"></h5>
-                            </div>
-                        </div>
-                    </div>
+
+                    </div>                  
 
                     <h3 class="text-center">Observações</h3>
                     <div class="row m-md">
@@ -229,15 +191,11 @@
 
                             <input type="text" class="form-control required" id="participante-nome" data-field="Nome" />
                         </div>
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Apelido</h5>
 
-                            <input type="text" class="form-control required" id="participante-apelido" data-field="Apelido" />
-                        </div>
                         <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Data de Nascimento</h5>
+                            <h5>GitHub</h5>
 
-                            <input type="text" class="form-control full-date required" id="participante-data-nascimento" data-field="Data de Nascimento" />
+                            <input type="text" class="form-control required" id="participante-nomeconvite" data-field="GitHub" />
                         </div>
                         <div class="col-sm-12 p-w-md m-t-md text-center">
                             <h5>Sexo</h5>
@@ -245,6 +203,12 @@
                             <div class="radio i-checks-green inline"><label> <input type="radio" id="participante-sexo" checked="" value="1" name="participante-sexo"> <i></i> Masculino </label></div>
                             <div class="radio i-checks-green inline"><label> <input type="radio" id="participante-sexo" value="2" name="participante-sexo"> <i></i> Feminino </label></div>
                         </div>
+                        <div class="col-sm-12 p-w-md m-t-md text-center">
+                            <h5>Data de Nascimento</h5>
+
+                            <input type="text" class="form-control full-date required" id="participante-data-nascimento" data-field="Data de Nascimento" />
+                        </div>
+
                         <div class="col-sm-12 p-w-md m-t-md text-center">
                             <h5>Email</h5>
 
@@ -255,72 +219,9 @@
 
                             <input type="text" class="form-control fone" id="participante-fone" data-field="WhatsApp" placeholder="+55 (81) 9999-9999" />
                         </div>
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Nome da Mãe</h5>
 
-                            <input type="text" class="form-control required" id="participante-nomemae" data-field="Nome da Mã" />
-                        </div>
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Fone da Mãe</h5>
 
-                            <input type="text" class="form-control fone" id="participante-fonemae" data-field="Fone da Mãe" placeholder="+55 (81) 9999-9999" />
-                        </div>
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Nome do Pai</h5>
 
-                            <input type="text" class="form-control required" id="participante-nomepai" data-field="Nome do Pai" />
-                        </div>
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Fone do Pai</h5>
-
-                            <input type="text" class="form-control fone" id="participante-fonepai" data-field="Fone do Pai" placeholder="+55 (81) 9999-9999" />
-                        </div>
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Pessoa de Contato</h5>
-
-                            <input type="text" class="form-control required" id="participante-nomeconvite" data-field="Pessoa de Contato" />
-                        </div>
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Fone do Contato</h5>
-
-                            <input type="text" class="form-control fone" id="participante-foneconvite" data-field="Fone do Contato" placeholder="+55 (81) 9999-9999" />
-                        </div>
-
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Toma alguma medicação?</h5>
-
-                            <div class="radio i-checks-green inline"><label> <input type="radio" id="has-medicacao" value="true" name="participante-hasmedicacao"> <i></i> Sim </label></div>
-                            <div class="radio i-checks-green inline"><label> <input type="radio" id="not-medicacao" checked="" value="false" name="participante-hasmedicacao"> <i></i> Não </label></div>
-
-                            <div class="medicacao d-none">
-                                <h5>Qual?</h5>
-                                <input type="text" class="form-control" id="participante-medicacao" data-field="Medicação" />
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Tem alguma alergia?</h5>
-
-                            <div class="radio i-checks-green inline"><label> <input type="radio" id="has-alergia" value="true" name="participante-hasalergia"> <i></i> Sim </label></div>
-                            <div class="radio i-checks-green inline"><label> <input type="radio" id="not-alergia" checked="" value="false" name="participante-hasalergia"> <i></i> Não </label></div>
-
-                            <div class="alergia d-none">
-                                <h5>Qual?</h5>
-                                <input type="text" class="form-control" id="participante-alergia" data-field="Alergia" />
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 p-w-md m-t-md text-center">
-                            <h5>Tem alguma restrição alimentar?</h5>
-
-                            <div class="radio i-checks-green inline"><label> <input type="radio" id="has-restricaoalimentar" value="true" name="participante-hasrestricaoalimentar"> <i></i> Sim </label></div>
-                            <div class="radio i-checks-green inline"><label> <input type="radio" id="not-restricaoalimentar" checked="" value="false" name="participante-hasrestricaoalimentar"> <i></i> Não </label></div>
-
-                            <div class="restricaoalimentar d-none">
-                                <h5>Qual?</h5>
-                                <input type="text" class="form-control" id="participante-restricaoalimentar" data-field="Restrição Alimentar" />
-                            </div>
-                        </div>
                     </div>
                 </div>
 

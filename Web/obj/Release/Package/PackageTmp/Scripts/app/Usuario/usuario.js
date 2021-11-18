@@ -73,7 +73,7 @@ function GetUsuario(id) {
 }
 
 function EditUsuario(id) {
-    GetEquipantes(id);       
+    GetUsuario(id);
     $("#modal-usuarios").modal();
 }
 
@@ -105,7 +105,7 @@ function PostUsuario() {
                     Id: $("#usuario-id").val(),                                        
                     UserName : $("#usuario-login").val(),
                     Password: $("#usuario-senha").val(),
-                    Perfil: $("input[type=radio][name=usuario-perfil]:checked").val(),                    
+                    Perfil: 1,                    
                     OldPassword: $("#usuario-oldsenha").val(),
                     EquipanteId: $("#usuario-equipanteid").val() != "Selecione" ? $("#usuario-equipanteid").val() : 0 
                 }),
@@ -129,24 +129,3 @@ $(document).ready(function () {
         $("#usuario-senha").attr("type", "password");
     });
 });
-
-function GetEquipantes(id) {
-
-    $("#usuario-equipanteid").empty();
-    $('#usuario-equipanteid').append($('<option>Selecione</option>'));
-
-    $.ajax({
-        url: "/Account/GetEquipantes/",
-        data: { Id: id },
-        datatype: "json",
-        type: "GET",
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            data.Equipantes.forEach(function (equipante, index, array) {
-                $('#usuario-equipanteid').append($(`<option value="${equipante.Id}">${equipante.Nome}</option>`));
-            });  
-            GetUsuario(id); 
-        }
-    });
-
-}

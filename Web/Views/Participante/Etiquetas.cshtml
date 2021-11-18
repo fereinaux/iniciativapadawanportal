@@ -27,7 +27,7 @@
         <select class="form-control chosen-select" id="etiquetas-eventoid" onchange="GetAdjacentes()">
             @foreach (var evento in ViewBag.Eventos)
             {
-                <option value="@evento.Id">@evento.TipoEvento @evento.Numeracao.ToString()</option>
+                <option value="@evento.Id">@evento.TipoEvento @evento.Titulo</option>
             }
         </select>
     </div>

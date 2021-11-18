@@ -14,11 +14,7 @@ namespace Data.Entities
     {
         public int EventoId { get; set; }
         public Evento Evento { get; set; }
-
-        public int? PadrinhoId { get; set; }
-        public virtual Equipante Padrinho { get; set; }
         public virtual ICollection<Arquivo> Arquivos { get; set; }
-        public virtual ICollection<CirculoParticipante> Circulos { get; set; }
 
         public string NomePai { get; set; }
         public string FonePai { get; set; }
@@ -27,7 +23,7 @@ namespace Data.Entities
         public string FoneMae { get; set; }
         public string ReferenciaPagSeguro { get; set; }
 
-        public string NomeConvite { get; set; }
+        public string Github { get; set; }
         public string FoneConvite { get; set; }
         public string Congregacao { get; set; }
         public bool? HasParente { get; set; }
@@ -41,5 +37,6 @@ namespace Data.Entities
         public bool MsgNoitita { get; set; }
         public bool MsgFoto { get; set; }
         public string Observacao { get; set; }
+        public string Senha { get; set; }
     }
 }

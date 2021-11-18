@@ -1,0 +1,212 @@
+﻿@using Microsoft.AspNet.Identity
+@using Utils.Constants;
+@{
+    ViewBag.Numero = new Random().Next();
+}
+
+
+    <style>
+        .password-click {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 10;
+            border: none;
+            background: transparent;
+            outline: none;
+            padding-top: 6px;
+            padding-right: 20px;
+        }
+
+        .group-senha {
+            position: relative;
+        }
+
+            .group-senha input {
+                width: 100%;
+            }
+    </style>
+
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col col-lg-6 col-xs-12">
+            <div class="ibox-content" id="ibox-content">
+                <h2>Progresso</h2>
+                <div id="vertical-timeline" class="vertical-container dark-timeline">
+                    <div class="vertical-timeline-block" id="setup">
+                        <div class="vertical-timeline-icon bg-setup">
+                            <i class="fa fa-users-cog"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>Setup</h2>
+                            <p>
+                                Já configuraste todo teu ambiente e efetuou seu primeiro acesso ao <strong>Portal do Padawan</strong>
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="vertical-timeline-block d-none" id="git">
+                        <div class="vertical-timeline-icon bg-git">
+                            <i style="margin-left:-15px;" class="fab fa-github"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>GitHub</h2>
+                            <p>Entrou pra nossa Org no <strong>GitHub</strong> e já está pronto pra colaborar com nossos repositórios</p>
+                            <a href="https://github.com/Iniciativa-Padawan" target="_blank" class="btn btn-sm bg-git">Iniciativa Padawan Org</a>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="vertical-timeline-block d-none" id="discord">
+                        <div class="vertical-timeline-icon bg-discord">
+                            <i style="margin-left:-19px;" class="fab fa-discord"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>Discord</h2>
+                            <p>Se juntou ao nosso servidor do <strong>Discord</strong> e agora está só esperando dia para começar</p>
+                            <a href="https://discord.com/invite/Mxg7EwhjU5" target="_blank" class="btn btn-sm bg-discord">Servidor no Discord</a>
+                        </div>
+                    </div>
+
+                    <div class="vertical-timeline-block d-none" id="commit">
+                        <div class="vertical-timeline-icon bg-muted">
+                            <i style="margin-left:-11px;" class="fas fa-code-branch"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>Primeiro Commit!</h2>
+                            <p>Parabéns pela sua primeira colaboração com um de nossos <strong>Repositórios</strong></p>
+
+                        </div>
+                    </div>
+
+                    <div class="vertical-timeline-block d-none" id="filme">
+                        <div class="vertical-timeline-icon bg-muted">
+                            <i style="" class="fas fa-film"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>Uma nova esperança!</h2>
+                            <p>Parabéns pela sua iniciação no universo <strong>Star Wars</strong>, agora trate de correr pra acompanhar os conteúdos mais atuais</p>
+
+                        </div>
+                    </div>
+
+                    <div class="vertical-timeline-block d-none" id="app">
+                        <div class="vertical-timeline-icon bg-muted">
+                            <i style="" class="fab fa-node"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>Primeira Aplicação!</h2>
+                            <p>Parabéns pela sua primeira aplicação construída em <strong>NodeJS</strong></p>
+
+                        </div>
+                    </div>
+
+                    <div class="vertical-timeline-block d-none" id="jedi">
+                        <div class="vertical-timeline-icon bg-jedi">
+                            <i class="fas fa-jedi"></i>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>Aprovado</h2>
+                            <p>Foi aprovado na mentoria e seu <strong>Certificado</strong> está pronto para Download</p>
+                            <a href="https://discord.com/invite/Mxg7EwhjU5" target="_blank" class="btn btn-sm bg-jedi">Download do Certificado</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <div class="ibox-content" id="ibox-content">
+                <div class="ibox-tools pull-right w-300">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-default" id="btn_Adicionar" onclick="PostParticipante()">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+                <h2>Perfil</h2>
+                <div id="form-participante">
+                    <div class="row p-h-xs">
+                        <input type="hidden" id="participante-id" />
+                        <div class="col-sm-12 col-lg-6 p-w-md m-t-md text-center">
+                            <h5>Nome</h5>
+
+                            <input type="text" class="form-control required" id="participante-nome" data-field="Nome" />
+                        </div>
+
+                        <div class="col-sm-12 col-lg-6 p-w-md m-t-md text-center">
+                            <h5>GitHub</h5>
+
+                            <input type="text" class="form-control required" id="participante-nomeconvite" data-field="GitHub" />
+                        </div>
+                        <div class="col-sm-12 col-lg-6 p-w-md m-t-md text-center">
+                            <h5>Sexo</h5>
+
+                            <div class="radio i-checks-green inline"><label> <input type="radio" id="participante-sexo" checked="" value="1" name="participante-sexo"> <i></i> Masculino </label></div>
+                            <div class="radio i-checks-green inline"><label> <input type="radio" id="participante-sexo" value="2" name="participante-sexo"> <i></i> Feminino </label></div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6 p-w-md m-t-md text-center">
+                            <h5>Data de Nascimento</h5>
+
+                            <input type="text" class="form-control full-date required" id="participante-data-nascimento" data-field="Data de Nascimento" />
+                        </div>
+                
+                        <div class="col-sm-12 col-lg-6 p-w-md m-t-md text-center">
+                            <h5>WhatsApp</h5>
+
+                            <input type="text" class="form-control fone" id="participante-fone" data-field="WhatsApp" placeholder="+55 (81) 9999-9999" />
+                        </div>
+
+                        <input type="hidden" id="participante-old-senha" />
+                        <div class="col-sm-6 col-sm-12 p-w-md m-t-md text-center">
+                            <h5>Senha</h5>
+
+                            <div class="group-senha">
+                                <input type="password" class="form-control required text-lowercase" id="participante-senha" data-field="Senha" data-min-length="6" />
+                                <button class="password-click" type="submit">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+@section Styles {
+    <link href="~/Content/admin.css" rel="stylesheet">
+
+    <style>
+        .bloco {
+            max-height: 160px;
+        }
+    </style>
+}
+
+@section Scripts {
+
+    <script src="~/Scripts/app/Home/aluno.js?@ViewBag.Numero"></script>
+    <script src="~/Scripts/app/Participante/perfil.js"></script>
+
+    <script>
+
+    </script>
+}

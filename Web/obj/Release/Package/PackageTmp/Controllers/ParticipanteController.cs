@@ -30,7 +30,7 @@ using Utils.Services;
 
 namespace SysIgreja.Controllers
 {
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Aluno)]
     public class ParticipanteController : SysIgrejaControllerBase
     {
         private readonly IParticipantesBusiness participantesBusiness;
@@ -55,7 +55,7 @@ namespace SysIgreja.Controllers
             this.meioPagamentoBusiness = meioPagamentoBusiness;
             this.contaBancariaBusiness = contaBancariaBusiness;
             this.datatableService = datatableService;
-            mapper = new MapperRealidade().mapper;
+            mapper = new MapperMentoria().mapper;
         }
 
         public ActionResult ListaTelefonica()
@@ -100,6 +100,15 @@ namespace SysIgreja.Controllers
             return View();
         }
 
+        public ActionResult Perfil()
+        {
+            var user = GetApplicationUser();
+            var participante = participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0);
+            ViewBag.Title = participante.Nome;
+
+            return View();
+        }
+
         public ActionResult Index()
         {
             ViewBag.Title = "Participantes";
@@ -123,9 +132,9 @@ namespace SysIgreja.Controllers
                 Alergia = x.Alergia,
                 Apelido = x.Apelido,
                 Bairro = x.Bairro,
+                Senha = x.Senha,
                 CancelarCheckin = false,
                 Checkin = x.Checkin,
-                Padrinho = x.Padrinho?.Nome,
                 Complemento = x.Complemento,
                 Congregacao = x.Congregacao,
                 DataNascimento = x.DataNascimento,
@@ -144,7 +153,7 @@ namespace SysIgreja.Controllers
                 Logradouro = x.Logradouro,
                 Medicacao = x.Medicacao,
                 Nome = x.Nome,
-                NomeConvite = x.NomeConvite,
+                NomeConvite = x.Github,
                 NomeMae = x.NomeMae,
                 NomePai = x.NomePai,
                 Parente = x.Parente,
@@ -188,6 +197,19 @@ namespace SysIgreja.Controllers
             };
 
             return Json(new { Participante = result, DadosAdicionais = dadosAdicionais }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetParticipanteLogado()
+        {
+            var user = GetApplicationUser();
+            var result = mapParticipante(participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0));
+
+            result.Nome = UtilServices.CapitalizarNome(result.Nome);
+            result.Apelido = UtilServices.CapitalizarNome(result.Apelido);
+
+
+            return Json(new { Participante = result }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -337,7 +359,7 @@ namespace SysIgreja.Controllers
                     Endereco = $"{x.Logradouro} {x.Complemento}",
                     Bairro = x.Bairro,
                     NomeParente = x.HasParente.HasValue && x.HasParente.Value ? UtilServices.CapitalizarNome(x.Parente) : "",
-                    NomeConvite = UtilServices.CapitalizarNome(x.NomeConvite),
+                    NomeConvite = UtilServices.CapitalizarNome(x.Github),
                     FoneConvite = x.FoneConvite,
                     Congregacao = x.Congregacao,
                     Alergia = x.Alergia,
@@ -360,7 +382,7 @@ namespace SysIgreja.Controllers
 
                 if (model.search.value != null)
                 {
-                    result = result.Where(x => (x.Nome.Contains(model.search.value) || x.Padrinho.Nome.Contains(model.search.value)));
+                    result = result.Where(x => (x.Nome.Contains(model.search.value)));
                     filteredResultsCount = result.Count();
                 }
 
@@ -411,7 +433,7 @@ namespace SysIgreja.Controllers
                     Endereco = $"{x.Logradouro} {x.Complemento}",
                     Bairro = x.Bairro,
                     NomeParente = x.HasParente.HasValue && x.HasParente.Value ? UtilServices.CapitalizarNome(x.Parente) : "",
-                    NomeConvite = UtilServices.CapitalizarNome(x.NomeConvite),
+                    NomeConvite = UtilServices.CapitalizarNome(x.Github),
                     FoneConvite = x.FoneConvite,
                     Congregacao = x.Congregacao,
                     Alergia = x.Alergia,
@@ -454,8 +476,7 @@ namespace SysIgreja.Controllers
                    Status = x.Status.GetDescription(),
                    Checkin = x.Checkin,
                    Idade = UtilServices.GetAge(x.DataNascimento),
-                   Foto = x.Arquivos.Any(y => y.IsFoto) ? Convert.ToBase64String(x.Arquivos.FirstOrDefault(y => y.IsFoto).Conteudo) : "",
-                   Circulo = x.Circulos.LastOrDefault().Circulo.Cor.GetDescription()
+                   Foto = x.Arquivos.Any(y => y.IsFoto) ? Convert.ToBase64String(x.Arquivos.FirstOrDefault(y => y.IsFoto).Conteudo) : ""
                });
 
 
@@ -517,17 +538,16 @@ namespace SysIgreja.Controllers
                     Id = x.Id,
                     Nome = UtilServices.CapitalizarNome(x.Nome),
                     Status = x.Status.GetDescription(),
-                    Evento = $"{x.Evento.Numeracao.ToString()}º {x.Evento.TipoEvento.GetDescription()}",
+                    Evento = $"{x.Evento.Titulo.ToString()}º {x.Evento.TipoEvento.GetDescription()}",
                     Sexo = x.Sexo.GetDescription(),
                     Fone = x.Fone,
                     x.NomeMae,
                     x.FoneMae,
                     x.NomePai,
                     x.FonePai,
-                    x.NomeConvite,
+                    x.Github,
                     x.FoneConvite,
-                    PendenciaContato = x.PendenciaContato,
-                    Padrinho = x.Padrinho?.Nome
+                    PendenciaContato = x.PendenciaContato
                 }); ;
 
             return Json(new { data = result }, JsonRequestBehavior.AllowGet);
@@ -562,6 +582,14 @@ namespace SysIgreja.Controllers
         public ActionResult ToggleTeste(int Id)
         {
             participantesBusiness.ToggleTeste(Id);
+
+            return new HttpStatusCodeResult(200);
+        }
+
+        [HttpPost]
+        public ActionResult ConfirmarVaga(int Id)
+        {
+            participantesBusiness.ConfirmarVaga(Id);
 
             return new HttpStatusCodeResult(200);
         }

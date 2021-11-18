@@ -6,6 +6,7 @@ using Core.Business.Eventos;
 using Core.Business.Lancamento;
 using Core.Business.Participantes;
 using Core.Business.Reunioes;
+using Core.Models.Participantes;
 using SysIgreja.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace SysIgreja.Controllers
         private readonly IArquivosBusiness arquivosBusiness;
         private readonly IAccountBusiness accountBusiness;
 
-        public HomeController(IEquipesBusiness equipesBusiness, IParticipantesBusiness participantesBusiness, IArquivosBusiness arquivosBusiness,ILancamentoBusiness lancamentoBusiness, IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness, IReunioesBusiness reunioesBusiness) : base(eventosBusiness, accountBusiness)
+        public HomeController(IEquipesBusiness equipesBusiness, IParticipantesBusiness participantesBusiness, IArquivosBusiness arquivosBusiness, ILancamentoBusiness lancamentoBusiness, IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness, IReunioesBusiness reunioesBusiness) : base(eventosBusiness, accountBusiness)
         {
             this.lancamentoBusiness = lancamentoBusiness;
             this.participantesBusiness = participantesBusiness;
@@ -51,10 +52,68 @@ namespace SysIgreja.Controllers
             return View();
         }
 
+        private PostInscricaoModel mapParticipante(Data.Entities.Participante x)
+        {
+            return new PostInscricaoModel
+            {
+                Alergia = x.Alergia,
+                Apelido = x.Apelido,
+                Bairro = x.Bairro,
+                Senha = x.Senha,
+                CancelarCheckin = false,
+                Checkin = x.Checkin,
+                Complemento = x.Complemento,
+                Congregacao = x.Congregacao,
+                DataNascimento = x.DataNascimento,
+                Email = x.Email,
+                EventoId = x.EventoId,
+                Fone = x.Fone,
+                FoneConvite = x.FoneConvite,
+                FoneMae = x.FoneMae,
+                FonePai = x.FonePai,
+                HasAlergia = x.HasAlergia,
+                HasMedicacao = x.HasMedicacao,
+                HasTeste = x.HasTeste,
+                HasParente = false,
+                HasRestricaoAlimentar = x.HasRestricaoAlimentar,
+                Id = x.Id,
+                Logradouro = x.Logradouro,
+                Medicacao = x.Medicacao,
+                Nome = x.Nome,
+                NomeConvite = x.Github,
+                NomeMae = x.NomeMae,
+                NomePai = x.NomePai,
+                Parente = x.Parente,
+                HasVacina = x.HasVacina,
+                RestricaoAlimentar = x.RestricaoAlimentar,
+                Sexo = x.Sexo,
+                Status = x.Status.GetDescription(),
+                Observacao = x.Observacao,
+                MsgVacina = x.MsgVacina,
+                MsgPagamento = x.MsgPagamento,
+                Boleto = x.Boleto,
+                MsgGeral = x.MsgGeral,
+                MsgNoitita = x.MsgNoitita,
+                MsgFoto = x.MsgFoto,
+                PendenciaBoleto = x.PendenciaBoleto,
+                PendenciaContato = x.PendenciaContato,
+                Foto = x.Arquivos.Any(y => y.IsFoto) ? Convert.ToBase64String(x.Arquivos.FirstOrDefault(y => y.IsFoto).Conteudo) : ""
+            };
+        }
+        [HttpGet]
+        public ActionResult GetAlunoInfo()
+        {
+            var user = GetApplicationUser();
+            var participante = mapParticipante(participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0));
+
+            var result = new { Aluno = participante };
+            return Json(new { result }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult GetResultadosAdmin(int EventoId)
         {
-            var result = new 
+            var result = new
             {
                 Evento = eventosBusiness.GetEventoById(EventoId).Status.GetDescription(),
                 Confirmados = participantesBusiness.GetParticipantesByEvento(EventoId).Where(x => x.Status == StatusEnum.Confirmado).Count(),
@@ -117,40 +176,20 @@ namespace SysIgreja.Controllers
             return Json(new { result }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Coordenador()
+        public ActionResult Aluno()
         {
-            ViewBag.Title = "Sistema de Gestão";
-            int eventoId = (eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First()).Id;
-            var user = GetApplicationUser();
-            var equipanteEvento = equipesBusiness.GetEquipanteEventoByUser(eventoId, user.Id);
-            var membrosEquipe = equipesBusiness.GetMembrosEquipe(eventoId, equipanteEvento.Equipe);
-            ViewBag.Equipante = equipanteEvento.Equipante;
-            ViewBag.Equipe = equipanteEvento.Equipe.GetDescription();
-            ViewBag.QtdMembros = membrosEquipe.Count();
-            ViewBag.Reunioes = reunioesBusiness.GetReunioes(eventoId)
-                .ToList()
-                .OrderBy(x => DateTime.Now.AddHours(4).Subtract(x.DataReuniao).TotalDays < 0 ? DateTime.Now.AddHours(4).Subtract(x.DataReuniao).TotalDays * -1 : DateTime.Now.AddHours(4).Subtract(x.DataReuniao).TotalDays)
-                .Select(x => new ReuniaoViewModel { DataReuniao = x.DataReuniao, Id = x.Id });
-            ViewBag.Membros = membrosEquipe.ToList().Select(x => new EquipanteViewModel
-            {
-                Id = x.Equipante.Id,
-                Sexo = x.Equipante.Sexo.GetDescription(),
-                Fone = x.Equipante.Fone,
-                Idade = UtilServices.GetAge(x.Equipante.DataNascimento),
-                Nome = x.Equipante.Nome,
-                Vacina = x.Equipante.HasVacina,
-                Faltas = reunioesBusiness.GetFaltasByEquipanteId(x.EquipanteId, eventoId),
-                Oferta = lancamentoBusiness.GetPagamentosEquipante(x.EquipanteId).Any(),
-                Foto = x.Equipante.Arquivos.Any(y => y.IsFoto)
-            });
 
+            GetEventos();
+            var user = GetApplicationUser();
+            var participante = participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0);
+            ViewBag.Title = participante.Nome;
             return View();
         }
 
         [HttpGet]
         public ActionResult GetPresenca(int ReuniaoId)
         {
-            var presenca = equipesBusiness.GetPresenca(ReuniaoId).Select(x => x.EquipanteEventoId).ToList();
+            var presenca = equipesBusiness.GetPresenca(ReuniaoId).Select(x => x.ParticipanteId).ToList();
 
             var user = GetApplicationUser();
             var eventoId = (eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First()).Id;
@@ -184,8 +223,8 @@ namespace SysIgreja.Controllers
                 case PerfisUsuarioEnum.Admin:
                 case PerfisUsuarioEnum.Secretaria:
                     return RedirectToAction("Admin", "Home");
-                case PerfisUsuarioEnum.Coordenador:
-                    return RedirectToAction("Coordenador", "Home");
+                case PerfisUsuarioEnum.Aluno:
+                    return RedirectToAction("Aluno", "Home");
                 default:
                     return RedirectToAction("Admin", "Home");
             }

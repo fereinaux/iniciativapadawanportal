@@ -104,7 +104,7 @@ function CarregarTabelaMembrosEquipe(equipeId, titulo) {
             {
                 data: "Id", name: "Id", orderable: false, width: "35%",
                 "render": function (data, type, row) {
-                    var color = !(Coordenador == row.Tipo) ? 'info' : 'yellow';
+                    var color = !(Aluno == row.Tipo) ? 'info' : 'yellow';
 
                     return `${GetLabel('ToggleMembroEquipeTipo', data, color, row.Tipo)}
                             ${GetButton('DeleteMembroEquipe', data, 'red', 'fa-trash', 'Excluir')}`;

@@ -12,7 +12,7 @@ namespace Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Descricao { get; set; }
-        public int Numeracao { get; set; }
+        public string Titulo { get; set; }
         public int? Capacidade { get; set; }
         public DateTime DataEvento { get; set; }
         public virtual TiposEventoEnum TipoEvento { get; set; }

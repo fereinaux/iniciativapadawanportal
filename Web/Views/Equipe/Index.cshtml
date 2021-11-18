@@ -24,7 +24,7 @@
                 <select class="form-control" id="equipe-eventoid" onchange="CarregarTabelaEquipe()">
                     @foreach (var evento in ViewBag.Eventos)
                     {
-                        <option value="@evento.Id">@evento.TipoEvento @evento.Numeracao.ToString()</option>
+                        <option value="@evento.Id">@evento.TipoEvento @evento.Titulo</option>
                     }
                 </select>
             </div>

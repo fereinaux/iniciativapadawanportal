@@ -1,6 +1,7 @@
 ﻿using Arquitetura.Controller;
 using Core.Business.Account;
 using Core.Business.Eventos;
+using Core.Business.Participantes;
 using Core.Business.Reunioes;
 using Core.Models.Reunioes;
 using SysIgreja.ViewModels;
@@ -12,35 +13,43 @@ using Utils.Extensions;
 namespace SysIgreja.Controllers
 {
 
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Aluno)]
     public class ReuniaoController : SysIgrejaControllerBase
     {
         private readonly IReunioesBusiness reuniaosBusiness;
+        private readonly IParticipantesBusiness participantesBusiness;
 
-        public ReuniaoController(IReunioesBusiness ReuniaosBusiness, IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness) :base(eventosBusiness, accountBusiness)
+        public ReuniaoController(IReunioesBusiness ReuniaosBusiness, IParticipantesBusiness participantesBusiness, IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness) :base(eventosBusiness, accountBusiness)
         {
             this.reuniaosBusiness = ReuniaosBusiness;
+            this.participantesBusiness = participantesBusiness;
         }
 
         public ActionResult Index()
         {
-            ViewBag.Title = "Reuniões";
+            ViewBag.Title = "Aulas";
             GetEventos();
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult GetReunioes(int EventoId)
+        public ActionResult GetReunioes(int? EventoId)
         {
+            var user = GetApplicationUser();
+            var participante = participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0);
+            var verificar = participante != null;
             var result = reuniaosBusiness
-                .GetReunioes(EventoId)
+                .GetReunioes(EventoId ?? participante.EventoId)
+                .Where(x => verificar ? x.DataReuniao <= System.DateTime.Today : 1 ==1)
                 .ToList()
                 .Select(x => new ReuniaoViewModel
                 {
                     Id = x.Id,
+                    Link = x.Link,
                     DataReuniao = x.DataReuniao,
-                    Presenca = x.Presenca.Count()
+                    Presenca = x.Presenca.Count(),
+                    QtdAnexos = x.Arquivos.Count()
                 });
 
             return Json(new { data = result }, JsonRequestBehavior.AllowGet);
@@ -50,9 +59,8 @@ namespace SysIgreja.Controllers
         public ActionResult GetReuniao(int Id)
         {
             var result = reuniaosBusiness.GetReuniaoById(Id);
-            result.Presenca = null;
 
-            return Json(new { Reuniao = result }, JsonRequestBehavior.AllowGet);
+            return Json(new { Reuniao = new ReuniaoViewModel {DataReuniao = result.DataReuniao, Link = result.Link, Id = result.Id } }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
