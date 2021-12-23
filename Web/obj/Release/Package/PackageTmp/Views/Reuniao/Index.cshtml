@@ -18,7 +18,7 @@
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
-    @if (User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master))
+    @if (User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master) || User.IsInRole(Usuario.Monitor))
     {
         <div class="ibox">
             <div class="ibox-title" style="display: flex;justify-content: space-between;">
@@ -154,7 +154,7 @@
     <script src="~/Scripts/app/Reuniao/reuniao.js"></script>
 
     <script>
-        var columnsAnexos = '@(User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master))' == 'True' ? [
+        var columnsAnexos = '@(User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master) || User.IsInRole(Usuario.Monitor))' == 'True' ? [
             { data: "Nome", name: "Nome", autoWidth: true },
             { data: "Extensao", name: "Extensao", autoWidth: true },
             {
@@ -174,7 +174,7 @@
                 }
             }
         ]
-        var columns = '@(User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master))' == 'True' ? [
+        var columns = '@(User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master) || User.IsInRole(Usuario.Monitor))' == 'True' ? [
             {
                 data: "DataReuniao", name: "DataReuniao", autoWidth: true,
                 "render": function (data, type, row) {

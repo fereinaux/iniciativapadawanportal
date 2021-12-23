@@ -14,7 +14,7 @@ namespace Data.Context
     {
         public PerfisUsuarioEnum Perfil { get; set; }
         public StatusEnum Status { get; set; }
-        public string Senha { get; set; }
+        public string Senha { get; set; }        
         public int? ParticipanteId { get; set; }
         public virtual Participante Participante { get; set; }
     }
@@ -96,6 +96,7 @@ namespace Data.Context
         public DbSet<CentroCusto> CentroCustos { get; set; }
         public DbSet<Lancamento> Lancamentos { get; set; }
         public DbSet<Arquivo> Arquivos { get; set; }
+        public DbSet<Playground> Playgrounds { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

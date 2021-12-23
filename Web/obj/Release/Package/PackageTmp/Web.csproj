@@ -849,6 +849,7 @@
     <Content Include="Images\background-login.png" />
     <Content Include="Images\calibri-bold.js" />
     <Content Include="Images\calibri-normal.js" />
+    <Content Include="Images\character.png" />
     <Content Include="Images\circulos\Amarelo.png" />
     <Content Include="Images\circulos\Azul Claro.png" />
     <Content Include="Images\circulos\Laranja.png" />
@@ -869,8 +870,12 @@
     <Content Include="Images\equipes\Reitores.png" />
     <Content Include="Images\equipes\Secretaria.png" />
     <Content Include="Images\equipes\Vaila de Apoio Integral.png" />
+    <Content Include="Images\film-gray.png" />
+    <Content Include="Images\film.png" />
+    <Content Include="Images\gather.png" />
     <Content Include="Images\logo_sombra.png" />
     <Content Include="Images\pix-bc-logo.png" />
+    <Content Include="Images\planet.png" />
     <Content Include="Images\qrcode pix.png" />
     <Content Include="Content\Images\question-mark-1.png" />
     <Content Include="Content\Images\red_bool.png" />
@@ -1005,6 +1010,11 @@
     <Content Include="Images\Bancos\Itaú.png" />
     <Content Include="Images\Bancos\NuBank.png" />
     <Content Include="Images\Bancos\Santander.png" />
+    <Content Include="Images\scrum.png" />
+    <Content Include="Images\specie.png" />
+    <Content Include="Images\startship-gray.png" />
+    <Content Include="Images\startship.png" />
+    <Content Include="Images\vehicle.png" />
     <Content Include="Scripts\app\Participante\checkin.js" />
     <Content Include="Scripts\app\Participante\perfil.js" />
     <Content Include="Scripts\app\Quarto\quarto.js" />
@@ -1027,6 +1037,7 @@
     <Content Include="Scripts\app\Relatorio\restricoes.js" />
     <Content Include="Scripts\app\Relatorio\aniversariantes.js" />
     <Content Include="Scripts\app\Relatorio\relatorio.js" />
+    <Content Include="Scripts\app\Reuniao\api.js" />
     <Content Include="Scripts\app\Reuniao\reuniao.js" />
     <Content Include="Scripts\app\Usuario\usuario.js" />
     <Content Include="Scripts\app\MeioPagamento\meio-pagamento.js" />
@@ -1133,6 +1144,8 @@
     <Content Include="Scripts\plugins\jsCrop-master\README.md" />
     <Content Include="Views\Inscricoes\InscricaoEspera.cshtml" />
     <Content Include="Views\Participante\Perfil.cshtml" />
+    <Content Include="Views\Reuniao\ApiStarWars.cshtml" />
+    <Content Include="Views\Reuniao\Playground.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

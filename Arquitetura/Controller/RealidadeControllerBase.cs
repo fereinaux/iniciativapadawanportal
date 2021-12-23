@@ -14,7 +14,7 @@ namespace Arquitetura.Controller
     public class SysIgrejaControllerBase : System.Web.Mvc.Controller
     {
         private readonly IEventosBusiness eventosBusiness;
-        private readonly IAccountBusiness accountBusiness;
+        public readonly IAccountBusiness accountBusiness;
 
         public SysIgrejaControllerBase(IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness)
         {

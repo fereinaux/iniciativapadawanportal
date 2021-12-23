@@ -18,6 +18,19 @@
             padding-right: 20px;
         }
 
+        .img-icon{
+            width: 70%;
+            margin-top: 5px;
+        }
+
+        .missing {
+            opacity: 0.7;
+        }
+
+        .missing p, .missing a {
+            display:none;
+        }
+
         .group-senha {
             position: relative;
         }
@@ -34,7 +47,7 @@
             <div class="ibox-content" id="ibox-content">
                 <h2>Progresso</h2>
                 <div id="vertical-timeline" class="vertical-container dark-timeline">
-                    <div class="vertical-timeline-block" id="setup">
+                    <div class="vertical-timeline-block missing" id="setup">
                         <div class="vertical-timeline-icon bg-setup">
                             <i class="fa fa-users-cog"></i>
                         </div>
@@ -42,13 +55,13 @@
                         <div class="vertical-timeline-content">
                             <h2>Setup</h2>
                             <p>
-                                Já configuraste todo teu ambiente e efetuou seu primeiro acesso ao <strong>Portal do Padawan</strong>
+                                Configurou as ferramentas e efetuou seu primeiro acesso ao <strong>Portal do Padawan</strong>
                             </p>
 
                         </div>
                     </div>
 
-                    <div class="vertical-timeline-block d-none" id="git">
+                    <div class="vertical-timeline-block missing " id="git">
                         <div class="vertical-timeline-icon bg-git">
                             <i style="margin-left:-15px;" class="fab fa-github"></i>
                         </div>
@@ -63,33 +76,33 @@
 
 
 
-                    <div class="vertical-timeline-block d-none" id="discord">
+                    <div class="vertical-timeline-block missing " id="discord">
                         <div class="vertical-timeline-icon bg-discord">
-                            <i style="margin-left:-19px;" class="fab fa-discord"></i>
+                            <img class="img-icon" src="~/Images/startship.png" />
                         </div>
 
                         <div class="vertical-timeline-content">
-                            <h2>Discord</h2>
-                            <p>Se juntou ao nosso servidor do <strong>Discord</strong> e agora está só esperando dia para começar</p>
-                            <a href="https://discord.com/invite/Mxg7EwhjU5" target="_blank" class="btn btn-sm bg-discord">Servidor no Discord</a>
+                            <h2>Gather</h2>
+                            <p>Se juntou a tripulação da <strong>Millennium Falcon</strong> e está pronto para o treinamento Jedi</p>
+                            <a href="https://gather.town/app/NSpKnQYIJRlWuQee/Millennium%20Falcon" target="_blank" class="btn btn-sm bg-discord">Millennium Falcon</a>
                         </div>
                     </div>
 
-                    <div class="vertical-timeline-block d-none" id="commit">
+                    <div class="vertical-timeline-block missing " id="commit">
                         <div class="vertical-timeline-icon bg-muted">
                             <i style="margin-left:-11px;" class="fas fa-code-branch"></i>
                         </div>
 
                         <div class="vertical-timeline-content">
-                            <h2>Primeiro Commit!</h2>
+                            <h2>Commit</h2>
                             <p>Parabéns pela sua primeira colaboração com um de nossos <strong>Repositórios</strong></p>
 
                         </div>
                     </div>
 
-                    <div class="vertical-timeline-block d-none" id="filme">
+                    <div class="vertical-timeline-block missing " id="filme">
                         <div class="vertical-timeline-icon bg-muted">
-                            <i style="" class="fas fa-film"></i>
+                            <img class="img-icon" src="~/Images/film-gray.png" />
                         </div>
 
                         <div class="vertical-timeline-content">
@@ -99,25 +112,38 @@
                         </div>
                     </div>
 
-                    <div class="vertical-timeline-block d-none" id="app">
+
+                    <div class="vertical-timeline-block missing " id="sprint">
+                        <div class="vertical-timeline-icon bg-muted">
+                            <img class="img-icon" src="~/Images/scrum.png" />
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h2>Sprint</h2>
+                            <p>Parabéns pela sua primeira Sprint ultilizando <strong>Scrum</strong></p>
+
+                        </div>
+                    </div>
+
+                    <div class="vertical-timeline-block missing " id="app">
                         <div class="vertical-timeline-icon bg-muted">
                             <i style="" class="fab fa-node"></i>
                         </div>
 
                         <div class="vertical-timeline-content">
-                            <h2>Primeira Aplicação!</h2>
-                            <p>Parabéns pela sua primeira aplicação construída em <strong>NodeJS</strong></p>
+                            <h2>API</h2>
+                            <p>Parabéns pela sua primeira API construída em <strong>NodeJS</strong></p>
 
                         </div>
                     </div>
 
-                    <div class="vertical-timeline-block d-none" id="jedi">
+                    <div class="vertical-timeline-block missing " id="jedi">
                         <div class="vertical-timeline-icon bg-jedi">
                             <i class="fas fa-jedi"></i>
                         </div>
 
                         <div class="vertical-timeline-content">
-                            <h2>Aprovado</h2>
+                            <h2>Cavaleiro Jedi</h2>
                             <p>Foi aprovado na mentoria e seu <strong>Certificado</strong> está pronto para Download</p>
                             <a href="https://discord.com/invite/Mxg7EwhjU5" target="_blank" class="btn btn-sm bg-jedi">Download do Certificado</a>
                         </div>

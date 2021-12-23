@@ -1873,6 +1873,18 @@ a.list-group-item.active:focus {
     min-width: 300px;
 }
 
+.w-400 {
+    min-width: 400px;
+}
+
+.w-500 {
+    min-width: 500px;
+}
+
+.w-600 {
+    min-width: 600px;
+}
+
 .legendLabel {
     padding-left: 5px;
 }

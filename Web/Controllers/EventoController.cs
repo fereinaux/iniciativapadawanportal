@@ -14,7 +14,7 @@ using Utils.Extensions;
 namespace SysIgreja.Controllers
 {
 
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Monitor)]
     public class EventoController : Controller
     {
         private readonly IEventosBusiness eventosBusiness;

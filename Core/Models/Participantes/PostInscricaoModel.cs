@@ -51,5 +51,10 @@ namespace Core.Models.Participantes
         public bool MsgNoitita { get; set; }
         public bool MsgFoto { get; set; }
         public string Observacao { get; set; }
+        public bool MsgCommit { get; set; }
+        public bool MsgFilme { get; set; }
+        public bool MsgSprint { get; set; }
+        public bool MsgAPI { get; set; }
+        public string Playground { get; set; }
     }
 }

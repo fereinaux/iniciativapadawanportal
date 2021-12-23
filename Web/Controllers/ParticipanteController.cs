@@ -13,6 +13,7 @@ using Core.Business.Participantes;
 using Core.Business.Quartos;
 using Core.Models.Lancamento;
 using Core.Models.Participantes;
+using Core.Models.Playground;
 using Core.Models.Quartos;
 using Data.Entities;
 using SysIgreja.ViewModels;
@@ -30,7 +31,7 @@ using Utils.Services;
 
 namespace SysIgreja.Controllers
 {
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Aluno)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Aluno + "," + Usuario.Monitor)]
     public class ParticipanteController : SysIgrejaControllerBase
     {
         private readonly IParticipantesBusiness participantesBusiness;
@@ -168,6 +169,10 @@ namespace SysIgreja.Controllers
                 MsgGeral = x.MsgGeral,
                 MsgNoitita = x.MsgNoitita,
                 MsgFoto = x.MsgFoto,
+                MsgAPI = x.MsgAPI,
+                MsgCommit = x.MsgCommit,
+                MsgFilme = x.MsgFilme,
+                MsgSprint = x.MsgSprint,
                 PendenciaBoleto = x.PendenciaBoleto,
                 PendenciaContato = x.PendenciaContato,
                 Foto = x.Arquivos.Any(y => y.IsFoto) ? Convert.ToBase64String(x.Arquivos.FirstOrDefault(y => y.IsFoto).Conteudo) : ""
@@ -178,10 +183,9 @@ namespace SysIgreja.Controllers
         public ActionResult GetParticipante(int Id)
         {
             var result = mapParticipante(participantesBusiness.GetParticipanteById(Id));
-
+            var user = base.accountBusiness.GetUsuarioByParticipanteId(Id);
             result.Nome = UtilServices.CapitalizarNome(result.Nome);
             result.Apelido = UtilServices.CapitalizarNome(result.Apelido);
-
             var quartoAtual = quartosBusiness.GetNextQuarto(result.EventoId, result.Sexo);
 
             var dadosAdicionais = new
@@ -203,15 +207,58 @@ namespace SysIgreja.Controllers
         public ActionResult GetParticipanteLogado()
         {
             var user = GetApplicationUser();
-            var result = mapParticipante(participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0));
+            if (user.Perfil == PerfisUsuarioEnum.Admin || user.Perfil == PerfisUsuarioEnum.Monitor)
+            {
+                return Json(new { Participante = new { Nome = user.UserName } }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
 
-            result.Nome = UtilServices.CapitalizarNome(result.Nome);
-            result.Apelido = UtilServices.CapitalizarNome(result.Apelido);
+                var result = mapParticipante(participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0));
 
-
-            return Json(new { Participante = result }, JsonRequestBehavior.AllowGet);
+                result.Nome = UtilServices.CapitalizarNome(result.Nome);
+                result.Apelido = UtilServices.CapitalizarNome(result.Apelido);
+                return Json(new { Participante = result }, JsonRequestBehavior.AllowGet);
+            }
         }
 
+        [HttpPost]
+        public ActionResult GetPlayground(int id, int participanteId)
+        {
+
+            var playground = base.accountBusiness.GetPlaygrounds(participanteId).FirstOrDefault(x => x.Id == id);
+
+
+            return Json(new { Playgrounds = mapper.Map<PostPlaygroundModel>(playground), }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
+        public ActionResult GetPlaygrounds(int id)
+        {
+
+            var playgrounds = base.accountBusiness.GetPlaygrounds(id);
+
+
+            return Json(new { Nome = id > 0 ? participantesBusiness.GetParticipanteById(id).Nome : GetApplicationUser().UserName, Playgrounds = mapper.Map<IEnumerable<PostPlaygroundModel>>(playgrounds), }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult PostPlayground(PostPlaygroundModel model)
+        {
+            base.accountBusiness.PostPlayground(model);
+            return new HttpStatusCodeResult(200);
+
+        }
+
+        [HttpPost]
+        public ActionResult DeletePlayground(int id)
+        {
+            base.accountBusiness.DeletePlayground(id);
+            return new HttpStatusCodeResult(200);
+
+        }
 
         [HttpPost]
         public ActionResult PostInfo(PostInfoModel model)
@@ -323,10 +370,10 @@ namespace SysIgreja.Controllers
         [HttpPost]
         public ActionResult GetParticipantesSelect(int EventoId)
         {
-  
+
             var result = participantesBusiness
             .GetParticipantesByEvento(EventoId)
-            .Where(x => x.Status == StatusEnum.Confirmado || x.Status == StatusEnum.Inscrito)
+            .Where(x => x.Status == StatusEnum.Confirmado || x.Status == StatusEnum.Aprovado)
             .Select(x => new
             {
                 x.Nome,

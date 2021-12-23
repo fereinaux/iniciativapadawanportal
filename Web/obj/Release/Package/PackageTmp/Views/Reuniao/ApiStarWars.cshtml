@@ -1,0 +1,131 @@
+﻿@using Utils.Extensions;
+@using Microsoft.AspNet.Identity
+@using Utils.Constants;
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index">Home</a>
+            </li>
+
+            <li class="breadcrumb-item active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="ibox">
+        <div class="ibox-title" style="display: flex;justify-content: space-between;">
+            <h4>@ViewBag.Title</h4>
+        </div>
+        <div class="ibox-content">
+            <div class="row p-h-xs">
+                <div class="col-sm-12 p-w-md text-center">
+                    <h5>URL Base da API</h5>
+
+                    <input type="text" class="form-control text-lowercase" id="endpoint-movies" />
+
+
+
+                </div>
+                <div class="col-sm-12 p-w-md m-t-lg text-center">
+                    <button type="button" class="btn btn-primary pull-right" onclick="ExecApi()">Testar API</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ibox m-t-lg d-none" id="result-api">
+
+            <div class="ibox-title" style="display: flex;justify-content: space-between;">
+                <h4>Resultados da API</h4>
+            </div>
+            <div class="ibox-content">
+                <div class="row vertical-align">
+
+                    <div class="col-xs-6 col-lg-2 p-w-xs">
+                        <div class="width100 bloco widget black-bg p-lg text-center">
+                            <div class="m-b-xs">
+                                <img class="img-api" src="~/Images/film.png" />
+                                <h1 class="m-xs" id="films">12</h1>
+
+                                <small>Filmes</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-lg-2 p-w-xs">
+                        <div class="width100 bloco widget lazur-bg p-lg text-center">
+                            <div class="m-b-xs">
+                                <img class="img-api" src="~/Images/planet.png" />
+                                <h1 class="m-xs" id="planets">53</h1>
+
+                                <small>Planetas</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-lg-2 p-w-xs">
+                        <div class="width100 bloco widget blue-bg p-lg text-center">
+                            <div class="m-b-xs">
+                                <img class="img-api" src="~/Images/character.png" />
+                                <h1 class="m-xs" id="characters">230</h1>
+
+                                <small>Personagens</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-lg-2 p-w-xs">
+                        <div class="width100 bloco widget navy-bg p-lg text-center">
+                            <div class="m-b-xs">
+                                <img class="img-api" src="~/Images/specie.png" />
+                                <h1 class="m-xs" id="species">20</h1>
+
+                                <small>Espécies</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-lg-2 p-w-xs">
+                        <div class="width100 bloco widget yellow-bg p-lg text-center">
+                            <div class="m-b-xs">
+                                <img class="img-api" src="~/Images/startship.png" />
+                                <h1 class="m-xs" id="startships">7</h1>
+
+                                <small>Naves</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-lg-2 p-w-xs">
+                        <div class="width100 bloco widget red-bg p-lg text-center">
+                            <div class="m-b-xs">
+                                <img class="img-api" src="~/Images/vehicle.png" />
+                                <h1 class="m-xs" id="vehicles">12</h1>
+
+                                <small>Veículos</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @section Styles {
+        <style>
+
+        .img-api {
+            width:70%;
+        }
+        </style>
+    }
+
+    @section Scripts {
+
+        <script src="~/Scripts/app/Reuniao/api.js"></script>
+
+    }

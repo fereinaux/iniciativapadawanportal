@@ -105,7 +105,7 @@ function PostUsuario() {
                     Id: $("#usuario-id").val(),                                        
                     UserName : $("#usuario-login").val(),
                     Password: $("#usuario-senha").val(),
-                    Perfil: 1,                    
+                    Perfil: $("input[type=radio][name=usuario-perfil]:checked").val(),
                     OldPassword: $("#usuario-oldsenha").val(),
                     EquipanteId: $("#usuario-equipanteid").val() != "Selecione" ? $("#usuario-equipanteid").val() : 0 
                 }),

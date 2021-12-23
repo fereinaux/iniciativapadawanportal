@@ -117,8 +117,8 @@ namespace Utils.Enums
         Admin,
         [Description("Aluno")]
         Aluno,
-        [Description("Secretaria")]
-        Secretaria,
+        [Description("Monitor")]
+        Monitor,
     }
 
     public enum TiposLancamentoEnum

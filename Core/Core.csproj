@@ -76,6 +76,7 @@
     <Compile Include="Models\Equipantes\EquipanteListModel.cs" />
     <Compile Include="Models\Participantes\PostInfoModel.cs" />
     <Compile Include="Models\Participantes\ParticipanteListModel.cs" />
+    <Compile Include="Models\Playground\PostPlaygroundModel.cs" />
     <Compile Include="Models\Quartos\PostQuartoModel.cs" />
     <Compile Include="Models\Equipe\PostEquipeMembroModel.cs" />
     <Compile Include="Models\Equipantes\PostEquipanteModel.cs" />

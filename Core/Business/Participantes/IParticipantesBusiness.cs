@@ -22,7 +22,7 @@ namespace Core.Business.Participantes
         void ToggleVacina(int id);
         void ToggleTeste(int id);
         void ToggleCheckin(int id);
-        void PostInfo(PostInfoModel model);
+        void PostInfo(PostInfoModel model);        
         void SolicitarBoleto(int id);
         void ToggleSexo(int id);
     }

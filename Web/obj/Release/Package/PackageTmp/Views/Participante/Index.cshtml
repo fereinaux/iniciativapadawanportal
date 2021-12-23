@@ -150,9 +150,37 @@
                         </div>
                         <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center pointer info" onclick="select1('info')">
                             <div style="margin:auto">
-                                <i class="fab fa-discord fa-3x m-t-sm"></i>
-                                <h4 class="text-center m-t-sm">Discord</h4>
+                                <img class="img-icon-config" src="~/Images/startship-gray.png" />
+                                <h4 class="text-center m-t-sm">Gather</h4>
                                 <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msggeral" checked="" value="1" name="participante-msggeral"> <i></i></label></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center">
+                            <div style="margin:auto">
+                                <i class="fas fa-code-branch fa-3x m-t-sm"></i>
+                                <h4 class="text-center m-t-sm">Commit</h4>
+                                <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msgcommit" checked="" value="1" name="participante-msgcommit"> <i></i></label></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center">
+                            <div style="margin:auto">
+                                <img class="img-icon-config" src="~/Images/film-gray.png" />
+                                <h4 class="text-center m-t-sm">Filme</h4>
+                                <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msgfilme" checked="" value="1" name="participante-msgfilme"> <i></i></label></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center">
+                            <div style="margin:auto">
+                                <img class="img-icon-config" src="~/Images/scrum.png" />
+                                <h4 class="text-center m-t-sm">Sprint</h4>
+                                <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msgsprint" checked="" value="1" name="participante-msgsprint"> <i></i></label></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 panel-msg p-w-md text-center">
+                            <div style="margin:auto">
+                                <i class="fab fa-node fa-3x m-t-sm"></i>
+                                <h4 class="text-center m-t-sm">API</h4>
+                                <div class="checkbox i-checks-green inline"><label> <input type="checkbox" id="participante-msgapi" checked="" value="1" name="participante-msgapi"> <i></i></label></div>
                             </div>
                         </div>
 
@@ -296,7 +324,11 @@
 </div>
 
 @section Styles {
-
+    <style>
+        .img-icon-config {
+            width: 50px;
+        }
+    </style>
 }
 
 @section Scripts {

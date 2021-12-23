@@ -442,9 +442,9 @@ function enviar() {
         case 'covid':
             text = `Olá, *${getNome(destinatarioGlobal)}*!
  
-Tenho ótimas noticias, a tua vaga de *Padawan* tá garantida para a turma ${$("#participante-eventoid option:selected").text()} começando em *Data de Início*
+Tenho ótimas noticias, a tua vaga de *Padawan* está garantida para a turma ${$("#participante-eventoid option:selected").text()} começando em *15 de Dezembro*
 
-Queria te apresentar a nossa plataforma, acessível via https://inciativapadawan.com.br/login, onde o teu é o teu email cadastrado (*${realista.Email}*) e tua senha é *${realista.Senha}*
+Queria te apresentar a nossa plataforma, acessível via https://iniciativapadawan.com.br/login, onde o teu login é o email cadastrado (*${realista.Email}*) e a senha é *${realista.Senha}*
 
 É por lá que tu vai conseguir acessar o material e link do youtube das aulas, além de acessar o teu certificado ao final do curso.
 
@@ -453,19 +453,18 @@ Também queria te adiantar um pouco das configurações e programas que vamos pr
 - Git (https://git-scm.com/downloads)
 - VsCode (https://code.visualstudio.com/download)
 - NodeJS (https://www.nodejs.org/en/download/)
-- Discord (https://discord.com/download)
 
 Se rolar alguma dúvida com a instalção dessas ferramentas, já me avisa aqui no Whats que a gente resolve.
 
-Inclusive assim que tiver tudo prontinho tu já me avisa, que eu tenho mais alguns avisos pra te dar.
+Inclusive assim que tiver tudo prontinho tu já me avisa, que eu te conto das próximas etapas.
 
 ${RodapeEvento($("#participante-eventoid option:selected").text())}`
             break;
 
         case 'info':
-            text = `Como última etapa, queria te convidar para o nosso servidor do Discord, onde as aulas acontecerão * Segundas e Quartas às 19h *.
+            text = `Como última etapa, queria te convidar para a tripulação da *Millenium Falcon* o nosso servidor do Gather, onde as aulas acontecerão *Segundas e Quartas às 19h*.
 
-Para entrar basta clicar no link: https://discord.gg/Mxg7EwhjU5 que assim que eu tiver um tempo já te associo ao grupo da tua turma pra tu poder começar a explorar o servidor.
+Para entrar basta clicar no link: https://gather.town/app/NSpKnQYIJRlWuQee/Millennium%20Falcon, criar uma conta e fazer o tutorial quee você já estará apto a explorar a nossa nave.
 
 ${RodapeEvento($("#participante-eventoid option:selected").text())}`
             break;
@@ -493,6 +492,7 @@ function select1(tipo) {
     $('.pagamento').removeClass('moldura-modal')
     $('.carta').removeClass('moldura-modal')
     $('.info').removeClass('moldura-modal')
+    $('.foto').removeClass('moldura-modal')
     tipoGlobal = tipo
     $(`.${tipo}`).addClass('moldura-modal')
 }
@@ -754,6 +754,10 @@ function Opcoes(row) {
             $(`#participante-msgpagamento`).iCheck(realista.MsgPagamento ? 'check' : 'uncheck');
             $(`#participante-msgnoitita`).iCheck(realista.MsgNoitita ? 'check' : 'uncheck');
             $(`#participante-msggeral`).iCheck(realista.MsgGeral ? 'check' : 'uncheck');
+            $(`#participante-msgcommit`).iCheck(realista.MsgCommit ? 'check' : 'uncheck');
+            $(`#participante-msgsprint`).iCheck(realista.MsgSprint ? 'check' : 'uncheck');
+            $(`#participante-msgfilme`).iCheck(realista.MsgFilme ? 'check' : 'uncheck');
+            $(`#participante-msgapi`).iCheck(realista.MsgAPI ? 'check' : 'uncheck');
             $(`#participante-msgfoto`).iCheck(realista.MsgFoto ? 'check' : 'uncheck');
             if (realista.Status == "Confirmado") {
                 $('.pagamento').hide()
@@ -779,6 +783,10 @@ $("#modal-opcoes").on('hidden.bs.modal', function () {
                 MsgPagamento: $(`#participante-msgpagamento`).prop("checked"),
                 MsgNoitita: $(`#participante-msgnoitita`).prop("checked"),
                 MsgGeral: $(`#participante-msggeral`).prop("checked"),
+                MsgCommit: $(`#participante-msgcommit`).prop("checked"),
+                MsgAPI: $(`#participante-msgapi`).prop("checked"),
+                MsgFilme: $(`#participante-msgfilme`).prop("checked"),
+                MsgSprint: $(`#participante-msgsrpint`).prop("checked"),
                 MsgFoto: $(`#participante-msgfoto`).prop("checked")
             }),
         success: function () {

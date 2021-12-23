@@ -1,0 +1,337 @@
+﻿@using Utils.Extensions;
+@using Microsoft.AspNet.Identity
+@using Utils.Constants;
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index">Home</a>
+            </li>
+
+            <li class="breadcrumb-item active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="ibox">
+        <div class="ibox-title" style="display: flex;justify-content: space-between;">
+            <h4>@ViewBag.Title</h4>
+            <div class="ibox-tools pull-right w-600">
+                <div class="row">
+                    @if (User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master) || User.IsInRole(Usuario.Monitor))
+                    {
+                        <div class="col-sm-6">
+                            <select class="form-control" id="participante-eventoid" onchange="loadParticipantes()">
+                                @foreach (var evento in ViewBag.Eventos)
+                                {
+                                    <option value="@evento.Id">@evento.TipoEvento @evento.Titulo</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="participante-participanteid" onchange="getPlayGround()">
+                            </select>
+                        </div>
+
+                    }
+                    else
+                    {
+
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col col-sm-2" id="col-arquivos">
+                    <h3>Arquivos</h3>
+                    <ul class="list-playgrounds">
+                    </ul>
+                </div>
+                <div class="col col-sm-10" id="iframe-div">
+
+
+                    <div class="btn-float-iframe">
+                        <button class="btn btn-default" id="btnSalvar" onclick="modalPlayground()">NEW <i class="fas fa-plus"></i></button>
+                        <button class="btn btn-default" id="btnSalvar" onclick="PostPlayground()">SAVE <i class="fas fa-save"></i></button>
+                        <button class="btn btn-default" id="btnAtualizar" onclick="getPlayGround('reload')">REFRESH <i class="fas fa-sync"></i></button>
+                    </div>
+                    <iframe id="playground"
+                            frameBorder="0"
+                            height="850px"
+                            onload="onLoadHandler();"
+                            src="https://onecompiler.com/embed/javascript?hideLanguageSelection=true&hideStdin=true&hideNew=true&hideTitle=true&codeChangeEvent=true&listenToEvents=true"
+                            width="100%">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal inmodal" id="modal-playground" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-body">
+                <div class="moldura-modal p-h-xs" id="form-playground">
+                    <div class="row p-h-xs">
+                        <div class="col-sm-6 p-w-md text-center">
+                            <h5>Nome</h5>
+
+                            <input type="text" class="form-control required" id="playground-nome" data-field="Nome" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white pull-right m-l-sm" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-white pull-right" onclick="newPlayground()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        #iframe-div {
+            position: relative;
+        }
+
+        .btn-float-iframe {
+            position: absolute;
+            top: 9px;
+            right: 166px;
+        }
+
+        @@media (max-width: 1045px) {
+            .btn-float-iframe {
+                top: 25px;
+                right: 40px;
+            }
+        }
+
+        .del-play {
+           color: #ed5565;
+           font-size:10px;
+        }
+
+        .arquivo {
+            cursor: pointer
+        }
+
+            .arquivo.selected {
+                color: #1ab394;
+            }
+
+        .btn-float-iframe button {
+            background-color: #e91e63;
+            border-color: #e91e63;
+            color: white;
+            height: 32px;
+        }
+
+            .btn-float-iframe button i {
+                margin-left: 5px;
+            }
+
+            .btn-float-iframe button:hover,
+            .btn-float-iframe button:focus, .btn-float-iframe button:active:focus, .btn-float-iframe button:active:hover,
+            .btn-float-iframe button:active {
+                background-color: #a31545;
+                border-color: #a31545;
+                color: white;
+            }
+    </style>
+}
+
+@section Scripts {
+
+    <script>
+        var playground = ''
+        var playgroundSelected = {}
+
+        $(document).ready(function () {
+            loadParticipantes()
+        });
+
+        window.onmessage = function (e) {
+            playground = JSON.stringify(e.data)
+        };
+
+        function newPlayground() {
+            if (ValidateForm(`#form-playground`)) {
+                $.ajax({
+                    url: "/Participante/PostPlayground/",
+                    datatype: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(
+                        {
+                            Nome: $('#playground-nome').val().replace(/ /g, "") + ".js",
+                            Id: 0,
+                            ParticipanteId: $("#participante-participanteid").val()
+                        }),
+                    success: function () {
+                        SuccessMesageOperation();
+                        getPlayGround('new')
+                        $("#modal-playground").modal("hide");
+                    }
+                });
+            }
+        }
+
+        function modalPlayground() {
+            $('#playground-nome').val('')
+            $("#modal-playground").modal();
+        }
+
+        function PostPlayground() {
+            $.ajax({
+                url: "/Participante/PostPlayground/",
+                datatype: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(
+                    {
+                        Nome: JSON.parse(playground).files[0].name,
+                        Codigo: playground,
+                        Id: playgroundSelected.Id > 0 ? playgroundSelected.Id : 0,
+                        ParticipanteId: $("#participante-participanteid").val() || 0
+                    }),
+                success: function () {
+                    SuccessMesageOperation()
+                    getPlayGround('reload')
+                }
+            });
+
+        }
+
+        function onLoadHandler() {
+            getPlayGround()
+        }
+
+        function loadParticipantes() {
+            $.ajax({
+                url: '/Participante/GetParticipantesSelect',
+                data: { eventoId: $("#participante-eventoid").val() },
+                datatype: "json",
+                type: "POST",
+                success: (result) => {
+                    $("#participante-participanteid").html(`
+<option value=0>Selecione</option>
+${result.data.map(p => `<option value=${p.Id}>${p.Nome}</option>`)}
+`)
+                }
+            });
+        }
+
+        function SelectPlayground(p) {
+            playgroundSelected = p
+            var iFrame = document.getElementById('playground');
+            $('.arquivo').removeClass('selected')
+            $(`#code${playgroundSelected.Id}`).addClass('selected')
+            $.ajax({
+                url: '/Participante/GetPlayground',
+                datatype: "json",
+                type: "POST",
+                data: { id: playgroundSelected.Id, participanteId: $("#participante-participanteid").val() || 0 },
+                success: (data) => {
+                    let currentCodeObj = JSON.parse(JSON.parse(JSON.stringify(data.Playgrounds.Codigo)))
+                    if (currentCodeObj) {
+
+                        iFrame.contentWindow.postMessage({
+                            eventType: 'populateCode',
+                            language: currentCodeObj.language,
+                            files: currentCodeObj.files,
+                        }, "*");
+                    } else {
+                        iFrame.contentWindow.postMessage({
+                            eventType: 'populateCode',
+                            language: 'javascript',
+                            files: [{ name: playgroundSelected.Nome, content: 'console.log("Hello, World!");' }],
+                        }, "*");
+                    }
+                }
+            })
+
+        }
+
+        function DeletePlayground(id) {
+            ConfirmMessageDelete().then((result) => {
+                if (result) {
+                    $.ajax({
+                        url: "/Participante/DeletePlayground/",
+                        datatype: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(
+                            {
+                                id: id
+                            }),
+                        success: function () {
+                            SuccessMesageDelete();
+                            getPlayGround();
+                        }
+                    });
+                }
+            });
+        }
+
+        function getPlayGround(param) {
+            $.ajax({
+                url: '/Participante/GetPlaygrounds',
+                datatype: "json",
+                type: "GET",
+                data: { id: $("#participante-participanteid").val() || 0 },
+                success: (data) => {
+                    result = data.Playgrounds;
+                    var iFrame = document.getElementById('playground');
+                    if (result.length > 0) {
+                        $('#col-arquivos').removeClass('d-none')
+                        $('#iframe-div').addClass('col-sm-10')
+                        $('#iframe-div').removeClass('col-sm-12')
+
+                        $('.list-playgrounds').html(`
+                                                ${result.map(p => `<li id="code${p.Id}" class="arquivo"><span onclick='SelectPlayground(${JSON.stringify(p)})'>${p.Nome}</span> <i onclick='DeletePlayground(${p.Id})' class="fas fa-trash del-play"></i></li>`).join('')}
+                                            `)
+                        if (param == 'new') {
+                            SelectPlayground(result[result.length - 1])
+                        } else if (param == 'reload') {
+                            SelectPlayground(playgroundSelected.Id > 0 ? playgroundSelected : result[0] )
+                        } else {
+                            SelectPlayground(result[0])
+                        }
+                    } else {
+                        $('#col-arquivos').addClass('d-none')
+                        $('#iframe-div').removeClass('col-sm-10')
+                        $('#iframe-div').addClass('col-sm-12')
+                        playgroundSelected = {}
+                        var arrNome = data.Nome.split(' ');
+                        iFrame.contentWindow.postMessage({
+                            eventType: 'populateCode',
+                            language: 'javascript',
+                            files: [{ name: `${arrNome[0]}${arrNome.length > 1 ? arrNome[arrNome.length - 1] : ''}.js`, content: 'console.log("Hello, World!");' }],
+                        }, "*");
+                        playground = JSON.stringify({
+                            language: 'javascript',
+                            files: [{ name: `${arrNome[0]}${arrNome.length > 1 ? arrNome[arrNome.length - 1] : ''}.js`, content: 'console.log("Hello, World!");' }],
+                        })
+
+                    }
+                }
+            })
+        }
+    </script>
+
+}

@@ -10,7 +10,7 @@ using static Utils.Extensions.EnumExtensions;
 namespace SysIgreja.Controllers
 {
 
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Monitor)]
     public class ContaBancariaController : Controller
     {
         private readonly IContaBancariaBusiness contaBancariaBusiness;

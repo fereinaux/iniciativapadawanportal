@@ -18,7 +18,7 @@ using AutoMapper;
 namespace SysIgreja.Controllers
 {
 
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Monitor)]
     public class QuartoController : SysIgrejaControllerBase
     {
         private readonly IQuartosBusiness quartosBusiness;

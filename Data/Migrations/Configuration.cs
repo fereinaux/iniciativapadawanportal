@@ -53,7 +53,7 @@ namespace Data.Migrations
             context.Roles.AddOrUpdate(x => x.Name,
                  new IdentityRole { Name = PerfisUsuarioEnum.Master.GetDescription() },
                  new IdentityRole { Name = PerfisUsuarioEnum.Admin.GetDescription() },
-                 new IdentityRole { Name = PerfisUsuarioEnum.Secretaria.GetDescription() },
+                 new IdentityRole { Name = PerfisUsuarioEnum.Monitor.GetDescription() },
                  new IdentityRole { Name = PerfisUsuarioEnum.Aluno.GetDescription() }
                  );
 

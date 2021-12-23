@@ -21,7 +21,7 @@ using Utils.Services;
 
 namespace SysIgreja.Controllers
 {
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Monitor)]
     public class LancamentoController : SysIgrejaControllerBase
     {
         private readonly IParticipantesBusiness participantesBusiness;

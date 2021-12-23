@@ -12,6 +12,7 @@ using Core.Models.Equipantes;
 using Core.Models.Eventos;
 using Core.Models.Lancamento;
 using Core.Models.Participantes;
+using Core.Models.Playground;
 using Core.Models.Quartos;
 using Data.Entities;
 using SysIgreja.ViewModels;
@@ -41,6 +42,7 @@ namespace SysIgreja.Controllers
                 cfg.CreateMap<Quarto, PostQuartoModel>();
                 cfg.CreateMap<Evento, PostEventoModel>();
                 cfg.CreateMap<Participante, ParticipanteSelectModel>();
+                cfg.CreateMap<Playground, PostPlaygroundModel>();
                 cfg.CreateMap<Participante, ParticipanteListModel>()
                     .ForMember(dest => dest.Idade, opt => opt.MapFrom(x => UtilServices.GetAge(x.DataNascimento)))
                     .ForMember(dest => dest.QtdAnexos, opt => opt.MapFrom(x => x.Arquivos.Count()))

@@ -4,6 +4,7 @@ using Core.Business.Eventos;
 using Core.Business.Participantes;
 using Core.Business.Reunioes;
 using Core.Models.Reunioes;
+using Newtonsoft.Json;
 using SysIgreja.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,7 +14,7 @@ using Utils.Extensions;
 namespace SysIgreja.Controllers
 {
 
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Aluno)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Aluno + "," + Usuario.Monitor)]
     public class ReuniaoController : SysIgrejaControllerBase
     {
         private readonly IReunioesBusiness reuniaosBusiness;
@@ -41,7 +42,7 @@ namespace SysIgreja.Controllers
             var verificar = participante != null;
             var result = reuniaosBusiness
                 .GetReunioes(EventoId ?? participante.EventoId)
-                .Where(x => verificar ? x.DataReuniao <= System.DateTime.Today : 1 ==1)
+                .Where(x => verificar ?( !string.IsNullOrEmpty(x.Link)) : 1 ==1)
                 .ToList()
                 .Select(x => new ReuniaoViewModel
                 {
@@ -77,6 +78,35 @@ namespace SysIgreja.Controllers
             reuniaosBusiness.DeleteReuniao(Id);
 
             return new HttpStatusCodeResult(200);
+        }
+
+        public ActionResult ApiStarWars()
+        {
+            var user = GetApplicationUser();
+            var participante = participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0);
+            if (user.Perfil == Utils.Enums.PerfisUsuarioEnum.Monitor || user.Perfil == Utils.Enums.PerfisUsuarioEnum.Admin || participante.MsgAPI)
+            {
+
+            ViewBag.Title = "Star Wars API";
+            GetEventos();
+            return View();
+            }
+
+            return RedirectToAction("../Home/Index");
+        }
+
+        public ActionResult Playground()
+        {
+            var user = GetApplicationUser();
+            var participante = participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0);
+            if (user.Perfil == Utils.Enums.PerfisUsuarioEnum.Monitor || user.Perfil == Utils.Enums.PerfisUsuarioEnum.Admin || participante.MsgGeral)
+            {
+                ViewBag.Title = "Playground";
+                GetEventos();
+                return View();
+            }
+
+            return RedirectToAction("../Home/Index");
         }
     }
 }

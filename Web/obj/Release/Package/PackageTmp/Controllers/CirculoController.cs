@@ -17,7 +17,7 @@ using Utils.Services;
 namespace SysIgreja.Controllers
 {
 
-    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+    [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Monitor)]
     public class CirculoController : SysIgrejaControllerBase
     {
         private readonly ICirculosBusiness circulosBusiness;

@@ -34,6 +34,7 @@ namespace Web
 
             container.RegisterType<IGenericRepositoryConsulta<ParticipanteConsulta>, GenericRepositoryConsulta<ParticipanteConsulta>>();
             container.RegisterType<IGenericRepository<Evento>, GenericRepository<Evento>>();
+            container.RegisterType<IGenericRepository<Playground>, GenericRepository<Playground>>();
             container.RegisterType<IGenericRepository<ApplicationUser>, GenericRepository<ApplicationUser>>();
             container.RegisterType<IGenericRepository<Participante>, GenericRepository<Participante>>();
             container.RegisterType<IGenericRepository<Newsletter>, GenericRepository<Newsletter>>();

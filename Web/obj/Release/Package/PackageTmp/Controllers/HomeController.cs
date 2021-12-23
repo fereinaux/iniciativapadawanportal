@@ -43,7 +43,7 @@ namespace SysIgreja.Controllers
             this.arquivosBusiness = arquivosBusiness;
         }
 
-        [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Secretaria)]
+        [Authorize(Roles = Usuario.Master + "," + Usuario.Admin + "," + Usuario.Monitor)]
         public ActionResult Admin()
         {
             ViewBag.Title = "Sistema de Gestão";
@@ -95,6 +95,10 @@ namespace SysIgreja.Controllers
                 MsgGeral = x.MsgGeral,
                 MsgNoitita = x.MsgNoitita,
                 MsgFoto = x.MsgFoto,
+                MsgCommit = x.MsgCommit,
+                MsgFilme = x.MsgFilme,
+                MsgSprint = x.MsgSprint,
+                MsgAPI = x.MsgAPI,
                 PendenciaBoleto = x.PendenciaBoleto,
                 PendenciaContato = x.PendenciaContato,
                 Foto = x.Arquivos.Any(y => y.IsFoto) ? Convert.ToBase64String(x.Arquivos.FirstOrDefault(y => y.IsFoto).Conteudo) : ""
@@ -221,7 +225,7 @@ namespace SysIgreja.Controllers
             {
                 case PerfisUsuarioEnum.Master:
                 case PerfisUsuarioEnum.Admin:
-                case PerfisUsuarioEnum.Secretaria:
+                case PerfisUsuarioEnum.Monitor:
                     return RedirectToAction("Admin", "Home");
                 case PerfisUsuarioEnum.Aluno:
                     return RedirectToAction("Aluno", "Home");

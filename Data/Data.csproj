@@ -44,6 +44,7 @@
     <Compile Include="Entities\Base\PessoaBase.cs" />
     <Compile Include="Entities\Base\UsuarioBase.cs" />
     <Compile Include="Entities\ParticipanteConsulta.cs" />
+    <Compile Include="Entities\Playground.cs" />
     <Compile Include="Entities\Quarto.cs" />
     <Compile Include="Entities\Circulo.cs" />
     <Compile Include="Entities\QuartoParticipante.cs" />

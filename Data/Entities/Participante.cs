@@ -34,6 +34,11 @@ namespace Data.Entities
         public bool MsgPagamento { get; set; }
         public bool MsgVacina { get; set; }
         public bool MsgGeral { get; set; }
+        public bool MsgCommit { get; set; }
+        public bool MsgFilme { get; set; }
+        public bool MsgSprint { get; set; }
+        public bool MsgAPI { get; set; }
+
         public bool MsgNoitita { get; set; }
         public bool MsgFoto { get; set; }
         public string Observacao { get; set; }

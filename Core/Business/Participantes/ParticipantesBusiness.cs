@@ -12,6 +12,8 @@ using Data.Context;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Utils.Extensions;
+using Core.Business.Account;
+using System.Threading;
 
 namespace Core.Business.Participantes
 {
@@ -22,9 +24,10 @@ namespace Core.Business.Participantes
         private readonly IGenericRepository<EquipanteEvento> equipanteEventoRepository;
         private readonly IEventosBusiness eventosBusiness;
         private readonly ICirculosBusiness circulosBusiness;
+        private readonly IAccountBusiness accountBusiness;
         private readonly IQuartosBusiness quartosBusiness;
 
-        public ParticipantesBusiness(IGenericRepository<Participante> participanteRepository, IGenericRepositoryConsulta<ParticipanteConsulta> participanteConsultaRepository, IQuartosBusiness quartosBusiness, IEventosBusiness eventosBusiness, ICirculosBusiness circulosBusiness, IGenericRepository<EquipanteEvento> equipanteEventoRepository)
+        public ParticipantesBusiness(IGenericRepository<Participante> participanteRepository, IAccountBusiness accountBusiness, IGenericRepositoryConsulta<ParticipanteConsulta> participanteConsultaRepository, IQuartosBusiness quartosBusiness, IEventosBusiness eventosBusiness, ICirculosBusiness circulosBusiness, IGenericRepository<EquipanteEvento> equipanteEventoRepository)
          : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
             this.participanteRepository = participanteRepository;
@@ -32,6 +35,7 @@ namespace Core.Business.Participantes
             this.equipanteEventoRepository = equipanteEventoRepository;
             this.eventosBusiness = eventosBusiness;
             this.quartosBusiness = quartosBusiness;
+            this.accountBusiness = accountBusiness;
             this.circulosBusiness = circulosBusiness;
         }
 
@@ -96,12 +100,10 @@ namespace Core.Business.Participantes
             if (model.Id > 0)
             {
                 participante = MapUpdateParticipante(model);
-                if (model.OldSenha != model.Senha)
-                {
 
-                    var user = UserManager.FindByName(participante.Email);
-                    UserManager.ChangePassword(user.Id, model.OldSenha, model.Senha);
-                }
+                var passwordhash = UserManager.PasswordHasher.HashPassword(model.Senha);
+                accountBusiness.SetSenha(model.Id, passwordhash);
+          
                 participanteRepository.Update(participante);
             }
             else
@@ -355,13 +357,16 @@ namespace Core.Business.Participantes
 
         }
 
-
         public void PostInfo(PostInfoModel model)
         {
             var participante = GetParticipanteById(model.Id);
             participante.Observacao = model.Observacao;
-            participante.MsgGeral = model.MsgGeral;
             participante.MsgVacina = model.MsgVacina;
+            participante.MsgGeral = model.MsgGeral;
+            participante.MsgCommit = model.MsgCommit;
+            participante.MsgFilme = model.MsgFilme;
+            participante.MsgSprint = model.MsgSprint;
+            participante.MsgAPI = model.MsgAPI;
             participante.MsgPagamento = model.MsgPagamento;
             participante.MsgFoto = model.MsgFoto;
             participante.MsgNoitita = model.MsgNoitita;
