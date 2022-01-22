@@ -5,40 +5,40 @@
 }
 
 
-    <style>
-        .password-click {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 10;
-            border: none;
-            background: transparent;
-            outline: none;
-            padding-top: 6px;
-            padding-right: 20px;
-        }
+<style>
+    .password-click {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 10;
+        border: none;
+        background: transparent;
+        outline: none;
+        padding-top: 6px;
+        padding-right: 20px;
+    }
 
-        .img-icon{
-            width: 70%;
-            margin-top: 5px;
-        }
+    .img-icon {
+        width: 70%;
+        margin-top: 5px;
+    }
 
-        .missing {
-            opacity: 0.7;
-        }
+    .missing {
+        opacity: 0.7;
+    }
 
         .missing p, .missing a {
-            display:none;
+            display: none;
         }
 
-        .group-senha {
-            position: relative;
-        }
+    .group-senha {
+        position: relative;
+    }
 
-            .group-senha input {
-                width: 100%;
-            }
-    </style>
+        .group-senha input {
+            width: 100%;
+        }
+</style>
 
 
 <div class="wrapper wrapper-content">
@@ -145,7 +145,7 @@
                         <div class="vertical-timeline-content">
                             <h2>Cavaleiro Jedi</h2>
                             <p>Foi aprovado na mentoria e seu <strong>Certificado</strong> está pronto para Download</p>
-                            <a href="" target="_blank" class="btn btn-sm bg-jedi" id="link-certificate">Download do Certificado</a>
+                            <span onclick="Certificado()" class="btn btn-sm bg-jedi" id="link-certificate">Certificado</span>
                         </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
 
                             <input type="text" class="form-control full-date required" id="participante-data-nascimento" data-field="Data de Nascimento" />
                         </div>
-                
+
                         <div class="col-sm-12 col-lg-6 p-w-md m-t-md text-center">
                             <h5>WhatsApp</h5>
 
@@ -231,6 +231,8 @@
 
     <script src="~/Scripts/app/Home/aluno.js?@ViewBag.Numero"></script>
     <script src="~/Scripts/app/Participante/perfil.js"></script>
+    <script src="~/Images/calibri-normal.js" type="module"></script>
+    <script src="~/Images/calibri-bold.js" type="module"></script>
 
     <script>
 

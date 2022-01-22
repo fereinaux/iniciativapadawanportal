@@ -609,6 +609,14 @@ namespace SysIgreja.Controllers
         }
 
         [HttpPost]
+        public ActionResult ToggleCertificado(int Id)
+        {
+            participantesBusiness.ToggleCertificado(Id);
+
+            return new HttpStatusCodeResult(200);
+        }
+
+        [HttpPost]
         public ActionResult ToggleSexo(int Id)
         {
             participantesBusiness.ToggleSexo(Id);

@@ -880,6 +880,7 @@
     <Content Include="Images\film-gray.png" />
     <Content Include="Images\film.png" />
     <Content Include="Images\gather.png" />
+    <Content Include="Images\linkedin.png" />
     <Content Include="Images\logo_sombra.png" />
     <Content Include="Images\pix-bc-logo.png" />
     <Content Include="Images\planet.png" />
@@ -1018,6 +1019,7 @@
     <Content Include="Images\Bancos\NuBank.png" />
     <Content Include="Images\Bancos\Santander.png" />
     <Content Include="Images\scrum.png" />
+    <Content Include="Images\signature.png" />
     <Content Include="Images\specie.png" />
     <Content Include="Images\startship-gray.png" />
     <Content Include="Images\startship.png" />

@@ -87,7 +87,7 @@ namespace SysIgreja.Controllers
                 HasVacina = x.HasVacina,
                 RestricaoAlimentar = x.RestricaoAlimentar,
                 Sexo = x.Sexo,
-                Status = x.Arquivos.Any(y => y.IsFoto) ? "Aprovado" : x.Status.GetDescription(),
+                Status = x.Status.GetDescription(),
                 Observacao = x.Observacao,
                 MsgVacina = x.MsgVacina,
                 MsgPagamento = x.MsgPagamento,

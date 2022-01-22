@@ -49,6 +49,8 @@ function CarregarTabelaParticipante() {
                         cor = "info";
                     else if (data === Espera)
                         cor = "default";
+                    else
+                        cor = "default";
                     return `<span style="font-size:13px" class="text-center label label-${cor}">${data}</span>`;
                 }
             },
@@ -57,22 +59,18 @@ function CarregarTabelaParticipante() {
                 data: "Id", name: "Id", orderable: false, width: "25%",
                 "render": function (data, type, row) {
                     return row.Status != Cancelado && row.Status != Espera ?
-                        `<form enctype="multipart/form-data" id="frm-vacina${data}" method="post" novalidate="novalidate">
-                                    
-                              ${!row.HasFoto ? ` <label for="arquivo${data}" class="inputFile">
-                                <span style="font-size:18px" class="text-mutted pointer p-l-xs"><i class="fas fa-certificate" aria-hidden="true" title="Vacina"></i></span>
-                                <input onchange='PostVacina(${data},${JSON.stringify(row)})' style="display: none;" class="custom-file-input inputFile" id="arquivo${data}" name="arquivo${data}" type="file" value="">
-                            </label>`: `<span style="font-size:18px" class="text-success p-l-xs pointer" onclick="toggleVacina(${data})"><i class="fas fa-certificate" aria-hidden="true" title="Vacina"></i></span>`}
-                        
+                        `                                   
+                        ${row.Status != "Aprovado" ?
+                            `<span style="font-size:18px" class="text-mutted p-l-xs pointer" onclick="toggleCertificado(${data})"><i class="fas fa-certificate" aria-hidden="true" title="Certificado"></i></span>` :
+                            `<span style="font-size:18px" class="text-success p-l-xs pointer" onclick="toggleCertificado(${data})"><i class="fas fa-certificate" aria-hidden="true" title="Certificado"></i></span>`}                        
                             ${GetAnexosButton('Anexos', data, row.QtdAnexos)}
                             ${GetIconWhatsApp(row.Fone)}
                             ${GetIconTel(row.Fone)}
                             ${GetButton('EditParticipante', data, 'blue', 'fa-edit', 'Editar')}      
                             ${GetButton('ConfirmarVaga', JSON.stringify(row), 'verde', 'fas fa-check', 'Confirmar Vaga')}
-                            ${GetButton('Opcoes', JSON.stringify(row), row.HasContact ? 'blue' : 'cinza', 'fas fa-info-circle', 'Opções')}
-                            
+                            ${GetButton('Opcoes', JSON.stringify(row), row.HasContact ? 'blue' : 'cinza', 'fas fa-info-circle', 'Opções')}                            
                             ${GetButton('CancelarInscricao', JSON.stringify(row), 'red', 'fa-times', 'Cancelar Inscrição')}
-                    </form>`
+                  `
                         : ''
                 }
             }
@@ -285,6 +283,27 @@ function DeleteArquivo(id) {
             });
         }
     });
+}
+
+function toggleCertificado(id) {
+
+    $.ajax(
+        {
+            datatype: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            url: "Participante/ToggleCertificado",
+            data: JSON.stringify(
+                {
+                    Id: id
+                }),
+
+            success: function () {
+                CarregarTabelaParticipante()
+
+            }
+        });
+
 }
 
 
