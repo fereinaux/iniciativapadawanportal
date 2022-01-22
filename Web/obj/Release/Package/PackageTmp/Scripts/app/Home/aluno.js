@@ -34,6 +34,8 @@ function GetResultadosAdmin() {
             }
             if (result.Aluno.Status == 'Aprovado') {
                 $('#jedi').removeClass('missing');
+                $('#link-certificate').attr('href', `/Arquivo/GetArquivo/${result.Aluno.Foto}`)
+
             }
         }
     });

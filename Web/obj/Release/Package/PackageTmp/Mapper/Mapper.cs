@@ -49,7 +49,7 @@ namespace SysIgreja.Controllers
                     .ForMember(dest => dest.HasFoto, opt => opt.MapFrom(x => x.Arquivos.Any(y => y.IsFoto)))
                     .ForMember(dest => dest.HasContact, opt => opt.MapFrom(x => x.MsgFoto || x.MsgGeral || x.MsgVacina || x.MsgPagamento || !string.IsNullOrEmpty(x.Observacao)))
                     .ForMember(dest => dest.Sexo, opt => opt.MapFrom(x => x.Sexo.GetDescription()))
-                    .ForMember(dest => dest.Status, opt => opt.MapFrom(x => x.Status.GetDescription()));
+                    .ForMember(dest => dest.Status, opt => opt.MapFrom(x => x.Arquivos.Any(y => y.IsFoto) ? "Aprovado" : x.Status.GetDescription()));
                 cfg.CreateMap<Equipante, EquipanteListModel>()
                     .ForMember(dest => dest.Idade, opt => opt.MapFrom(x => UtilServices.GetAge(x.DataNascimento)))
                     .ForMember(dest => dest.Sexo, opt => opt.MapFrom(x => x.Sexo.GetDescription()))

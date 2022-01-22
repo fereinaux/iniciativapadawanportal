@@ -26,8 +26,8 @@ $(document).ready(function () {
         fix_height();
     });
 
-    // Collapse ibox function
-    $('.collapse-link').on('click', function (e) {
+
+    function collapse(e) {
         e.preventDefault();
         var ibox = $(this).closest('div.ibox');
         var button = $(this).find('i');
@@ -39,7 +39,9 @@ $(document).ready(function () {
             ibox.resize();
             ibox.find('[id^=map-]').resize();
         }, 50);
-    });
+    }
+    // Collapse ibox function
+    $('.collapse-link').on('click', collapse);
 
     // Close ibox function
     $('.close-link').on('click', function (e) {

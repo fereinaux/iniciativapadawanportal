@@ -101,7 +101,7 @@ namespace SysIgreja.Controllers
                 MsgAPI = x.MsgAPI,
                 PendenciaBoleto = x.PendenciaBoleto,
                 PendenciaContato = x.PendenciaContato,
-                Foto = x.Arquivos.Any(y => y.IsFoto) ? Convert.ToBase64String(x.Arquivos.FirstOrDefault(y => y.IsFoto).Conteudo) : ""
+                Foto = x.Arquivos.Any(y => y.IsFoto) ? x.Arquivos.FirstOrDefault(y => y.IsFoto).Id.ToString() : ""
             };
         }
         [HttpGet]

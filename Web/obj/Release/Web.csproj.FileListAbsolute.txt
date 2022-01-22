@@ -612,3 +612,9 @@ C:\Users\User\source\repos\iniciativapadawanportal\Web\obj\Release\Web.csproj.Co
 C:\Users\User\source\repos\iniciativapadawanportal\Web\obj\Release\Web.csproj.CopyComplete
 C:\Users\User\source\repos\iniciativapadawanportal\Web\obj\Release\Web.dll
 C:\Users\User\source\repos\iniciativapadawanportal\Web\obj\Release\Web.pdb
+C:\Users\User\source\repos\iniciativapadawanportal\Web\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\User\source\repos\iniciativapadawanportal\Web\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\User\source\repos\iniciativapadawanportal\Web\bin\Microsoft.AspNet.SignalR.Core.pdb
+C:\Users\User\source\repos\iniciativapadawanportal\Web\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\User\source\repos\iniciativapadawanportal\Web\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+C:\Users\User\source\repos\iniciativapadawanportal\Web\bin\Microsoft.AspNet.SignalR.SystemWeb.xml

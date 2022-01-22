@@ -2,6 +2,7 @@
 @using Microsoft.AspNet.Identity
 @using Utils.Constants;
 
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>@ViewBag.Title</h2>
@@ -40,6 +41,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="ibox-content">
                 <table id="table-reunioes" class="table table-striped table-bordered table-hover" cellspacing="0" style="width: 100%">
                     <thead>
@@ -54,27 +56,14 @@
                 </table>
             </div>
         </div>
+
+
+
+
+
     }
-    else
-    {
-        <div class="ibox">
-            <div class="ibox-title" style="display: flex;justify-content: space-between;">
-                <h4>@ViewBag.Title</h4>
-            </div>
-            <div class="ibox-content">
-                <table id="table-reunioes" class="table table-striped table-bordered table-hover" cellspacing="0" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th>Data da Aula</th>
-                            <th>Link</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-    }
+
+    <div id="reunioes"></div>
 </div>
 
 <div class="modal inmodal" id="modal-anexos" role="dialog" aria-hidden="true">
@@ -133,6 +122,13 @@
                             <input type="text" class="form-control" id="reuniao-link" data-field="Link" />
                         </div>
 
+                        <div class="col-sm-12 p-w-md text-center">
+                            <h5>Descrição</h5>
+
+                            <textarea style="height:500px" id="reuniao-descricao" class="form-control CodeMirror"></textarea>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -147,13 +143,59 @@
 
 @section Styles {
 
+    <style>
+
+        .ibox-content iframe {
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+
 }
 
 @section Scripts {
 
     <script src="~/Scripts/app/Reuniao/reuniao.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js" integrity="sha512-L03kznCrNOfVxOUovR6ESfCz9Gfny7gihUX/huVbQB9zjODtYpxaVtIaAkpetoiyV2eqWbvxMH9fiSv5enX7bw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+
+        function loadReuniaoAluno() {
+                    $.ajax({
+                url: "/Reuniao/GetReunioes/",
+                datatype: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(
+                    { EventoId: 0 || $("#reuniao-eventoid-consulta").val() }),
+                success: function (data) {
+                        var converter = new showdown.Converter(),
+                    result = data.data
+                    $('#reunioes').html(result.map(r => `<div class="ibox" id="ibox-reuniao${r.Id}">
+            <div class="ibox-title" style="display: flex;justify-content: space-between;">
+                <h4>${r.DataTexto}</h4>
+                <div class="ibox-tools pull-right">
+                    ${'@(User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master) || User.IsInRole(Usuario.Monitor))' == 'True' ? GetButton('EditReuniao', r.Id, 'blue', 'fa-edit', 'Editar') : ''}
+                     ${GetAnexosButton('Anexos', r.Id, r.QtdAnexos)}
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" style="display:none">
+                 ${r.Link ? `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${r.Link}?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>` : ''}
+
+                 <div>
+                    ${ r.Descricao ? converter.makeHtml(r.Descricao) : ""}
+                </div>
+            </div>
+        </div>`).join(''))
+
+                    $('.collapse-link').on('click', collapse);
+                }
+            });
+        }   
+
         var columnsAnexos = '@(User.IsInRole(Usuario.Admin) || User.IsInRole(Usuario.Master) || User.IsInRole(Usuario.Monitor))' == 'True' ? [
             { data: "Nome", name: "Nome", autoWidth: true },
             { data: "Extensao", name: "Extensao", autoWidth: true },
@@ -219,6 +261,5 @@ ${GetAnexosButton('Anexos', data, row.QtdAnexos)}`;
             }
         ]
 
-        console.log(columns)
     </script>
 }

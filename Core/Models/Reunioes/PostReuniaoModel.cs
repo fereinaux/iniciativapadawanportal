@@ -12,5 +12,6 @@ namespace Core.Models.Reunioes
         public int EventoId { get; set; }
         public DateTime DataReuniao { get; set; }
         public string Link { get; set; }
+        public string Descricao { get; set; }
     }
 }

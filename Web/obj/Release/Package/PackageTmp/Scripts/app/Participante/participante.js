@@ -59,11 +59,11 @@ function CarregarTabelaParticipante() {
                     return row.Status != Cancelado && row.Status != Espera ?
                         `<form enctype="multipart/form-data" id="frm-vacina${data}" method="post" novalidate="novalidate">
                                     
-                        ${!row.HasFoto ? ` <label for="foto${data}" class="inputFile">
-                                <span style="font-size:18px" class="text-mutted pointer p-l-xs"><i class="fa fa-camera" aria-hidden="true" title="Foto"></i></span>
-                                <input accept="image/*" onchange='Foto(${JSON.stringify(row)})' style="display: none;" class="custom-file-input inputFile" id="foto${data}" name="foto${data}" type="file" value="">
-                            </label>`: `<span style="font-size:18px" class="text-success p-l-xs pointer" onclick="toggleFoto(${data})"><i class="fa fa-camera" aria-hidden="true" title="Foto"></i></span>`
-                        }
+                              ${!row.HasFoto ? ` <label for="arquivo${data}" class="inputFile">
+                                <span style="font-size:18px" class="text-mutted pointer p-l-xs"><i class="fas fa-certificate" aria-hidden="true" title="Vacina"></i></span>
+                                <input onchange='PostVacina(${data},${JSON.stringify(row)})' style="display: none;" class="custom-file-input inputFile" id="arquivo${data}" name="arquivo${data}" type="file" value="">
+                            </label>`: `<span style="font-size:18px" class="text-success p-l-xs pointer" onclick="toggleVacina(${data})"><i class="fas fa-certificate" aria-hidden="true" title="Vacina"></i></span>`}
+                        
                             ${GetAnexosButton('Anexos', data, row.QtdAnexos)}
                             ${GetIconWhatsApp(row.Fone)}
                             ${GetIconTel(row.Fone)}
@@ -105,33 +105,6 @@ function CarregarTabelaParticipante() {
     $("#table-participante").DataTable(tableParticipanteConfig);
 }
 
-function ConfirmFoto() {
-
-    $("#main-cropper")
-        .croppie("result", {
-            type: "canvas",
-            size: { height: 750, width: 500 }
-        })
-        .then(function (resp) {
-            var dataToPost = new FormData();
-            dataToPost.set('ParticipanteId', realista.Id)
-            dataToPost.set('Arquivo', dataURLtoFile(resp, `Foto ${realista.Nome}.jpg`))
-            dataToPost.set('IsFoto', true)
-            $.ajax(
-                {
-                    processData: false,
-                    contentType: false,
-                    type: "POST",
-                    data: dataToPost,
-                    url: "Arquivo/PostArquivo",
-                    success: function () {
-                        $("#modal-fotos").modal("hide");
-                        CarregarTabelaParticipante()
-
-                    }
-                });
-        });
-}
 
 function dataURLtoFile(dataurl, filename) {
 
@@ -319,8 +292,9 @@ function PostVacina(id, realista) {
     var dataToPost = new FormData($(`#frm-vacina${id}`)[0]);
     dataToPost.set('ParticipanteId', id)
     var filename = dataToPost.get(`arquivo${id}`).name
-    var arquivo = new File([dataToPost.get(`arquivo${id}`)], 'Vacina ' + realista.Nome + filename.substr(filename.indexOf('.')));
+    var arquivo = new File([dataToPost.get(`arquivo${id}`)], 'Certificado ' + realista.Nome + filename.substr(filename.indexOf('.')));
     dataToPost.set('Arquivo', arquivo)
+    dataToPost.set('IsFoto', true)
     $.ajax(
         {
             processData: false,
@@ -329,7 +303,7 @@ function PostVacina(id, realista) {
             data: dataToPost,
             url: "Arquivo/PostArquivo",
             success: function () {
-                toggleVacina(id)
+                CarregarTabelaParticipante()
 
             }
         });
@@ -362,23 +336,56 @@ function toggleFoto(id) {
 
 
 function toggleVacina(id) {
+    ConfirmMessage("Essa ação removerá o certificado, deseja continuar?").then((result) => {
+        if (result) {
+            $.ajax(
+                {
+                    datatype: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    url: "Arquivo/DeleteFotoParticipante",
+                    data: JSON.stringify(
+                        {
+                            Id: id
+                        }),
+
+                    success: function () {
+                        CarregarTabelaParticipante()
+
+                    }
+                });
+        }
+    }
+    )
+}
+
+
+function PostCertificado() {
+
+    var dataToPost = new FormData($('#frm-upload-arquivo-modal')[0]);
+    var filename = dataToPost.get('arquivo-modal').name
+    var arquivo = new File([dataToPost.get('arquivo-modal')], 'Pagamento ' + realista.Nome + filename.substr(filename.indexOf('.')));
+    dataToPost.set('Arquivo', arquivo)
+    dataToPost.set('ParticipanteId', dataToPost.get('ParticipanteIdModal'))
+    dataToPost.set('IsFoto', true)
     $.ajax(
         {
-            datatype: "json",
+            processData: false,
+            contentType: false,
             type: "POST",
-            contentType: 'application/json; charset=utf-8',
-            url: "Participante/ToggleVacina",
-            data: JSON.stringify(
-                {
-                    Id: id
-                }),
-
+            data: dataToPost,
+            url: "Arquivo/PostArquivo",
             success: function () {
-                CarregarTabelaParticipante()
+                if (dataToPost.get('LancamentoIdModal')) {
+                    GetAnexosLancamento();
+                } else {
+                    GetAnexos();
+                }
 
             }
         });
 }
+
 
 function PostArquivo() {
 
@@ -786,7 +793,7 @@ $("#modal-opcoes").on('hidden.bs.modal', function () {
                 MsgCommit: $(`#participante-msgcommit`).prop("checked"),
                 MsgAPI: $(`#participante-msgapi`).prop("checked"),
                 MsgFilme: $(`#participante-msgfilme`).prop("checked"),
-                MsgSprint: $(`#participante-msgsrpint`).prop("checked"),
+                MsgSprint: $(`#participante-msgsprint`).prop("checked"),
                 MsgFoto: $(`#participante-msgfoto`).prop("checked")
             }),
         success: function () {

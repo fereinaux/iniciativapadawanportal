@@ -2,6 +2,8 @@
 @using Microsoft.AspNet.Identity
 @using Utils.Constants;
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://codemirror.net/theme/dracula.css">
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>@ViewBag.Title</h2>
@@ -18,7 +20,21 @@
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
+    @if (!User.IsInRole(Usuario.Admin))
+    {
 
+        <div class="ibox panel-share d-none">
+            <div class="ibox-title" style="display: flex;justify-content: space-between;">
+                <h4>Felipe Reinaux's Playground</h4>
+
+            </div>
+
+            <div class="ibox-content">
+                <textarea id='editor'></textarea>
+            </div>
+
+        </div>
+    }
     <div class="ibox">
         <div class="ibox-title" style="display: flex;justify-content: space-between;">
             <h4>@ViewBag.Title</h4>
@@ -47,7 +63,6 @@
                 </div>
             </div>
         </div>
-
         <div class="ibox-content">
             <div class="row">
                 <div class="col col-sm-2" id="col-arquivos">
@@ -57,8 +72,12 @@
                 </div>
                 <div class="col col-sm-10" id="iframe-div">
 
-
                     <div class="btn-float-iframe">
+                        @if (User.IsInRole(Usuario.Admin))
+                        {
+                            <button class="btn btn-default btnCast" id="btnCast">SHARE <i class="fab fa-chromecast"></i></button>
+                            <button class="btn btn-default btnCast d-none" id="btnStop">STOP <i class="fas fa-stop"></i></button>
+                        }
                         <button class="btn btn-default" id="btnSalvar" onclick="modalPlayground()">NEW <i class="fas fa-plus"></i></button>
                         <button class="btn btn-default" id="btnSalvar" onclick="PostPlayground()">SAVE <i class="fas fa-save"></i></button>
                         <button class="btn btn-default" id="btnAtualizar" onclick="getPlayGround('reload')">REFRESH <i class="fas fa-sync"></i></button>
@@ -100,10 +119,31 @@
             </div>
         </div>
     </div>
+
 </div>
+
+
+
+<script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.35.0/codemirror.js"></script>
+<script src="https://codemirror.net/mode/javascript/javascript.js"></script>
+
+
 
 @section Styles {
     <style>
+
+        .CodeMirror {
+            border: 1px solid #eee;
+            height: auto !important;
+        }
+
+        .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+
         #iframe-div {
             position: relative;
         }
@@ -122,8 +162,8 @@
         }
 
         .del-play {
-           color: #ed5565;
-           font-size:10px;
+            color: #ed5565;
+            font-size: 10px;
         }
 
         .arquivo {
@@ -135,6 +175,7 @@
             }
 
         .btn-float-iframe button {
+            box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
             background-color: #e91e63;
             border-color: #e91e63;
             color: white;
@@ -158,16 +199,99 @@
 @section Scripts {
 
     <script>
+        HideMenu()
+        var hub = $.connection.socketHub;
+        var loading = true;
+        sharing = false
         var playground = ''
         var playgroundSelected = {}
 
+        if ('@User.IsInRole(Usuario.Admin)' != 'True') {
+            var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+                mode: "javascript",
+                theme: "dracula",
+                viewportMargin: Infinity,
+                lineNumbers: true,
+                readOnly: true,
+            });
+            editor.save()
+
+            hub.client.populateCode = function (code) {
+
+
+                    jsonCode = JSON.parse(code)
+                    if (jsonCode.sharing) {
+                        $('.panel-share').removeClass('d-none')
+                    } else {
+                        $('.panel-share').addClass('d-none')
+                    }
+                    editor.getDoc().setValue(jsonCode.files ? jsonCode.files[0].content : '')
+
+            };
+        }
+        $.connection.hub.start().done(function () {
+            loading = false;
+            $('.btnCast').click(function () {
+                $('.btnCast').toggleClass('d-none')
+                sharing = !sharing
+                codigoCast = playgroundSelected.Codigo != null ? JSON.parse(playgroundSelected.Codigo) : {}
+                codigoCast.sharing = sharing
+                hub.server.populateCode(JSON.stringify(codigoCast));
+                CookiePlayground(JSON.stringify(codigoCast))
+            })
+            window.onmessage = function (e) {
+                e.data.sharing = sharing
+                playground = JSON.stringify(e.data)
+                if ('@User.IsInRole(Usuario.Admin)' == 'True') {
+                    hub.server.populateCode(playground);
+                    CookiePlayground(playground)
+                }
+            };
+            // Wire up Send button to call NewContosoChatMessage on the server.
+
+        });
+
+
+        function getSharedPlayground() {
+            $.ajax({
+                url: '/Reuniao/GetSharedPlayground',
+                datatype: "json",
+                type: "POST",
+                success: (data) => {
+                    jsonCode = JSON.parse(data.Playground)
+                    if (jsonCode && jsonCode.sharing && '@User.IsInRole(Usuario.Admin)' != 'True') {
+                        $('.panel-share').removeClass('d-none')
+
+                        editor.getDoc().setValue(jsonCode.files ? jsonCode.files[0].content : '')
+                    }
+                }
+            })
+        }
+
         $(document).ready(function () {
             loadParticipantes()
+            getSharedPlayground();
+           
         });
 
         window.onmessage = function (e) {
             playground = JSON.stringify(e.data)
         };
+
+        function CookiePlayground(code) {
+            $.ajax({
+                url: "/Reuniao/SharingPlayground/",
+                datatype: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(
+                    {
+                        code: code
+                    }),
+                success: function () {
+                }
+            });
+        }
 
         function newPlayground() {
             if (ValidateForm(`#form-playground`)) {
@@ -238,6 +362,7 @@ ${result.data.map(p => `<option value=${p.Id}>${p.Nome}</option>`)}
 
         function SelectPlayground(p) {
             playgroundSelected = p
+
             var iFrame = document.getElementById('playground');
             $('.arquivo').removeClass('selected')
             $(`#code${playgroundSelected.Id}`).addClass('selected')
@@ -249,17 +374,26 @@ ${result.data.map(p => `<option value=${p.Id}>${p.Nome}</option>`)}
                 success: (data) => {
                     let currentCodeObj = JSON.parse(JSON.parse(JSON.stringify(data.Playgrounds.Codigo)))
                     if (currentCodeObj) {
-
+                            codigoCast = currentCodeObj
+                            codigoCast.sharing = sharing
+                            if (!loading && '@User.IsInRole(Usuario.Admin)' == 'True') {
+                                hub.server.populateCode(JSON.stringify(codigoCast));
+                            }
                         iFrame.contentWindow.postMessage({
                             eventType: 'populateCode',
                             language: currentCodeObj.language,
                             files: currentCodeObj.files,
                         }, "*");
                     } else {
+                        var fileObj = [{ name: playgroundSelected.Nome, content: 'console.log("Hello, World!");' }]
+                        codigoCast = { sharing, files: fileObj }
+                        if (!loading && '@User.IsInRole(Usuario.Admin)' == 'True') {
+                            hub.server.populateCode(JSON.stringify(codigoCast));
+                        }
                         iFrame.contentWindow.postMessage({
                             eventType: 'populateCode',
                             language: 'javascript',
-                            files: [{ name: playgroundSelected.Nome, content: 'console.log("Hello, World!");' }],
+                            files: fileObj,
                         }, "*");
                     }
                 }
@@ -303,12 +437,17 @@ ${result.data.map(p => `<option value=${p.Id}>${p.Nome}</option>`)}
                         $('#iframe-div').removeClass('col-sm-12')
 
                         $('.list-playgrounds').html(`
-                                                ${result.map(p => `<li id="code${p.Id}" class="arquivo"><span onclick='SelectPlayground(${JSON.stringify(p)})'>${p.Nome}</span> <i onclick='DeletePlayground(${p.Id})' class="fas fa-trash del-play"></i></li>`).join('')}
-                                            `)
+                                                                    ${result.map(p => `<li id="code${p.Id}" class="arquivo"><span>${p.Nome}</span> <i onclick='DeletePlayground(${p.Id})' class="fas fa-trash del-play"></i></li>`).join('')}
+                                                                `)
+                        result.map(p => {
+                            $(`#code${p.Id}`).click(function () {                 
+                                SelectPlayground(p)
+                            })
+                        })
                         if (param == 'new') {
                             SelectPlayground(result[result.length - 1])
                         } else if (param == 'reload') {
-                            SelectPlayground(playgroundSelected.Id > 0 ? playgroundSelected : result[0] )
+                            SelectPlayground(playgroundSelected.Id > 0 ? playgroundSelected : result[0])
                         } else {
                             SelectPlayground(result[0])
                         }

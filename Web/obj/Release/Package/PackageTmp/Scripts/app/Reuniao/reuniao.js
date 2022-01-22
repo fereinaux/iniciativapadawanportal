@@ -92,6 +92,7 @@ $("#arquivo-modal").change(function () {
 
 $("#modal-anexos").on('hidden.bs.modal', function () {
     CarregarTabelaReuniao()
+    loadReuniaoAluno()
 });
 function GetAnexos(id) {
     const tableArquivoConfig = {
@@ -133,6 +134,7 @@ function GetReuniao(id) {
             success: function (data) {
                 $("#reuniao-id").val(data.Reuniao.Id);
                 $("#reuniao-link").val(data.Reuniao.Link);
+                $("#reuniao-descricao").val(data.Reuniao.Descricao);
                 $("#reuniao-data").val(moment(data.Reuniao.DataReuniao).format('DD/MM/YYYY'));
             }
         });
@@ -164,6 +166,7 @@ function DeleteReuniao(id) {
                 success: function () {
                     SuccessMesageDelete();
                     CarregarTabelaReuniao();
+                    loadReuniaoAluno()
                 }
             });
         }
@@ -182,11 +185,13 @@ function PostReuniao() {
                     Id: $("#reuniao-id").val(),
                     EventoId: $("#reuniao-eventoid-consulta").val(),
                     Link: $("#reuniao-link").val(),
+                    Descricao: $("#reuniao-descricao").val(),
                     DataReuniao: moment($("#reuniao-data").val(), 'DD/MM/YYYY', 'pt-br').toJSON()
                 }),
             success: function () {
                 SuccessMesageOperation();
                 CarregarTabelaReuniao();
+                loadReuniaoAluno()
                 $("#modal-reunioes").modal("hide");
             }
         });
@@ -195,6 +200,7 @@ function PostReuniao() {
 
 $(document).ready(function () {
     CarregarTabelaReuniao();
+    loadReuniaoAluno()
 });
 
 

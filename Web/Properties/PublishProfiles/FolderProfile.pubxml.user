@@ -5,11 +5,11 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Padawan</_PublishTargetUrl>
-    <History>True|2021-11-29T16:31:24.0039683Z;</History>
+    <History>True|2022-01-20T14:08:59.8585441Z;True|2021-12-23T10:19:47.9987287-03:00;True|2021-11-29T13:31:24.0039683-03:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Start/BundleConfig.cs">
-      <publishTime>11/16/2021 15:17:38</publishTime>
+      <publishTime>12/27/2021 10:46:25</publishTime>
     </File>
     <File Include="App_Start/FilterConfig.cs">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -30,28 +30,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:39</publishTime>
     </File>
     <File Include="bin/Arquitetura.dll">
-      <publishTime>12/17/2021 07:38:24</publishTime>
+      <publishTime>01/20/2022 11:08:56</publishTime>
     </File>
     <File Include="bin/Arquitetura.pdb">
-      <publishTime>12/17/2021 07:38:24</publishTime>
+      <publishTime>01/20/2022 11:08:56</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>11/16/2021 15:17:39</publishTime>
     </File>
     <File Include="bin/Core.dll">
-      <publishTime>12/17/2021 07:38:24</publishTime>
+      <publishTime>01/20/2022 11:08:56</publishTime>
     </File>
     <File Include="bin/Core.pdb">
-      <publishTime>12/17/2021 07:38:24</publishTime>
+      <publishTime>01/20/2022 11:08:56</publishTime>
     </File>
     <File Include="bin/CsQuery.dll">
       <publishTime>11/16/2021 15:17:40</publishTime>
     </File>
     <File Include="bin/Data.dll">
-      <publishTime>12/17/2021 07:24:04</publishTime>
+      <publishTime>12/29/2021 17:52:26</publishTime>
     </File>
     <File Include="bin/Data.pdb">
-      <publishTime>12/17/2021 07:24:04</publishTime>
+      <publishTime>12/29/2021 17:52:26</publishTime>
     </File>
     <File Include="bin/en-html2enml.dll">
       <publishTime>11/16/2021 15:17:48</publishTime>
@@ -82,6 +82,18 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
       <publishTime>11/16/2021 15:17:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>04/15/2021 21:26:58</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.Core.pdb">
+      <publishTime>04/15/2021 21:18:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.dll">
+      <publishTime>04/15/2021 21:26:58</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.SignalR.SystemWeb.pdb">
+      <publishTime>04/15/2021 21:19:42</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNetCore.Antiforgery.dll">
       <publishTime>11/16/2021 15:17:40</publishTime>
@@ -603,16 +615,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:48</publishTime>
     </File>
     <File Include="bin/Utils.dll">
-      <publishTime>12/16/2021 11:55:18</publishTime>
+      <publishTime>12/29/2021 13:01:16</publishTime>
     </File>
     <File Include="bin/Utils.pdb">
-      <publishTime>12/16/2021 11:55:18</publishTime>
+      <publishTime>12/29/2021 13:01:16</publishTime>
     </File>
     <File Include="bin/Web.dll">
-      <publishTime>12/17/2021 07:38:25</publishTime>
+      <publishTime>01/20/2022 11:08:57</publishTime>
     </File>
     <File Include="bin/Web.pdb">
-      <publishTime>12/17/2021 07:38:25</publishTime>
+      <publishTime>01/20/2022 11:08:57</publishTime>
     </File>
     <File Include="bin/WebEssentials.AspNetCore.Pwa.dll">
       <publishTime>11/16/2021 15:17:48</publishTime>
@@ -918,7 +930,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/16/2021 09:16:31</publishTime>
     </File>
     <File Include="Controllers/HomeController.cs">
-      <publishTime>12/16/2021 09:16:31</publishTime>
+      <publishTime>01/19/2022 21:18:34</publishTime>
     </File>
     <File Include="Controllers/InscricoesController.cs">
       <publishTime>11/16/2021 16:17:46</publishTime>
@@ -942,7 +954,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/16/2021 09:16:31</publishTime>
     </File>
     <File Include="Controllers/ReuniaoController.cs">
-      <publishTime>12/16/2021 21:45:25</publishTime>
+      <publishTime>12/29/2021 17:41:23</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/16/2021 15:17:39</publishTime>
@@ -1131,7 +1143,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
     <File Include="Global.asax.cs">
-      <publishTime>11/16/2021 15:17:38</publishTime>
+      <publishTime>12/27/2021 10:25:54</publishTime>
     </File>
     <File Include="Helpers/HMTLHelperExtensions.cs">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1314,10 +1326,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/25/2021 10:51:26</publishTime>
     </File>
     <File Include="Mapper/Mapper.cs">
-      <publishTime>12/17/2021 05:49:50</publishTime>
+      <publishTime>01/19/2022 21:27:19</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>11/16/2021 15:17:39</publishTime>
+      <publishTime>12/27/2021 10:20:15</publishTime>
     </File>
     <File Include="Properties/AssemblyInfo.cs">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1326,7 +1338,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
     <File Include="Properties/PublishProfiles/Realidade.pubxml">
-      <publishTime>11/16/2021 15:38:26</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Scripts/app/Arquivo/arquivo.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1356,7 +1368,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/17/2021 16:53:02</publishTime>
     </File>
     <File Include="Scripts/app/Home/aluno.js">
-      <publishTime>11/25/2021 23:47:15</publishTime>
+      <publishTime>01/19/2022 21:20:23</publishTime>
     </File>
     <File Include="Scripts/app/Home/coordenador.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1365,7 +1377,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 16:04:25</publishTime>
     </File>
     <File Include="Scripts/app/inspinia.js">
-      <publishTime>11/16/2021 15:17:38</publishTime>
+      <publishTime>12/29/2021 17:05:35</publishTime>
     </File>
     <File Include="Scripts/app/Lancamento/lancamento.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1386,7 +1398,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
     <File Include="Scripts/app/Participante/participante.js">
-      <publishTime>11/29/2021 13:27:09</publishTime>
+      <publishTime>01/19/2022 21:12:54</publishTime>
     </File>
     <File Include="Scripts/app/Participante/perfil.js">
       <publishTime>11/18/2021 00:27:59</publishTime>
@@ -1410,10 +1422,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
     <File Include="Scripts/app/Reuniao/api.js">
-      <publishTime>11/25/2021 10:58:35</publishTime>
+      <publishTime>01/20/2022 11:08:31</publishTime>
     </File>
     <File Include="Scripts/app/Reuniao/reuniao.js">
-      <publishTime>11/18/2021 01:16:24</publishTime>
+      <publishTime>12/29/2021 17:45:19</publishTime>
     </File>
     <File Include="Scripts/app/skin.config.min.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1422,7 +1434,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/16/2021 09:28:34</publishTime>
     </File>
     <File Include="Scripts/app/Util/buttons.js">
-      <publishTime>11/16/2021 15:17:38</publishTime>
+      <publishTime>12/29/2021 17:07:00</publishTime>
     </File>
     <File Include="Scripts/app/Util/constants.js">
       <publishTime>11/17/2021 16:53:02</publishTime>
@@ -1466,8 +1478,50 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Scripts/bootstrap.min.js.map">
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
+    <File Include="Scripts/jquery-1.6.4-vsdoc.js">
+      <publishTime>12/27/2021 10:20:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.6.4.js">
+      <publishTime>12/27/2021 10:20:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.6.4.min.js">
+      <publishTime>12/27/2021 10:20:11</publishTime>
+    </File>
     <File Include="Scripts/jquery-3.1.1.min.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.intellisense.js">
+      <publishTime>12/27/2021 10:19:32</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.js">
+      <publishTime>12/27/2021 10:19:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.min.js">
+      <publishTime>12/27/2021 10:19:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.min.map">
+      <publishTime>12/27/2021 10:19:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.js">
+      <publishTime>12/27/2021 10:19:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.min.js">
+      <publishTime>12/27/2021 10:19:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.min.map">
+      <publishTime>12/27/2021 10:19:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.2.2.js">
+      <publishTime>12/27/2021 10:19:35</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.2.2.min.js">
+      <publishTime>12/27/2021 10:19:35</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.4.2.js">
+      <publishTime>12/27/2021 10:20:14</publishTime>
+    </File>
+    <File Include="Scripts/jquery.signalR-2.4.2.min.js">
+      <publishTime>12/27/2021 10:20:14</publishTime>
     </File>
     <File Include="Scripts/plugins/chartJs/Chart.min.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1485,7 +1539,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
     <File Include="Scripts/plugins/dataTables/datatable-default-config.js">
-      <publishTime>11/16/2021 15:17:38</publishTime>
+      <publishTime>01/20/2022 10:44:42</publishTime>
     </File>
     <File Include="Scripts/plugins/dataTables/dataTables.colReorder.min.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1583,8 +1637,11 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Scripts/popper.min.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
+    <File Include="SocketHub.cs">
+      <publishTime>12/27/2021 17:26:08</publishTime>
+    </File>
     <File Include="Startup.cs">
-      <publishTime>11/16/2021 15:17:38</publishTime>
+      <publishTime>12/27/2021 10:41:36</publishTime>
     </File>
     <File Include="ViewModels/AccountViewModels.cs">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1638,7 +1695,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
     <File Include="ViewModels/ReuniaoViewModel.cs">
-      <publishTime>11/18/2021 00:47:40</publishTime>
+      <publishTime>12/29/2021 16:48:44</publishTime>
     </File>
     <File Include="ViewModels/UsuarioViewModel.cs">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1674,28 +1731,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/17/2021 21:34:55</publishTime>
     </File>
     <File Include="Views/Home/Aluno.cshtml">
-      <publishTime>11/25/2021 23:29:40</publishTime>
+      <publishTime>01/19/2022 21:19:54</publishTime>
     </File>
     <File Include="Views/Inscricoes/Index.cshtml">
-      <publishTime>11/16/2021 23:52:19</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/Inscricoes/InscricaoCompleta.cshtml">
-      <publishTime>11/16/2021 15:39:25</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/Inscricoes/InscricaoConcluida.cshtml">
-      <publishTime>11/16/2021 16:21:06</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/Inscricoes/InscricaoEspera.cshtml">
-      <publishTime>11/16/2021 15:39:25</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/Inscricoes/InscricoesEncerradas.cshtml">
-      <publishTime>11/16/2021 15:39:54</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/Lancamento/Index.cshtml">
       <publishTime>11/16/2021 16:13:45</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>11/16/2021 15:38:53</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/MeioPagamento/Index.cshtml">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1710,7 +1767,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 16:13:45</publishTime>
     </File>
     <File Include="Views/Participante/Index.cshtml">
-      <publishTime>11/25/2021 23:46:02</publishTime>
+      <publishTime>01/19/2022 21:06:08</publishTime>
     </File>
     <File Include="Views/Participante/ListaTelefonica.cshtml">
       <publishTime>11/16/2021 16:13:45</publishTime>
@@ -1725,22 +1782,22 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 16:13:45</publishTime>
     </File>
     <File Include="Views/Reuniao/ApiStarWars.cshtml">
-      <publishTime>11/25/2021 13:07:38</publishTime>
+      <publishTime>01/20/2022 10:50:43</publishTime>
     </File>
     <File Include="Views/Reuniao/Index.cshtml">
-      <publishTime>12/16/2021 13:39:54</publishTime>
+      <publishTime>01/03/2022 22:23:10</publishTime>
     </File>
     <File Include="Views/Reuniao/Playground.cshtml">
-      <publishTime>12/17/2021 07:30:49</publishTime>
+      <publishTime>12/29/2021 18:12:18</publishTime>
     </File>
     <File Include="Views/Shared/_Footer.cshtml">
-      <publishTime>11/17/2021 21:51:49</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/17/2021 21:43:13</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/Shared/_Navigation.cshtml">
-      <publishTime>12/16/2021 16:15:27</publishTime>
+      <publishTime>12/27/2021 22:29:37</publishTime>
     </File>
     <File Include="Views/Shared/_TopNavbar.cshtml">
       <publishTime>11/17/2021 21:46:49</publishTime>
@@ -1752,13 +1809,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/17/2021 20:51:17</publishTime>
+      <publishTime>12/27/2021 17:42:24</publishTime>
     </File>
     <File Include="Web.csproj">
-      <publishTime>12/13/2021 12:04:51</publishTime>
+      <publishTime>01/03/2022 22:24:38</publishTime>
     </File>
     <File Include="Web.csproj.user">
-      <publishTime>12/17/2021 07:38:24</publishTime>
+      <publishTime>01/20/2022 11:08:54</publishTime>
     </File>
     <File Include="Web.Debug.config">
       <publishTime>11/16/2021 15:17:38</publishTime>

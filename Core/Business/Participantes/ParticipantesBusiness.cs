@@ -320,6 +320,13 @@ namespace Core.Business.Participantes
             participanteRepository.Update(participante);
             participanteRepository.Save();
         }
+        public void ToggleCertificado(int id)
+        {
+            var participante = GetParticipanteById(id);
+            participante.Status = participante.Status == StatusEnum.Confirmado ? StatusEnum.Aprovado : StatusEnum.Confirmado;
+            participanteRepository.Update(participante);
+            participanteRepository.Save();
+        }
 
         public IQueryable<Participante> GetParentesByEvento(int eventoId)
         {

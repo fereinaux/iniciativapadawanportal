@@ -9,6 +9,8 @@ namespace SysIgreja.ViewModels
         public int Presenca { get; set; }
         public int QtdAnexos { get; set; }
         public string Link { get; internal set; }
+        public string DataTexto { get; internal set; }
+        public string Descricao { get; internal set; }
     }
 
     

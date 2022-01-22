@@ -28,6 +28,11 @@ namespace SysIgreja
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-3.1.1.min.js"));
 
+            // jQuerySignalR
+            bundles.Add(new ScriptBundle("~/bundles/jquerySignalR").Include(
+                        "~/Scripts/jquery.signalR-2.4.2.min",
+                        "~/signalr/hubs"));
+
             // jsCrop 
             bundles.Add(new ScriptBundle("~/bundles/jscrop").Include(
                         "~/Scripts/plugins/jsCrop-master/js-crop.js"));

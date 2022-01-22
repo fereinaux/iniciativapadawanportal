@@ -25,5 +25,7 @@ namespace Core.Business.Participantes
         void PostInfo(PostInfoModel model);        
         void SolicitarBoleto(int id);
         void ToggleSexo(int id);
+        void ToggleCertificado(int id);
+
     }
 }

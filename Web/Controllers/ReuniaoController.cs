@@ -6,7 +6,10 @@ using Core.Business.Reunioes;
 using Core.Models.Reunioes;
 using Newtonsoft.Json;
 using SysIgreja.ViewModels;
+using System;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Web;
 using System.Web.Mvc;
 using Utils.Constants;
 using Utils.Extensions;
@@ -20,7 +23,7 @@ namespace SysIgreja.Controllers
         private readonly IReunioesBusiness reuniaosBusiness;
         private readonly IParticipantesBusiness participantesBusiness;
 
-        public ReuniaoController(IReunioesBusiness ReuniaosBusiness, IParticipantesBusiness participantesBusiness, IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness) :base(eventosBusiness, accountBusiness)
+        public ReuniaoController(IReunioesBusiness ReuniaosBusiness, IParticipantesBusiness participantesBusiness, IEventosBusiness eventosBusiness, IAccountBusiness accountBusiness) : base(eventosBusiness, accountBusiness)
         {
             this.reuniaosBusiness = ReuniaosBusiness;
             this.participantesBusiness = participantesBusiness;
@@ -42,13 +45,15 @@ namespace SysIgreja.Controllers
             var verificar = participante != null;
             var result = reuniaosBusiness
                 .GetReunioes(EventoId ?? participante.EventoId)
-                .Where(x => verificar ?( !string.IsNullOrEmpty(x.Link)) : 1 ==1)
+                .Where(x => verificar ? ((!string.IsNullOrEmpty(x.Link)) || (!string.IsNullOrEmpty(x.Descricao))  ) : 1 == 1)
                 .ToList()
                 .Select(x => new ReuniaoViewModel
                 {
                     Id = x.Id,
                     Link = x.Link,
                     DataReuniao = x.DataReuniao,
+                    DataTexto = x.DataReuniao.ToString("dd/MM/yyyy"),
+                    Descricao = x.Descricao,
                     Presenca = x.Presenca.Count(),
                     QtdAnexos = x.Arquivos.Count()
                 });
@@ -61,7 +66,7 @@ namespace SysIgreja.Controllers
         {
             var result = reuniaosBusiness.GetReuniaoById(Id);
 
-            return Json(new { Reuniao = new ReuniaoViewModel {DataReuniao = result.DataReuniao, Link = result.Link, Id = result.Id } }, JsonRequestBehavior.AllowGet);
+            return Json(new { Reuniao = new ReuniaoViewModel { Descricao = result.Descricao,DataReuniao = result.DataReuniao, Link = result.Link, Id = result.Id } }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -87,20 +92,40 @@ namespace SysIgreja.Controllers
             if (user.Perfil == Utils.Enums.PerfisUsuarioEnum.Monitor || user.Perfil == Utils.Enums.PerfisUsuarioEnum.Admin || participante.MsgAPI)
             {
 
-            ViewBag.Title = "Star Wars API";
-            GetEventos();
-            return View();
+                ViewBag.Title = "Star Wars API";
+                GetEventos();
+                return View();
             }
 
             return RedirectToAction("../Home/Index");
         }
 
+        [HttpPost]
+        public ActionResult SharingPlayground(string code)
+        {
+            HttpContext.Cache["Playground"] = code;
+            return new HttpStatusCodeResult(200);
+        }
+
+
+        [HttpPost]
+        public ActionResult GetSharedPlayground()
+        {
+            return Json(new
+            {
+                Playground = HttpContext.Cache["Playground"]
+            });
+
+        }
         public ActionResult Playground()
         {
             var user = GetApplicationUser();
             var participante = participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0);
             if (user.Perfil == Utils.Enums.PerfisUsuarioEnum.Monitor || user.Perfil == Utils.Enums.PerfisUsuarioEnum.Admin || participante.MsgGeral)
             {
+
+                ViewBag.Playground = HttpContext.Cache["Playground"];
+
                 ViewBag.Title = "Playground";
                 GetEventos();
                 return View();

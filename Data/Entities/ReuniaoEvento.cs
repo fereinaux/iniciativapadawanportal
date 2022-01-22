@@ -19,5 +19,6 @@ namespace Data.Entities
         public DateTime DataReuniao { get; set; }
         public ICollection<PresencaReuniao> Presenca { get; set; }
         public virtual ICollection<Arquivo> Arquivos { get; set; }
+        public string Descricao { get; set; }
     }
 }
