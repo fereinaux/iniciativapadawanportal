@@ -260,6 +260,7 @@ function PostArquivo() {
     var dataToPost = new FormData($('#frm-upload-arquivos')[0]);
     console.log(lancamento)
     dataToPost.set('ParticipanteId', lancamento.ParticipanteId)
+    dataToPost.set('LancamentoId', $("#LancamentoId").val())
 
     $.ajax(
         {

@@ -78,6 +78,19 @@ function verifyErrors(errors, api, data) {
     }
 }
 
+function handleGenericError(caller, errors, xhr) {
+    let error = ''
+    switch (xhr.status) {
+        case 0:
+            error = "Missing <strong>CORS</strong>"
+            break;
+        default:
+            error = "Undefined Error"
+    }
+    errors.push({
+        api: caller.url.substring(caller.url.lastIndexOf('/') + 1), method: caller.type, error
+    })
+}
 
 function ExecApi() {
     $('#errors-list').html('')
@@ -89,7 +102,7 @@ function ExecApi() {
     let errors = []
     urlbase = $('#endpoint-movies').val()
     carregarTabelaFilmes()
-    Promise.all([
+    Promise.allSettled([
         $.ajax({
             url: `${urlbase}/people`,
             datatype: "json",
@@ -104,7 +117,8 @@ function ExecApi() {
                         verifyErrors(errors, 'people', data)
                     }
                 }
-            }
+            },
+            error: function (xhr) { handleGenericError(this, errors, xhr) }
         }),
         $.ajax({
             url: `${urlbase}/movies`,
@@ -120,7 +134,8 @@ function ExecApi() {
                         verifyErrors(errors, 'movies', data)
                     }
                 }
-            }
+            },
+            error: function (xhr) { handleGenericError(this, errors, xhr) }
         }),
         $.ajax({
             url: `${urlbase}/spaceships`,
@@ -136,7 +151,8 @@ function ExecApi() {
                         verifyErrors(errors, 'spaceships', data)
                     }
                 }
-            }
+            },
+            error: function (xhr) { handleGenericError(this, errors, xhr) }
         }),
         $.ajax({
             url: `${urlbase}/planets`,
@@ -152,7 +168,8 @@ function ExecApi() {
                         verifyErrors(errors, 'planets', data)
                     }
                 }
-            }
+            },
+            error: function (xhr) { handleGenericError(this, errors, xhr) }
         }),
         $.ajax({
             url: `${urlbase}/vehicles`,
@@ -168,7 +185,8 @@ function ExecApi() {
                         verifyErrors(errors, 'vehicles', data)
                     }
                 }
-            }
+            },
+            error: function (xhr) { handleGenericError(this, errors, xhr) }
         }),
         $.ajax({
             url: `${urlbase}/species`,
@@ -184,108 +202,116 @@ function ExecApi() {
                         verifyErrors(errors, 'species', data)
                     }
                 }
-            }
+            },
+            error: function (xhr) { handleGenericError(this, errors, xhr) }
         })]).then(values => {
-            $.ajax({
-                url: `${urlbase}/movies`,
-                datatype: "json",
-                type: "POST",
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(
-                    {
-                        name: "API TEST 99999999",
-                        sequential: 99999999,
-                        type: 'API Test POST'
-                    }),
-                success: function () {
-                    contador++;
-                    $.ajax({
-                        url: `${urlbase}/movies`,
-                        datatype: "json",
-                        type: "GET",
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                            if (data) {
-                                if (data.hasOwnProperty('data')) {
-                                    let movie = data.data.find(movie => movie.type == "API Test POST")
-                                    if (movie) {
-                                        let index = movie.index
-                                        $.ajax({
-                                            url: `${urlbase}/movies/${index}`,
-                                            datatype: "json",
-                                            type: "PUT",
-                                            contentType: 'application/json; charset=utf-8',
-                                            data: JSON.stringify(
-                                                {
-                                                    name: "API TEST 99999999",
-                                                    sequential: 99999999,
-                                                    type: 'API Test PUT'
-                                                }),
-                                            success: function () {
-                                                contador++;
-                                                $.ajax(
+            if (values[0].status != "rejected") {
+                $.ajax({
+                    url: `${urlbase}/movies`,
+                    datatype: "json",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(
+                        {
+                            name: "API TEST 99999999",
+                            sequential: 99999999,
+                            type: 'API Test POST'
+                        }),
+                    success: function () {
+                        contador++;
+                        $.ajax({
+                            url: `${urlbase}/movies`,
+                            datatype: "json",
+                            type: "GET",
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                if (data) {
+                                    if (data.hasOwnProperty('data')) {
+                                        let movie = data.data.find(movie => movie.type == "API Test POST")
+                                        if (movie) {
+                                            let index = movie.index
+                                            $.ajax({
+                                                url: `${urlbase}/movies/${index}`,
+                                                datatype: "json",
+                                                type: "PUT",
+                                                contentType: 'application/json; charset=utf-8',
+                                                data: JSON.stringify(
                                                     {
-                                                        datatype: "json",
-                                                        type: "DELETE",
-                                                        contentType: 'application/json; charset=utf-8',
-                                                        url: `${urlbase}/movies/${index}`,
-                                                        success: function () {
-                                                            contador++
-                                                            execMontagem(contador, errors)
-                                                        }, error: function (xhr, ajaxOptions, thrownError) {
-                                                            errors.push({
-                                                                api: 'movies', method: 'DELETE', error: JSON.stringify(xhr)
-                                                            })
-                                                            execMontagem(contador, errors)
+                                                        name: "API TEST 99999999",
+                                                        sequential: 99999999,
+                                                        type: 'API Test PUT'
+                                                    }),
+                                                success: function () {
+                                                    contador++;
+                                                    $.ajax(
+                                                        {
+                                                            datatype: "json",
+                                                            type: "DELETE",
+                                                            contentType: 'application/json; charset=utf-8',
+                                                            url: `${urlbase}/movies/${index}`,
+                                                            success: function () {
+                                                                contador++
+                                                                execMontagem(contador, errors)
+                                                            }, error: function (xhr, ajaxOptions, thrownError) {
+                                                                errors.push({
+                                                                    api: 'movies', method: 'DELETE', error: JSON.stringify(xhr)
+                                                                })
+                                                                execMontagem(contador, errors)
 
-                                                        }
-                                                    });
-                                            },
-                                            error: function (xhr, ajaxOptions, thrownError) {
-                                                errors.push({
-                                                    api: 'movies', method: 'PUT', error: JSON.stringify(xhr)
-                                                })
+                                                            }
+                                                        });
+                                                },
+                                                error: function (xhr, ajaxOptions, thrownError) {
+                                                    errors.push({
+                                                        api: 'movies', method: 'PUT', error: JSON.stringify(xhr)
+                                                    })
 
-                                                errors.push({
-                                                    api: 'movies', method: 'DELETE', error: "Can not test <strong>DELETE</strong> because <strong>PUT</strong> is incorrect"
-                                                })
-                                                execMontagem(contador, errors)
-                                            }
-                                        });
+                                                    errors.push({
+                                                        api: 'movies', method: 'DELETE', error: "Can not test <strong>DELETE</strong> because <strong>PUT</strong> is incorrect"
+                                                    })
+                                                    execMontagem(contador, errors)
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        errors.push({
+                                            api: 'movies', method: 'PUT', error: "Can not test <strong>PUT</strong> because <strong>GET</strong> is incorrect"
+                                        })
+
+                                        errors.push({
+                                            api: 'movies', method: 'DELETE', error: "Can not test <strong>DELETE</strong> because <strong>GET</strong> is incorrect"
+                                        })
+                                        execMontagem(contador, errors)
                                     }
-                                } else {
-                                    errors.push({
-                                        api: 'movies', method: 'PUT', error: "Can not test <strong>PUT</strong> because <strong>GET</strong> is incorrect"
-                                    })
-
-                                    errors.push({
-                                        api: 'movies', method: 'DELETE', error: "Can not test <strong>DELETE</strong> because <strong>GET</strong> is incorrect"
-                                    })
-                                    execMontagem(contador, errors)
                                 }
                             }
-                        }
-                    })
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    errors.push({
-                        api: 'movies', method: 'POST', error: JSON.stringify({ status: xhr.status, statusText: xhr.statusText, responseText: xhr.responseText, })
-                    })
+                        })
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        errors.push({
+                            api: 'movies', method: 'POST', error: JSON.stringify({ status: xhr.status, statusText: xhr.statusText, responseText: xhr.responseText, })
+                        })
 
-                    errors.push({
-                        api: 'movies', method: 'PUT', error: "Can not test <strong>PUT</strong> because <strong>POST</strong> is incorrect"
-                    })
+                        errors.push({
+                            api: 'movies', method: 'PUT', error: "Can not test <strong>PUT</strong> because <strong>POST</strong> is incorrect"
+                        })
 
-                    errors.push({
-                        api: 'movies', method: 'DELETE', error: "Can not test <strong>DELETE</strong> because <strong>POST</strong> is incorrect"
-                    })
-                    execMontagem(contador, errors)
-                }
-            })
-
+                        errors.push({
+                            api: 'movies', method: 'DELETE', error: "Can not test <strong>DELETE</strong> because <strong>POST</strong> is incorrect"
+                        })
+                        execMontagem(contador, errors)
+                    }
+                })
+            } else {
+                execMontagem(contador, errors)
+            }
         })
 
 }
+
+$(document).ready(() => {
+    HideMenu();
+});
 
 function execMontagem(contador, errors) {
     $('#result-api').removeClass('d-none')
@@ -308,15 +334,20 @@ function execMontagem(contador, errors) {
                 default:
                     cor = 'default';
                     break;
-            }
-            $('#errors-list').append(`
-                <div class= "div-erro">
-                    <p>API: ${error.api}</p>
-                    <p>Método: <span style="font-size:13px" class="text-center label label-${cor}">${error.method}</span></p>
-                    ${isJSON(error.error)}
-                    
-                </div >
-`)
+            }          
+            $('#errors-list').append(
+                `<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Error</title>
+  </head>
+  <body>
+    <pre style="line-height: 2;margin:10px;">API: ${error.api}
+Método: <span style="font-size:13px" class="text-center label label-${cor}">${error.method}</span>
+<span style="font-size:13px" class="text-center text-danger">${isJSON(error.error)}</span></pre>
+  </body>
+</html>`
+            )
         })
 
     } else {
@@ -413,7 +444,7 @@ function DeleteFilme(filme) {
                     contentType: 'application/json; charset=utf-8',
                     url: `${urlbase}/movies/${filme.index}`,
                     success: function () {
-                        ExecApi()
+                        handleMovies()
 
                     }
                 });
@@ -446,10 +477,27 @@ function SaveFilme() {
                     type: $("input[type=radio][name=filme-tipo]:checked").val()
                 }),
             success: function () {
-                SuccessMesageOperation();
-                ExecApi();
+                handleMovies()
                 $("#modal-filme").modal("hide");
             }
         });
     }
+}
+
+function handleMovies() {
+    SuccessMesageOperation();
+    carregarTabelaFilmes();
+    $.ajax({
+        url: `${urlbase}/movies`,
+        datatype: "json",
+        type: "GET",
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (data) {
+                if (data.hasOwnProperty('count')) {
+                    $('#films').text(data.count)
+                }
+            }
+        }
+    })
 }

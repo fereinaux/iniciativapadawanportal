@@ -100,7 +100,6 @@ namespace SysIgreja.Controllers
         [HttpPost]
         public ActionResult PostArquivo(PostArquivoModel model)
         {
-            model.EventoId = model.EventoId.HasValue ? model.EventoId.Value : eventosBusiness.GetEventoAtivo().Id;
             arquivosBusiness.PostArquivo(model);
 
             return new HttpStatusCodeResult(200);

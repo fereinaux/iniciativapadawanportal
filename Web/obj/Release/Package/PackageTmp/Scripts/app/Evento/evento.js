@@ -228,6 +228,8 @@ function DeleteArquivo(id) {
 
 function PostArquivo() {
     var dataToPost = new FormData($('#frm-upload-arquivos')[0]);
+    dataToPost.set('EventoId', $("#EventoId").val())
+
     $.ajax(
         {
             processData: false,

@@ -30,19 +30,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:39</publishTime>
     </File>
     <File Include="bin/Arquitetura.dll">
-      <publishTime>01/22/2022 00:33:34</publishTime>
+      <publishTime>01/24/2022 12:36:37</publishTime>
     </File>
     <File Include="bin/Arquitetura.pdb">
-      <publishTime>01/22/2022 00:33:34</publishTime>
+      <publishTime>01/24/2022 12:36:37</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>11/16/2021 15:17:39</publishTime>
     </File>
     <File Include="bin/Core.dll">
-      <publishTime>01/22/2022 00:33:34</publishTime>
+      <publishTime>01/24/2022 12:36:37</publishTime>
     </File>
     <File Include="bin/Core.pdb">
-      <publishTime>01/22/2022 00:33:34</publishTime>
+      <publishTime>01/24/2022 12:36:37</publishTime>
     </File>
     <File Include="bin/CsQuery.dll">
       <publishTime>11/16/2021 15:17:40</publishTime>
@@ -621,10 +621,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/29/2021 13:01:16</publishTime>
     </File>
     <File Include="bin/Web.dll">
-      <publishTime>01/22/2022 03:02:58</publishTime>
+      <publishTime>01/24/2022 12:36:37</publishTime>
     </File>
     <File Include="bin/Web.pdb">
-      <publishTime>01/22/2022 03:02:58</publishTime>
+      <publishTime>01/24/2022 12:36:37</publishTime>
     </File>
     <File Include="bin/WebEssentials.AspNetCore.Pwa.dll">
       <publishTime>11/16/2021 15:17:48</publishTime>
@@ -909,7 +909,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/15/2021 11:35:51</publishTime>
     </File>
     <File Include="Controllers/ArquivoController.cs">
-      <publishTime>11/18/2021 01:00:02</publishTime>
+      <publishTime>01/23/2022 12:25:38</publishTime>
     </File>
     <File Include="Controllers/CentroCustoController.cs">
       <publishTime>12/16/2021 09:16:31</publishTime>
@@ -1368,7 +1368,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 16:31:35</publishTime>
     </File>
     <File Include="Scripts/app/Evento/evento.js">
-      <publishTime>11/16/2021 15:50:48</publishTime>
+      <publishTime>01/23/2022 12:28:38</publishTime>
     </File>
     <File Include="Scripts/app/Home/admin.js">
       <publishTime>11/17/2021 16:53:02</publishTime>
@@ -1386,7 +1386,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/29/2021 17:05:35</publishTime>
     </File>
     <File Include="Scripts/app/Lancamento/lancamento.js">
-      <publishTime>11/16/2021 15:17:38</publishTime>
+      <publishTime>01/23/2022 12:29:28</publishTime>
     </File>
     <File Include="Scripts/app/MeioPagamento/meio-pagamento.js">
       <publishTime>11/16/2021 15:17:38</publishTime>
@@ -1428,7 +1428,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 15:17:38</publishTime>
     </File>
     <File Include="Scripts/app/Reuniao/api.js">
-      <publishTime>01/22/2022 02:49:57</publishTime>
+      <publishTime>01/23/2022 13:40:27</publishTime>
     </File>
     <File Include="Scripts/app/Reuniao/reuniao.js">
       <publishTime>12/29/2021 17:45:19</publishTime>
@@ -1788,7 +1788,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2021 16:13:45</publishTime>
     </File>
     <File Include="Views/Reuniao/ApiStarWars.cshtml">
-      <publishTime>01/22/2022 03:01:53</publishTime>
+      <publishTime>01/23/2022 13:42:03</publishTime>
     </File>
     <File Include="Views/Reuniao/Index.cshtml">
       <publishTime>01/03/2022 22:23:10</publishTime>
@@ -1818,10 +1818,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/27/2021 17:42:24</publishTime>
     </File>
     <File Include="Web.csproj">
-      <publishTime>01/22/2022 00:19:08</publishTime>
+      <publishTime>01/23/2022 12:31:06</publishTime>
     </File>
     <File Include="Web.csproj.user">
-      <publishTime>01/22/2022 03:02:54</publishTime>
+      <publishTime>01/24/2022 12:36:35</publishTime>
     </File>
     <File Include="Web.Debug.config">
       <publishTime>11/16/2021 15:17:38</publishTime>

@@ -766,14 +766,12 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CentroCustoController.cs" />
-    <Compile Include="Controllers\QuartoController.cs" />
     <Compile Include="Controllers\EquipeController.cs" />
     <Compile Include="Controllers\EquipanteController.cs" />
     <Compile Include="Controllers\ContaBancariaController.cs" />
     <Compile Include="Controllers\ArquivoController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\ParticipanteController.cs" />
-    <Compile Include="Controllers\CirculoController.cs" />
     <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\ReuniaoController.cs" />
     <Compile Include="Controllers\MeioPagamentoController.cs" />
@@ -1024,7 +1022,6 @@
     <Content Include="Images\startship-gray.png" />
     <Content Include="Images\startship.png" />
     <Content Include="Images\vehicle.png" />
-    <Content Include="Scripts\app\Participante\checkin.js" />
     <Content Include="Scripts\app\Participante\perfil.js" />
     <Content Include="Scripts\app\Quarto\quarto.js" />
     <Content Include="Scripts\app\Equipante\equipante.js" />
@@ -1037,10 +1034,7 @@
     <Content Include="Scripts\app\Lancamento\lancamento.js" />
     <Content Include="Scripts\app\Home\admin.js" />
     <Content Include="Scripts\app\Home\aluno.js" />
-    <Content Include="Scripts\app\Participante\etiquetas.js" />
-    <Content Include="Scripts\app\Participante\boletos.js" />
     <Content Include="Scripts\app\Participante\participante.js" />
-    <Content Include="Scripts\app\Participante\lista-telefonica.js" />
     <Content Include="Scripts\app\Relatorio\financeiro.js" />
     <Content Include="Scripts\app\Relatorio\parentes.js" />
     <Content Include="Scripts\app\Relatorio\restricoes.js" />
@@ -1143,7 +1137,6 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Reuniao\Index.cshtml" />
     <Content Include="Views\Equipante\Index.cshtml" />
-    <Content Include="Views\Participante\ListaTelefonica.cshtml" />
     <Content Include="Views\Participante\Index.cshtml" />
     <Content Include="Views\Equipe\Index.cshtml" />
     <Content Include="Views\Equipe\Presenca.cshtml" />
@@ -1151,13 +1144,8 @@
     <Content Include="Views\ContaBancaria\Index.cshtml" />
     <Content Include="Views\CentroCusto\Index.cshtml" />
     <Content Include="Views\Arquivo\Index.cshtml" />
-    <Content Include="Views\Participante\Boletos.cshtml" />
     <Content Include="Views\Lancamento\Index.cshtml" />
-    <Content Include="Views\Participante\Etiquetas.cshtml" />
-    <Content Include="Views\Circulo\Index.cshtml" />
     <Content Include="Views\Relatorio\Index.cshtml" />
-    <Content Include="Views\Quarto\Index.cshtml" />
-    <Content Include="Views\Participante\Checkin.cshtml" />
     <Content Include="Views\Inscricoes\InscricaoCompleta.cshtml" />
     <None Include="Properties\PublishProfiles\encareasua.com.br - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Realidade.pubxml" />

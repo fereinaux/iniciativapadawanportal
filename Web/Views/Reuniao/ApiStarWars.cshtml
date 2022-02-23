@@ -19,7 +19,7 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
 
-    <div class="ibox">
+    <div class="ibox" style="margin-bottom:0px">
         <div class="ibox-title" style="display: flex;justify-content: space-between;">
             <h4>@ViewBag.Title</h4>
         </div>
@@ -39,119 +39,122 @@
             </div>
         </div>
     </div>
+    <div class="row p-h-xs">
+        <div class="col-xs-12 col-lg-6">
 
-
-    <div class="ibox m-t-lg d-none" id="test-api">
-        <div class="ibox-title" style="display: flex;justify-content: space-between;">
-            <h4>Testes da API</h4>
-        </div>
-        <div class="ibox-content">
-            <div class="row p-h-xs" style="display:flex">
-                <div class="p-w-xs" style="flex:1;max-width:30%">
-                    <h5 class="text-center">Resultado Geral</h5>
-                    <canvas id="qtdApi"></canvas>
+            <div class="ibox m-t-md d-none" id="test-api">
+                <div class="ibox-title" style="display: flex;justify-content: space-between;">
+                    <h4>Testes da API</h4>
                 </div>
-                <div class="p-w-xs d-none" style="flex:1" id="errors-api">
-                    <h5 class="text-center">Erros</h5>
-                    <div id="errors-list" style="display: flex; flex-basis: auto; flex-wrap: wrap;">
+                <div class="ibox-content">
+                    <div class="row p-h-xs" style="display:flex">
+                        <div class="p-w-xs" style="flex:1;max-width:30%">
+                            <h5 class="text-center">Resultado Geral</h5>
+                            <canvas id="qtdApi"></canvas>
+                        </div>
+                        <div class="p-w-xs d-none" style="flex:1" id="errors-api">
+                            <h5 class="text-center">Erros</h5>
+                            <div id="errors-list" style="display: flex; flex-basis: auto; flex-wrap: wrap;">
 
 
-                    </div>
-                </div>
+                            </div>
+                        </div>
 
-                <div class="p-w-xs d-none" style="flex:1" id="allcorrect-api">
-                    <div style="height:100%; display:flex">
-                        <h1 class="text-center" style="margin:auto">Parabéns! Todas as requisições foram executadas sem apresentar erros!</h1>
+                        <div class="p-w-xs d-none" style="flex:1" id="allcorrect-api">
+                            <div style="height:100%; display:flex">
+                                <h3 class="text-center" style="margin:auto">Parabéns! Todas as requisições foram executadas sem apresentar erros!</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-xs-12 col-lg-6">
+            <div class="ibox m-t-md d-none" id="result-api">
 
-
-    <div class="ibox m-t-lg d-none" id="result-api">
-
-        <div class="ibox-title" style="display: flex;justify-content: space-between;">
-            <h4>Resultados da API</h4>
-        </div>
-        <div class="ibox-content">
-            <div class="row vertical-align m-b-md">
-
-                <div class="col-xs-6 col-lg-2 p-w-xs">
-                    <div class="width100 bloco widget black-bg p-lg text-center">
-                        <div class="m-b-xs">
-                            <img class="img-api" src="~/Images/film.png" />
-                            <h1 class="m-xs" id="films">0</h1>
-
-                            <small>Filmes</small>
-                        </div>
-                    </div>
+                <div class="ibox-title" style="display: flex;justify-content: space-between;">
+                    <h4>Resultados da API</h4>
                 </div>
-                <div class="col-xs-6 col-lg-2 p-w-xs">
-                    <div class="width100 bloco widget lazur-bg p-lg text-center">
-                        <div class="m-b-xs">
-                            <img class="img-api" src="~/Images/planet.png" />
-                            <h1 class="m-xs" id="planets">0</h1>
+                <div class="ibox-content">
+                    <div class="row vertical-align m-b-md">
 
-                            <small>Planetas</small>
+                        <div class="col-xs-6 col-lg-2 p-w-xs">
+                            <div class="width300 bloco widget black-bg p-xs text-center">
+                                <div class="m-b-xs">
+                                    <img class="img-api" src="~/Images/film.png" />
+                                    <h3 class="m-xs" id="films">0</h3>
+
+                                    <small>Filmes</small>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-lg-2 p-w-xs">
-                    <div class="width100 bloco widget blue-bg p-lg text-center">
-                        <div class="m-b-xs">
-                            <img class="img-api" src="~/Images/character.png" />
-                            <h1 class="m-xs" id="characters">0</h1>
+                        <div class="col-xs-6 col-lg-2 p-w-xs">
+                            <div class="width300 bloco widget lazur-bg p-xs text-center">
+                                <div class="m-b-xs">
+                                    <img class="img-api" src="~/Images/planet.png" />
+                                    <h3 class="m-xs" id="planets">0</h3>
 
-                            <small>Personagens</small>
+                                    <small>Planetas</small>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-lg-2 p-w-xs">
-                    <div class="width100 bloco widget navy-bg p-lg text-center">
-                        <div class="m-b-xs">
-                            <img class="img-api" src="~/Images/specie.png" />
-                            <h1 class="m-xs" id="species">0</h1>
+                        <div class="col-xs-6 col-lg-2 p-w-xs">
+                            <div class="width300 bloco widget blue-bg p-xs text-center">
+                                <div class="m-b-xs">
+                                    <img class="img-api" src="~/Images/character.png" />
+                                    <h3 class="m-xs" id="characters">0</h3>
 
-                            <small>Espécies</small>
+                                    <small>Personagens</small>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-lg-2 p-w-xs">
-                    <div class="width100 bloco widget yellow-bg p-lg text-center">
-                        <div class="m-b-xs">
-                            <img class="img-api" src="~/Images/startship.png" />
-                            <h1 class="m-xs" id="startships">0</h1>
+                        <div class="col-xs-6 col-lg-2 p-w-xs">
+                            <div class="width300 bloco widget navy-bg p-xs text-center">
+                                <div class="m-b-xs">
+                                    <img class="img-api" src="~/Images/specie.png" />
+                                    <h3 class="m-xs" id="species">0</h3>
 
-                            <small>Naves</small>
+                                    <small>Espécies</small>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-lg-2 p-w-xs">
-                    <div class="width100 bloco widget red-bg p-lg text-center">
-                        <div class="m-b-xs">
-                            <img class="img-api" src="~/Images/vehicle.png" />
-                            <h1 class="m-xs" id="vehicles">0</h1>
+                        <div class="col-xs-6 col-lg-2 p-w-xs">
+                            <div class="width300 bloco widget yellow-bg p-xs text-center">
+                                <div class="m-b-xs">
+                                    <img class="img-api" src="~/Images/startship.png" />
+                                    <h3 class="m-xs" id="starships">0</h3>
 
-                            <small>Veículos</small>
+                                    <small>Naves</small>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="col-xs-6 col-lg-2 p-w-xs">
+                            <div class="width300 bloco widget red-bg p-xs text-center">
+                                <div class="m-b-xs">
+                                    <img class="img-api" src="~/Images/vehicle.png" />
+                                    <h3 class="m-xs" id="vehicles">0</h3>
 
+                                    <small>Veículos</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <table id="table-filmes" class="table table-striped table-bordered table-hover" cellspacing="0" style="width: 100%;margin-top:20px">
+                        <thead>
+                            <tr>
+                                <th>Sequencial</th>
+                                <th>Título</th>
+                                <th>Trilogia</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
             </div>
-
-            <table id="table-filmes" class="table table-striped table-bordered table-hover" cellspacing="0" style="width: 100%;margin-top:20px">
-                <thead>
-                    <tr>
-                        <th>Sequencial</th>
-                        <th>Título</th>
-                        <th>Trilogia</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-
         </div>
     </div>
 </div>
@@ -199,7 +202,7 @@
     <style>
 
         .img-api {
-            width: 70%;
+            width: 60%;
         }
 
         .div-erro {
