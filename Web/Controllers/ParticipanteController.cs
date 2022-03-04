@@ -67,6 +67,20 @@ namespace SysIgreja.Controllers
             return View();
         }
 
+        public ActionResult Vagas()
+        {
+            var user = GetApplicationUser();
+            var participante = participantesBusiness.GetParticipanteById(user.ParticipanteId ?? 0);
+            if (user.Perfil == Utils.Enums.PerfisUsuarioEnum.Monitor || user.Perfil == Utils.Enums.PerfisUsuarioEnum.Admin || participante.Status == StatusEnum.Aprovado)
+            {
+
+                ViewBag.Title = "Vagas";
+                return View();
+            }
+
+            return RedirectToAction("../Home/Index");
+        }
+
         public ActionResult Checkin()
         {
             ViewBag.Title = "Check-in";

@@ -53,6 +53,7 @@
                 <li class="@Html.IsSelected(action: "Aluno", controller: "Home")"><a href="@Url.Action("Aluno", "Home")"><i class="fa fa-home"></i><span class="nav-label">Home</span></a></li>
                 <li class="@Html.IsSelected(action: "Index", controller: "Reuniao")"><a href="@Url.Action("Index", "Reuniao")"><i class="fa fa-calendar"></i><span class="nav-label">Aulas</span></a></li>
             }
+            <li id="vagas-menu" style="display:none" class="@Html.IsSelected(action: "Vagas", controller: "Participante")"><a href="@Url.Action("Vagas", "Participante")"><i class="fas fa-suitcase"></i><span class="nav-label">Vagas</span></a></li>
             <li id="api-menu" style="display:none" class="@Html.IsSelected(action: "ApiStarWars", controller: "Reuniao")"><a href="@Url.Action("ApiStarWars", "Reuniao")"><i class="fas fa-code"></i><span class="nav-label">API</span></a></li>
             <li id="playground-menu" style="display:none" class="@Html.IsSelected(action: "Playground", controller: "Reuniao")"><a href="@Url.Action("Playground", "Reuniao")"><i class="fab fa-codepen"></i><span class="nav-label">Playground</span></a></li>
         </ul>
@@ -71,6 +72,10 @@
                 type: "GET",
                 success: (data) => {
                     result = data.result;
+                    if (result.Aluno.Status == 'Aprovado') {
+
+                        $('#vagas-menu').css('display', 'block')
+                    }
                     if (result.Aluno.MsgAPI) {
 
                         $('#api-menu').css('display', 'block')
@@ -83,6 +88,7 @@
             });
         } else if (('@User.IsInRole(Usuario.Admin)' == 'True')||('@User.IsInRole(Usuario.Monitor)' == 'True') ) {
             $('#api-menu').css('display', 'block')
+            $('#vagas-menu').css('display', 'block')
             $('#playground-menu').css('display', 'block')
         }
     });

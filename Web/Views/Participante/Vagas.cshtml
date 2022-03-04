@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Numero = new Random().Next();
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index">Home</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox">
+        <div class="ibox-title" style="display: flex;justify-content: space-between;">
+            <h4>@ViewBag.Title</h4>
+            
+        </div>
+        <div class="ibox-content">
+
+        </div>
+    </div>
+</div>
+                              
+
+
+
+@section Styles {
+
+}
+
+@section Scripts {
+
+    <script>
+
+    </script>
+}
